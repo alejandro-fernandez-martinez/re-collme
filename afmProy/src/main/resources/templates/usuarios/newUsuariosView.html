@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head th:insert="/fragmentos.html::cabecera">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Usuario CRUD</title>
+    <style>
+      .cssError {
+        background-color: red;
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav th:replace="/fragmentos.html::menu"></nav>
+    <nav th:replace="/fragmentos.html::menuAdmin"></nav>
+    <h1>Nuevo usuario</h1>
+    <form method="post" action="#" th:action="@{/user/new/submit}" th:object="${usuarioForm}">
+      <label><input type="hidden" id="idUser" th:field="*{idUser}" /> </label><br />
+      <label>Nombre: <input type="text" id="nomUser" th:field="*{nomUser}" /></label><br />
+      <label>Contraseña: <input type="text" id="passUser" th:field="*{passUser}" /></label><br />
+      <label>DNI/NIF: <input type="text" id="dniNif" th:field="*{dniNif}" /></label><br />
+      <label>Email: <input type="text" id="emailUser" th:field="*{emailUser}" /></label><br />
+      <label>Teléfono: <input type="text" id="tlfUser" th:field="*{tlfUser}" /></label><br />
+      <label>Dirección: <input type="text" id="dirUser" th:field="*{dirUser}" /></label><br />
+      <label>Negociante: <input type="checkbox" id="negociante" th:field="*{negociante}" /></label><br />
+      <label><input type="hidden" id="userActivo" th:field="*{userActivo}" /></label><br />
+      <label><input type="hidden" id="fechaRegistro" th:field="*{fechaRegistro}" /></label><br />
+      
+      
+      <input type="submit" value="Enviar" />
+    </form>
+
+    <a th:href="@{/public}">Inicio</a><br />
+  </body>
+</html>

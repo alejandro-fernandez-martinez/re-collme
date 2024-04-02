@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:insert="/fragmentos.html::cabecera">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valoraciones</title>
+</head>
+
+<body>
+    <nav th:replace="/fragmentos.html::menu"></nav>
+    <nav th:replace="/fragmentos.html::menuAdmin"></nav>
+    <h1>Nueva valoracion</h1>
+    <form method="post" action="#" th:action="@{/valoraciones/new/submit}" th:object="${valoracionesForm}">
+        <label>Id Valoracion: <input type="text" readonly id="idVal" th:field="*{idVal}" /> </label><br />
+        <label>Fecha valoración: <input type="text" readonly id="fechaVal" th:field="*{fechaVal}" /> </label><br />
+        <label>Id Usuario que valora:<input type="text" readonly id="usuarioQueValora" th:field="*{usuarioQueValora}" /></label><br />
+        Usuario a valorar:<br />
+        <select name="list1" th:field="*{usuarioAValorar}">
+            <option value="0">Busca un usuario</option> <!--opcion por defecto-->
+            <option th:each="user:${listaUsuarios}" th:value="${user.idUser}" th:text="${user.nomUser}">
+            </option>
+        </select><br />
+        <label>Puntuación:<input type="text" id="puntuacionVal" th:field="*{puntuacionVal}" /></label><br />
+        <label>Comentario:<input type="text" id="comentarioVal" th:field="*{comentarioVal}" /></label><br />
+        <input type="submit" value="Enviar" />
+    </form>
+</body>
+
+</html>
