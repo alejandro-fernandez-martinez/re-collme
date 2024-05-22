@@ -8,8 +8,6 @@
 </head>
 
 <body>
-  <div th:if="${param.error}">Credenciales incorrectas</div>
-  <div th:if="${param.logout}">Te has desconectado</div>
   <section class="vh-100" style="background-color:  #5aa45a;">
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
@@ -46,9 +44,11 @@
                     <div class="pt-1 mb-4">
                       <button class="btn btn-dark btn-lg btn-block" type="submit">Login</button>
                     </div>
+                    <div class="error" th:if="${param.error}">Credenciales incorrectas</div>
+                    <div th:if="${param.logout}">Te has desconectado</div>
 
                     <!-- <a class="small text-muted" href="#!">¿Has olvidado tu contraseña?</a> -->
-                    <p class="mb-5 pb-lg-2" style="color: #556777;">¿No tienes una cuenta? <a href="#!"
+                    <p class="mb-5 pb-lg-2" style="color: #556777;">¿No tienes una cuenta? <a href="/"
                         style="color: #556777 ;">Regístrate aqui</a></p>
                     <a th:href="@{/public/quienessomos}" class="small text-muted">Condiciones de uso.</a>
                     <a th:href="@{/public/quienessomos}" class="small text-muted">Política de privacidad.</a>

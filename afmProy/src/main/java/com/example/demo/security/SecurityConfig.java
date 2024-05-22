@@ -50,7 +50,7 @@ public class SecurityConfig {
                                 .formLogin(httpSecurityFormLoginConfigurer -> httpSecurityFormLoginConfigurer
                                                 .loginPage("/public/signin") // mapping par mostrar formulario de login
                                                 .loginProcessingUrl("/login") // ruta post de /signin
-                                                .failureUrl("/public/signin")
+                                                .failureUrl("/public/signin?error")
                                                 .defaultSuccessUrl("/producto/list", true)
                                                 .permitAll())
                                 .logout((logout) -> logout

@@ -9,6 +9,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,10 +27,13 @@ public class Valoraciones {
     @GeneratedValue
     private Long idVal;
 
+    @NotNull
+    @Max(5)
     private Integer puntuacionVal;
     private String comentarioVal;
     private LocalDateTime fechaVal;
 
+    @NotNull
     @ManyToOne
     @OnDelete (action = OnDeleteAction.CASCADE)
     private Usuario usuarioAValorar;
