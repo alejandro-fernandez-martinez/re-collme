@@ -1,6 +1,7 @@
 package com.example.demo.domain;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -19,26 +20,28 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(of = "idVal")
+@EqualsAndHashCode(of = "idIncidencia")
 
 @Entity
-public class Valoraciones {
+public class Incidencia {
     @Id
     @GeneratedValue
-    private Long idVal;
+    private Long idIncidencia;
 
     @NotNull
     @Max(5)
-    private Integer puntuacionVal;
-    private String comentarioVal;
-    private LocalDateTime fechaVal;
+    private LocalDateTime fechaCreacionIncidencia;
+    private String comentarioIncidencia;
+    private ArrayList <String> hiloIncidencia;
+    private Boolean incidenciaCerrada;
+    private Integer valoracionIncidencia;
 
     @NotNull
     @ManyToOne
     @OnDelete (action = OnDeleteAction.CASCADE)
-    private Usuario usuarioAValorar;
+    private Usuario usuarioReceptor;
 
     @ManyToOne
     @OnDelete (action = OnDeleteAction.CASCADE)
-    private Usuario usuarioQueValora;
+    private Usuario usuarioEmisor;
 }

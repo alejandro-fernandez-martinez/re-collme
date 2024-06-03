@@ -24,13 +24,18 @@ public class Usuario {
     @Column(unique = true) //evita duplicados a nivel base de datos
     private String nomUser;
     private String passUser;
+    private LocalDateTime fechaRegistro;
+
     private String dniNif;
     private String emailUser;
     private Long tlfUser;
     private String dirUser;
-    private Boolean negociante;
-    private Boolean userActivo;
-    private LocalDateTime fechaRegistro;
+
     private Rol rol;
+    private Boolean gestor;
     private Double puntuacion;
+    private Boolean userActivo;
+    
+    
+    
 }

@@ -17,20 +17,26 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(of = "idPed")
+@EqualsAndHashCode(of = "idRuta")
 
 @Entity
-public class Pedido {
+public class Ruta {
     @Id
     @GeneratedValue
-    private Long idPed;
-    private Double udTotalPed;
-    private Double precioTotalPed;
-    private String descripPed;
-    private Boolean pedRealizado;
-    private LocalDateTime fechaPedRealizado;
+    private Long idRuta;
+    private Double masaTotal;
+    private Double volumenTotal;
 
+    private String descripRuta;
+    private Boolean rutaCreada;
+    private LocalDateTime fechaCreacionRuta;
+
+    private Boolean rutaEnCurso;
+    private LocalDateTime fechaInicioRuta;
+    private Boolean rutaTerminada;
+    private LocalDateTime fechaFinRuta;
+    
     @ManyToOne
     @OnDelete (action = OnDeleteAction.CASCADE)
-    private Usuario comprador;
+    private Usuario gestor;
 }

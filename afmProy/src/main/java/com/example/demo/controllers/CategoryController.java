@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.domain.Categoria;
 import com.example.demo.services.CategoryService;
-import com.example.demo.services.ProductoService;
+import com.example.demo.services.ResiduoService;
 
 import jakarta.validation.Valid;
 
@@ -21,7 +21,7 @@ public class CategoryController {
     @Autowired
     public CategoryService categoriaService;
     @Autowired
-    public ProductoService productoService;
+    public ResiduoService productoService;
     
     @GetMapping({ "/list" })
     public String showList(Model model) {

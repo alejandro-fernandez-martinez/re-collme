@@ -7,11 +7,15 @@ import com.example.demo.domain.Categoria;
 public interface CategoryService {
 
     Categoria añadir(Categoria categoria);
-    List<Categoria> obtenerTodos();
+
+    List<Categoria> obtenerTodas();
     Categoria obtenerPorId(long id);
+    Categoria obtenerPorNombre(String nombre);
+
     Categoria editar(Categoria categoria);
+    
     void borrar(Categoria categoria);
     void borrarPorId(Long id);
     
-    Categoria obtenerPorNombre(String nombre);
+    
 }

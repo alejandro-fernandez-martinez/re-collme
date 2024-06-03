@@ -16,15 +16,23 @@ public class CategoryServiceImplBD implements CategoryService {
     public Categoria añadir(Categoria categoria){
         return repositorio.save(categoria);
     }
-    public List<Categoria> obtenerTodos(){
+
+    public List<Categoria> obtenerTodas(){
         return repositorio.findAll();
     }
     public Categoria obtenerPorId(long id){
         return repositorio.findById(id).orElse(null); //pq devuelve un optional
     }
+
+    public Categoria obtenerPorNombre(String nombre) {
+        return repositorio.findByNomCat(nombre);
+    }
+
+
     public Categoria editar(Categoria categoria){
         return repositorio.save(categoria);
     }
+    
     public void borrar(Categoria categoria){
         repositorio.delete(categoria);
     }
@@ -32,8 +40,6 @@ public class CategoryServiceImplBD implements CategoryService {
         repositorio.deleteById(id);
     }
 
-    public Categoria obtenerPorNombre(String nombre) {
-        return repositorio.findByNomCat(nombre);
-    }
+
 
 }

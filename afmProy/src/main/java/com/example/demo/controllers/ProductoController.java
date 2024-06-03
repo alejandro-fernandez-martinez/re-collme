@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.demo.domain.Pedido;
-import com.example.demo.domain.Producto;
+import com.example.demo.domain.Ruta;
+import com.example.demo.domain.Residuo;
 import com.example.demo.domain.Usuario;
 import com.example.demo.services.CategoryService;
-import com.example.demo.services.PedidoService;
-import com.example.demo.services.ProductoService;
+import com.example.demo.services.RutaService;
+import com.example.demo.services.ResiduoService;
 import com.example.demo.services.UsuarioService;
 
 import jakarta.validation.Valid;
@@ -25,11 +25,11 @@ import jakarta.validation.Valid;
 @RequestMapping("/producto")
 public class ProductoController {
     @Autowired
-    public ProductoService productoService;
+    public ResiduoService productoService;
     @Autowired
     public CategoryService categoryService;
     @Autowired
-    public PedidoService pedidoService;
+    public RutaService pedidoService;
     @Autowired
     public UsuarioService usuarioService;
     
@@ -72,14 +72,14 @@ public class ProductoController {
 
     @GetMapping("/new")
     public String showNew(Model model) {
-        model.addAttribute("productoForm", new Producto());
+        model.addAttribute("productoForm", new Residuo());
         model.addAttribute("listaCategorias", categoryService.obtenerTodos());
         return "producto/newProductView";
     }
 
     @PostMapping("/new/submit")
     public String showNewSubmit(
-            @Valid Producto productoForm,
+            @Valid Residuo productoForm,
             BindingResult bindingResult) {
         if (bindingResult.hasErrors()){
                 // System.out.println("ssssssssssssssssssss" + bindingResult.getFieldErrors());
@@ -95,7 +95,7 @@ public class ProductoController {
         String currentUserRol = authentication.getAuthorities().toString();
         if (currentUserRol.equals("[ROLE_ADMIN]")|| //el admin puede editar tambien :)
         productoService.obtenerPorId(id).getVendedor() == usuarioService.obtenerUsuarioConectado()){ //solo puede editar el producto su creador
-            Producto producto = productoService.obtenerPorId(id);
+            Residuo producto = productoService.obtenerPorId(id);
             if (producto != null)
                 model.addAttribute("productoForm", producto);
             model.addAttribute("listaCategorias", categoryService.obtenerTodos());
@@ -106,7 +106,7 @@ public class ProductoController {
 
     @PostMapping("/edit/submit")
     public String showEditSubmit(
-            @Valid Producto productoForm,
+            @Valid Residuo productoForm,
             BindingResult bindingResult) {
         productoService.editar(productoForm);
         return "redirect:/producto/list";
@@ -126,17 +126,17 @@ public class ProductoController {
 
     @GetMapping("/comprar/{id}")
     public String showBuy(@PathVariable long id){
-        Producto producto = productoService.obtenerPorId(id);
+        Residuo producto = productoService.obtenerPorId(id);
         Usuario user = usuarioService.obtenerUsuarioConectado();
-        Pedido pedPdte = pedidoService.verPedidoPdte(user);
+        Ruta pedPdte = pedidoService.verPedidoPdte(user);
         productoService.añadirACarrito(producto, pedPdte, user);//añado el producto y el usuario al pedido
         return "redirect:/producto/list";
     }
 
     @GetMapping("/devolver/{id}")
     public String showReturn(@PathVariable long id){
-        Producto producto = productoService.obtenerPorId(id);
-        Pedido pedPte = producto.getPedido();
+        Residuo producto = productoService.obtenerPorId(id);
+        Ruta pedPte = producto.getPedido();
         productoService.quitarDelCarrito(producto, pedPte);
         pedidoService.editar(pedPte); 
         return "redirect:/producto/list";

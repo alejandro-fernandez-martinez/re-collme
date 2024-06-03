@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2024-05-24T16:05:37.298Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:126.0) Gecko/20100101 Firefox/126.0" etag="yWKJ9kT7ZyDT8AGaxVnd" version="24.4.8" type="device">
+<mxfile host="app.diagrams.net" modified="2024-06-03T18:24:35.922Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:126.0) Gecko/20100101 Firefox/126.0" etag="iS011F-uKMDe4Taj_mnc" version="24.4.13" type="device">
   <diagram name="Página-1" id="KTidaV1jhQX9c0T9DL5h">
-    <mxGraphModel dx="2336" dy="815" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2193" dy="737" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -33,7 +33,7 @@
         <mxCell id="eeUuwRDZIGfGQ-kLII9t-31" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="CgV9NMkSsl-u7OdhYEXr-3" target="eeUuwRDZIGfGQ-kLII9t-6" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="iLIdyShnenRzklDeNf6a-1" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="CgV9NMkSsl-u7OdhYEXr-3" target="eeUuwRDZIGfGQ-kLII9t-7">
+        <mxCell id="iLIdyShnenRzklDeNf6a-1" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="CgV9NMkSsl-u7OdhYEXr-3" target="eeUuwRDZIGfGQ-kLII9t-7" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="CgV9NMkSsl-u7OdhYEXr-3" value="&lt;div&gt;Xestor&lt;/div&gt;&lt;div&gt;de residuos&lt;br&gt;&lt;/div&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" parent="1" vertex="1">
@@ -70,7 +70,7 @@
           <mxGeometry x="110" y="106.25" width="140" height="70" as="geometry" />
         </mxCell>
         <mxCell id="eeUuwRDZIGfGQ-kLII9t-1" value="&lt;div&gt;Crear rexistro&lt;/div&gt;&lt;div&gt;de residuo&lt;br&gt;s/xestor asignado&lt;br&gt;&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="360" y="386.25" width="140" height="70" as="geometry" />
+          <mxGeometry x="355" y="386.25" width="140" height="70" as="geometry" />
         </mxCell>
         <mxCell id="eeUuwRDZIGfGQ-kLII9t-2" value="&lt;div&gt;Aprobar reserva&lt;/div&gt;&lt;div&gt;dun residuo&lt;br&gt;&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="110" y="466.25" width="140" height="70" as="geometry" />
@@ -79,16 +79,16 @@
           <mxGeometry x="110" y="586.25" width="140" height="70" as="geometry" />
         </mxCell>
         <mxCell id="eeUuwRDZIGfGQ-kLII9t-4" value="Solicitar reserva" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="360" y="636.25" width="140" height="70" as="geometry" />
+          <mxGeometry x="355" y="636.25" width="140" height="70" as="geometry" />
         </mxCell>
         <mxCell id="eeUuwRDZIGfGQ-kLII9t-5" value="&lt;div&gt;Crear unha&lt;/div&gt;&lt;div&gt;ruta de recollida&lt;br&gt;&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="600" y="736.25" width="140" height="70" as="geometry" />
         </mxCell>
         <mxCell id="eeUuwRDZIGfGQ-kLII9t-6" value="&lt;div&gt;Engadir reserva&lt;/div&gt;&lt;div&gt;a ruta de recollida&lt;br&gt;&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="360" y="736.25" width="140" height="70" as="geometry" />
+          <mxGeometry x="355" y="736.25" width="140" height="70" as="geometry" />
         </mxCell>
         <mxCell id="eeUuwRDZIGfGQ-kLII9t-7" value="&lt;div&gt;Iniciar unha&lt;/div&gt;&lt;div&gt;ruta de recollida&lt;br&gt;&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="360" y="876.25" width="140" height="70" as="geometry" />
+          <mxGeometry x="355" y="876.25" width="140" height="70" as="geometry" />
         </mxCell>
         <mxCell id="eeUuwRDZIGfGQ-kLII9t-8" value="&lt;div&gt;Confirmar a recollida&lt;/div&gt;&lt;div&gt;dun residuo&lt;br&gt;&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="600" y="936.25" width="140" height="70" as="geometry" />
@@ -97,7 +97,7 @@
           <mxGeometry x="600" y="836.25" width="140" height="70" as="geometry" />
         </mxCell>
         <mxCell id="eeUuwRDZIGfGQ-kLII9t-10" value="Rexistrar usuarios" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="360" y="216.25" width="140" height="70" as="geometry" />
+          <mxGeometry x="355" y="216.25" width="140" height="70" as="geometry" />
         </mxCell>
         <mxCell id="eeUuwRDZIGfGQ-kLII9t-11" value="&lt;div&gt;Solicitar rexistro&lt;/div&gt;&lt;div&gt;na plataforma&lt;br&gt;&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="110" y="216.25" width="140" height="70" as="geometry" />
@@ -119,8 +119,8 @@
         </mxCell>
         <mxCell id="eeUuwRDZIGfGQ-kLII9t-36" value="&amp;lt;&amp;lt; extend &amp;gt;&amp;gt;" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;dashed=1;" parent="1" source="eeUuwRDZIGfGQ-kLII9t-1" target="eeUuwRDZIGfGQ-kLII9t-4" edge="1">
           <mxGeometry width="160" relative="1" as="geometry">
-            <mxPoint x="380" y="426.25" as="sourcePoint" />
-            <mxPoint x="540" y="426.25" as="targetPoint" />
+            <mxPoint x="375" y="426.25" as="sourcePoint" />
+            <mxPoint x="535" y="426.25" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="eeUuwRDZIGfGQ-kLII9t-39" value="&amp;lt;&amp;lt; include &amp;gt;&amp;gt;" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;dashed=1;" parent="1" source="eeUuwRDZIGfGQ-kLII9t-7" target="eeUuwRDZIGfGQ-kLII9t-8" edge="1">
@@ -162,7 +162,7 @@
             <mxPoint x="640" y="791.25" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="iLIdyShnenRzklDeNf6a-3" value="&amp;lt;&amp;lt; extend &amp;gt;&amp;gt;" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;dashed=1;" edge="1" parent="1" source="eeUuwRDZIGfGQ-kLII9t-4" target="eeUuwRDZIGfGQ-kLII9t-2">
+        <mxCell id="iLIdyShnenRzklDeNf6a-3" value="&amp;lt;&amp;lt; extend &amp;gt;&amp;gt;" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;dashed=1;" parent="1" source="eeUuwRDZIGfGQ-kLII9t-4" target="eeUuwRDZIGfGQ-kLII9t-2" edge="1">
           <mxGeometry width="160" relative="1" as="geometry">
             <mxPoint x="400" y="465" as="sourcePoint" />
             <mxPoint x="400" y="645" as="targetPoint" />

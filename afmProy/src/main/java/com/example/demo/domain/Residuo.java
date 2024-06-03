@@ -17,25 +17,35 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(of = "idProd")
+@EqualsAndHashCode(of = "idResiduo")
 
 @Entity
-public class Producto {
+public class Residuo {
     @Id
     @GeneratedValue
-    private Long idProd;
-    private String nomProd;
+    private Long idResiduo;
+    private String nomResiduo;
+    private String descripResiduo;
     private String codLer;
-    private Double cantProd;
-    private String udMedida;
-    private Double precioProd;
-    private String descripProd;
-    private String dirProd;
-    private LocalDateTime fechaProd;
+    private LocalDateTime fechaRegistroResiduo;
+
+    private Double masaResiduoKg;
+    private Double volumenResiduoM3;
+    
+    private String dirCalleResiduo;
+    private Integer dirNumResiduo;
+    private Long dirCodPostalResiduo;
+    private String dirLocalidadResiduo;
+    private String dirProvinciaResiduo;
+
+    private Boolean solicitado;
+    private Usuario solicitante;
+
     private Boolean reservado;
-    private Boolean vendido;
-    private Boolean prodRecurrente;
-    private Frecuencia frecProd;
+    private Usuario gestor;
+    
+    private Boolean recogido;
+    private Boolean bloqueado;
 
     @ManyToOne
     @OnDelete (action = OnDeleteAction.CASCADE)
@@ -43,9 +53,9 @@ public class Producto {
 
     @ManyToOne
     @OnDelete (action = OnDeleteAction.CASCADE)
-    private Usuario vendedor;
+    private Usuario productor;
 
     @ManyToOne
     @OnDelete (action = OnDeleteAction.CASCADE)
-    private Pedido pedido;
+    private Ruta ruta;
 }

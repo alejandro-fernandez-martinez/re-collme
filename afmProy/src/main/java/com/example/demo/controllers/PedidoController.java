@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.example.demo.domain.Pedido;
-import com.example.demo.domain.Producto;
+import com.example.demo.domain.Ruta;
+import com.example.demo.domain.Residuo;
 import com.example.demo.domain.Usuario;
-import com.example.demo.services.PedidoService;
-import com.example.demo.services.ProductoService;
+import com.example.demo.services.RutaService;
+import com.example.demo.services.ResiduoService;
 import com.example.demo.services.UsuarioService;
 
 import jakarta.validation.Valid;
@@ -26,13 +26,13 @@ import jakarta.validation.Valid;
 @RequestMapping("/pedido")
 public class PedidoController {
     @Autowired
-    public PedidoService pedidoService;
+    public RutaService pedidoService;
 
     @Autowired
     public UsuarioService usuarioService;
 
     @Autowired
-    public ProductoService productoService;
+    public ResiduoService productoService;
     
     
     @GetMapping("/user/{id}") // lista de pedidos de un usuario
@@ -65,14 +65,14 @@ public class PedidoController {
 
     @GetMapping("/new")
     public String showNewPed(Model model) {
-        model.addAttribute("pedidoForm", new Pedido());
+        model.addAttribute("pedidoForm", new Ruta());
         model.addAttribute("listaUsuarios", usuarioService.obtenerTodos());
         model.addAttribute("listaProductos", productoService.obtenerTodos());
         return "pedido/pedNewFormView";
     }
 
     @PostMapping("/new/submit")
-    public String showNewValSubmit(@Valid Pedido pedidoForm,
+    public String showNewValSubmit(@Valid Ruta pedidoForm,
             BindingResult bindingResult) {
         if (!bindingResult.hasErrors())
             pedidoService.añadir(pedidoForm);
@@ -83,15 +83,15 @@ public class PedidoController {
     @GetMapping("/pedidoPdte")
     public String showCurrentOrder(Model model){
         Usuario user = usuarioService.obtenerUsuarioConectado();
-        Pedido carrito = pedidoService.verPedidoPdte(user);
-        List <Producto> productosCarrito = productoService.obtenerPorPedido(carrito);
+        Ruta carrito = pedidoService.verPedidoPdte(user);
+        List <Residuo> productosCarrito = productoService.obtenerPorPedido(carrito);
         model.addAttribute("pedido", carrito);
         model.addAttribute("listaProductos", productosCarrito);
         return "pedido/pedPdteView";
     }
 
     @PostMapping("/pedidoPdte/submit")
-    public String showCurrentOrderSubmit(@Valid Pedido pedidoForm,
+    public String showCurrentOrderSubmit(@Valid Ruta pedidoForm,
             BindingResult bindingResult,
             RedirectAttributes redirectAttributes) {
         if (!bindingResult.hasErrors()){
@@ -103,8 +103,8 @@ public class PedidoController {
     
     @GetMapping("/detalle/{id}")
     public String showOrderDetails(@PathVariable long id, Model model){
-        Pedido pedido = pedidoService.obtenerPorId(id);
-        List <Producto> productos = productoService.obtenerPorPedido(pedido);
+        Ruta pedido = pedidoService.obtenerPorId(id);
+        List <Residuo> productos = productoService.obtenerPorPedido(pedido);
         model.addAttribute("pedido", pedido);
         model.addAttribute("listaProductos", productos);
         return "pedido/pedDetView";

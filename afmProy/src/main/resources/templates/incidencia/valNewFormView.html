@@ -4,13 +4,13 @@
 <head th:insert="/fragmentos.html::cabecera">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Valoraciones</title>
+    <title>Incidencias</title>
 </head>
 
 <body>
     <nav th:replace="/fragmentos.html::menu"></nav>
     <nav th:replace="/fragmentos.html::menuAdmin"></nav>
-    <h1>Nueva valoracion</h1>
+    <h1>Nueva incidencia</h1>
     <form method="post" action="#" th:action="@{/valoraciones/new/submit}" th:object="${valoracionesForm}">
         <label>Id Valoracion: <input type="text" readonly id="idVal" th:field="*{idVal}" /> </label><br />
         <label>Fecha valoración: <input type="text" readonly id="fechaVal" th:field="*{fechaVal}" /> </label><br />
