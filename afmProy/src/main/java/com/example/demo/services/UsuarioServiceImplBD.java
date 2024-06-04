@@ -40,7 +40,7 @@ public class UsuarioServiceImplBD implements UsuarioService {
         return repositorio.findAll();
     }
 
-    public Usuario obtenerPorId(long id) {
+    public Usuario obtenerPorId(Long id) {
         return repositorio.findById(id).orElse(null); // pq devuelve un optional
     }
 
