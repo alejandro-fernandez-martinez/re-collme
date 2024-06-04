@@ -24,7 +24,7 @@ public class CategoryServiceImplBD implements CategoryService {
         return repositorio.findById(id).orElse(null); //pq devuelve un optional
     }
 
-    public Categoria obtenerPorNombre(String nombre) {
+    public Categoria obtenerPorNomCat(String nombre) {
         return repositorio.findByNomCat(nombre);
     }
 
