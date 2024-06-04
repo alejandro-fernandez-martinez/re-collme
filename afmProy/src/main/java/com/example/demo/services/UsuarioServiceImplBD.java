@@ -39,9 +39,25 @@ public class UsuarioServiceImplBD implements UsuarioService {
     public List<Usuario> obtenerTodos() {
         return repositorio.findAll();
     }
-
     public Usuario obtenerPorId(Long id) {
         return repositorio.findById(id).orElse(null); // pq devuelve un optional
+    }
+    public Usuario obtenerPorNombre(String nombre) {
+        return repositorio.findByNomUser(nombre);
+    }
+    public Usuario obtenerUsuarioConectado (){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            Usuario user = obtenerPorNombre(authentication.getName());
+            return user;
+        }
+        return null;
+    }
+    public List<Usuario> obtenerDemas() {
+        List<Usuario> todosLosUsuarios = obtenerTodos();
+        Usuario usuarioConectado = obtenerUsuarioConectado();
+        todosLosUsuarios.remove(usuarioConectado);
+        return todosLosUsuarios;
     }
 
     public Usuario editar(Usuario usuario) {
@@ -59,7 +75,6 @@ public class UsuarioServiceImplBD implements UsuarioService {
         usuario.setUserActivo(false);
         editar(usuario);
     }
-
     public void borrarPorId(Long id) {
         Usuario usuario = obtenerPorId(id);
         if (usuario != null) {
@@ -68,24 +83,6 @@ public class UsuarioServiceImplBD implements UsuarioService {
         }
     }
 
-    public Usuario obtenerPorNombre(String nombre) {
-        return repositorio.findByNomUser(nombre);
-    }
-
-    public Usuario obtenerUsuarioConectado (){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            Usuario user = obtenerPorNombre(authentication.getName());
-            return user;
-        }
-        return null;
-    }
-
-    public List<Usuario> obtenerDemas() {
-        List<Usuario> todosLosUsuarios = obtenerTodos();
-        Usuario usuarioConectado = obtenerUsuarioConectado();
-        todosLosUsuarios.remove(usuarioConectado);
-        return todosLosUsuarios;
-    }
+    
     
 }
