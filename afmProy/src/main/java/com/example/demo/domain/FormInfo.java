@@ -6,6 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class FormInfo {
+    private Long idFormInfo;
     private String nombre;
     private String email;
     private Integer motivo;
