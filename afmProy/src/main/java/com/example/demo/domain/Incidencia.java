@@ -35,6 +35,7 @@ public class Incidencia {
     private ArrayList <String> hiloIncidencia;
     private Boolean incidenciaCerrada;
     private Integer valoracionIncidencia;
+    private Residuo residuoIncidencia;
 
     @NotNull
     @ManyToOne
