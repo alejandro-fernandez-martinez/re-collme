@@ -71,19 +71,19 @@
         <td th:text="${r.fechaRegistroResiduo}">fechaRegistroResiduo</td>
         <td th:text="${r.masaResiduoKg}">masa</td>
         <td th:text="${r.volumenResiduoM3}">volumen</td>
-        <td th:text="${r.dirCalleResiduo}">dirCalleResiduo</td>
-        <td th:text="${r.dirNumResiduo}">dirNumResiduo</td>
-        <td th:text="${r.dirCodPostalResiduo}">dirCodPostalResiduo</td>
-        <td th:text="${r.dirLocalidadResiduo}">dirLocalidadResiduo</td>
+        <td sec:authorize="hasAnyRole('NEGOCIANTE', 'ADMIN')" th:text="${r.dirCalleResiduo}">dirCalleResiduo</td>
+        <td sec:authorize="hasAnyRole('NEGOCIANTE', 'ADMIN')" th:text="${r.dirNumResiduo}">dirNumResiduo</td>
+        <td sec:authorize="hasAnyRole('NEGOCIANTE', 'ADMIN')" th:text="${r.dirCodPostalResiduo}">dirCodPostalResiduo</td>
+        <td sec:authorize="hasAnyRole('NEGOCIANTE', 'ADMIN')" th:text="${r.dirLocalidadResiduo}">dirLocalidadResiduo</td>
         <td th:text="${r.dirProvinciaResiduo}">dirProvinciaResiduo</td>
-        <td th:text="${r.solicitado}">solicitado</td>
-        <td th:text="${r.solicitante.nomUser}">solicitante</td>
-        <td th:text="${r.reservado}">reservado</td>
-        <td th:text="${r.gestor.nomUser}">gestor</td>
-        <td th:text="${r.recogido}">recogido</td>
-        <td th:text="${r.bloqueado}">bloqueado</td>
+        <td sec:authorize="hasRole('ADMIN')" th:text="${r.solicitado}">solicitado</td>
+        <td sec:authorize="hasAnyRole('NEGOCIANTE', 'ADMIN')"th:text="${r.solicitante}">solicitante</td>
+        <td sec:authorize="hasRole('ADMIN')" th:text="${r.reservado}">reservado</td>
+        <td sec:authorize="hasRole('ADMIN')" th:text="${r.gestor.nomUser}">gestor</td>
+        <td sec:authorize="hasRole('ADMIN')" th:text="${r.recogido}">recogido</td>
+        <td sec:authorize="hasRole('ADMIN')" th:text="${r.bloqueado}">bloqueado</td>
         <td th:text="${r.categoria.nomCat}">categoria</td>
-        <td th:text="${r.productor.nomUser}">productor</td>
+        <td sec:authorize="isAuthenticated()" th:text="${r.productor.nomUser}">productor</td>
         
         <!-- (solo si autenticado) --> <!-- le quise meter aqui esto pero no va: and #producto.vendedor.nomUser == authentication.name"-->
         <td sec:authorize="isAuthenticated()">

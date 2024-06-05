@@ -39,7 +39,7 @@ public class ResiduoController {
 
     @GetMapping({ "/list" })
     public String showList(Model model) {
-        model.addAttribute("listaResiduos", residuoService.obtenerNoReservados());
+        model.addAttribute("listaResiduos", residuoService.obtenerNoSolicitados());
         model.addAttribute("listaCategorias", categoryService.obtenerTodas());
         model.addAttribute("categoriaSeleccionada", "Todas");
         return "residuo/residuoView";

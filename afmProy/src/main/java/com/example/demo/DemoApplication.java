@@ -34,9 +34,9 @@ public class DemoApplication {
 			categoryService.añadir(new Categoria(0L, "Metales"));
 			categoryService.añadir(new Categoria(0L, "Orgánicos"));
 			residuoService.añadir(
-					new Residuo(0L, "Tapones de botellas", "Tapones de diferentes tamaños", "010101",  LocalDateTime.now(), 50L, 100L,"Calle 1", 3L, 15000L, "A Coruña", "A Coruña", false, usuarioService.obtenerPorNombre("negociante"), false, usuarioService.obtenerPorNombre("negociante"), false, false, categoryService.obtenerPorNomCat("Plásticos"), usuarioService.obtenerPorNombre("user")));
+					new Residuo(0L, "Tapones de botellas", "Tapones de diferentes tamaños", "010101",  LocalDateTime.now(), 50L, 100L,"Calle 1", 3L, 15000L, "A Coruña", "A Coruña", false, null, false, null, false, false, categoryService.obtenerPorNomCat("Plásticos"), usuarioService.obtenerPorNombre("user")));
 			residuoService.añadir(
-					new Residuo(0L, "Posos de cafe", "Húmedo", "010102*", LocalDateTime.now(), 51L, 103L, "Calle 2", 4L, 15000L, "A Coruña", "A Coruña", false, usuarioService.obtenerPorNombre("negociante"), false, usuarioService.obtenerPorNombre("negociante"), false, false, categoryService.obtenerPorNomCat("Orgánicos"), usuarioService.obtenerPorNombre("user")));
+					new Residuo(0L, "Posos de cafe", "Húmedo", "010102*", LocalDateTime.now(), 51L, 103L, "Calle 2", 4L, 15000L, "A Coruña", "A Coruña", false, null, false, null, false, false, categoryService.obtenerPorNomCat("Orgánicos"), usuarioService.obtenerPorNombre("user")));
 		};
 	}
 
