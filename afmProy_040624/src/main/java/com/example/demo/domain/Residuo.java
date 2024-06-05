@@ -29,11 +29,11 @@ public class Residuo {
     private String codLer;
     private LocalDateTime fechaRegistroResiduo;
 
-    private Long masaResiduoKg;
-    private Long volumenResiduoM3;
+    private Double masaResiduoKg;
+    private Double volumenResiduoM3;
     
     private String dirCalleResiduo;
-    private Long dirNumResiduo;
+    private Integer dirNumResiduo;
     private Long dirCodPostalResiduo;
     private String dirLocalidadResiduo;
     private String dirProvinciaResiduo;
@@ -55,7 +55,7 @@ public class Residuo {
     @OnDelete (action = OnDeleteAction.CASCADE)
     private Usuario productor;
 
-    // @ManyToOne
-    // @OnDelete (action = OnDeleteAction.CASCADE)
-    // private Ruta ruta;
+    @ManyToOne
+    @OnDelete (action = OnDeleteAction.CASCADE)
+    private Ruta ruta;
 }

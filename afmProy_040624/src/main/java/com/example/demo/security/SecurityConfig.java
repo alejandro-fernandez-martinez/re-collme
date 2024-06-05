@@ -36,13 +36,13 @@ public class SecurityConfig {
                                 headersConfigurer -> headersConfigurer
                                                 .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
                 http.authorizeHttpRequests(auth -> auth
-                                .requestMatchers("/user/list", "/user/new/**","/user/edit").hasRole("ADMIN")
-                                .requestMatchers("/residuo/listComplete").hasRole("ADMIN")
-                                .requestMatchers("/residuo/solicitarReserva/**").hasAnyRole("NEGOCIANTE", "ADMIN")
-                                .requestMatchers("/user/editUserLogin", "/user/edit/submit", "/user/edit/delete/**", "/residuo/new/**","/residuo/edit/**","/residuo/delete/**","/residuo/comprar/**").hasAnyRole("USER","NEGOCIANTE","ADMIN")
+                                .requestMatchers("/pedido/list/**", "/user/list", "/user/new/**","/user/edit", "/valoraciones/user/**", "/valoraciones/userTarget/**", "/valoraciones/list").hasRole("ADMIN")
+                                .requestMatchers("/producto/listComplete").hasRole("ADMIN")
+                                .requestMatchers("/producto/comprar/**").hasAnyRole("NEGOCIANTE", "ADMIN")
+                                .requestMatchers("/user/editUserLogin", "/user/edit/submit", "/user/edit/delete/**", "/producto/new/**","/producto/edit/**","/producto/delete/**","/producto/comprar/**","/pedido/**").hasAnyRole("USER","NEGOCIANTE","ADMIN")
                                 .requestMatchers("/categoria/**").hasRole("ADMIN")
-                                .requestMatchers("/public/signout").hasAnyRole("USER", "NEGOCIANTE", "ADMIN")
-                                .requestMatchers("/public/**", "/residuo/**", "/").permitAll()
+                                .requestMatchers("/public/signout","/pedido/user/**","/pedido/userLogin", "/pedido/delete/**", "/pedido/new/**", "/pedido/pedidoPdte/**", "/pedido/detalle/**", "/valoraciones/userLogin", "/valoraciones/userTargetByUserLogin","/valoraciones/delete/**", "/valoraciones/new/**").hasAnyRole("USER", "NEGOCIANTE", "ADMIN")
+                                .requestMatchers("/public/**", "/producto/**", "/").permitAll()
                                 // .requestMatchers("...").hasAnyRole(...) //configurarpermisosreales
                                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations())
                                 .permitAll() // para rutas: /css, /js /images
@@ -51,7 +51,7 @@ public class SecurityConfig {
                                                 .loginPage("/public/signin") // mapping par mostrar formulario de login
                                                 .loginProcessingUrl("/login") // ruta post de /signin
                                                 .failureUrl("/public/signin?error")
-                                                .defaultSuccessUrl("/residuo/list", true)
+                                                .defaultSuccessUrl("/producto/list", true)
                                                 .permitAll())
                                 .logout((logout) -> logout
                                                 .logoutSuccessUrl("/public").permitAll())

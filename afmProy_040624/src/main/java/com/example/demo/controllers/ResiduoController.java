@@ -22,71 +22,71 @@ import com.example.demo.services.UsuarioService;
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping("/producto")
-public class ProductoController {
+@RequestMapping("/residuo")
+public class ResiduoController {
     @Autowired
-    public ResiduoService productoService;
+    public ResiduoService residuoService;
     @Autowired
     public CategoryService categoryService;
     @Autowired
-    public RutaService pedidoService;
+    public RutaService rutaService;
     @Autowired
     public UsuarioService usuarioService;
     
     @GetMapping({ "/list" })
     public String showList(Model model) {
-        model.addAttribute("listaProductos", productoService.obtenerNoVendidos());
-        model.addAttribute("listaCategorias", categoryService.obtenerTodos());
+        model.addAttribute("listaResiduos", residuoService.obtenerNoReservados());
+        model.addAttribute("listaCategorias", categoryService.obtenerTodas());
         model.addAttribute("categoriaSeleccionada", "Todas");
-        return "producto/productsView";
+        return "residuo/residuosView";
     }
 
     @GetMapping({ "/listUser" })
     public String showListUser(Model model) {
         Usuario user = usuarioService.obtenerUsuarioConectado();
-        System.out.println(productoService.obtenerPorVendedor(user));
-        model.addAttribute("listaProductos", productoService.obtenerPorVendedor(user));
-        model.addAttribute("listaCategorias", categoryService.obtenerTodos());
+        System.out.println(residuoService.obtenerPorProductor(user));
+        model.addAttribute("listaResiduos", residuoService.obtenerPorProductor(user));
+        model.addAttribute("listaCategorias", categoryService.obtenerTodas());
         model.addAttribute("categoriaSeleccionada", "Todas");
-        return "producto/productsView";
+        return "residuo/residuosView";
     }
 
     @GetMapping({ "/listComplete" })
     public String showListComplete(Model model) {
-        model.addAttribute("listaProductos", productoService.obtenerTodos());
-        model.addAttribute("listaCategorias", categoryService.obtenerTodos());
+        model.addAttribute("listaResiduos", residuoService.obtenerTodos());
+        model.addAttribute("listaCategorias", categoryService.obtenerTodas());
         model.addAttribute("categoriaSeleccionada", "Todas");
-        return "producto/adminProductsView";
+        return "residuo/residuosView";
     }
 
     @GetMapping({ "/categoria/{idCat}"})
     public String showProductsByCategory (@PathVariable Long idCat, Model model){
-        model.addAttribute("listaProductos", productoService.obtenerPorCategoria(idCat));
-        model.addAttribute("listaCategorias", categoryService.obtenerTodos());
+        model.addAttribute("listaResiduos", residuoService.obtenerPorCategoria(idCat));
+        model.addAttribute("listaCategorias", categoryService.obtenerTodas());
         System.out.println("idCat" + idCat);
         if  (idCat == 0)
-            return "redirect:/producto/list";
+            return "redirect:/residuo/list";
         model.addAttribute("categoriaSeleccionada", categoryService.obtenerPorId(idCat).getNomCat());
-        return "producto/productsView";
+        return "residuo/residuosView";
     }
 
     @GetMapping("/new")
     public String showNew(Model model) {
-        model.addAttribute("productoForm", new Residuo());
-        model.addAttribute("listaCategorias", categoryService.obtenerTodos());
-        return "producto/newProductView";
+        model.addAttribute("residuoForm", new Residuo());
+        model.addAttribute("listaGestores", usuarioService.obtenerGestores());
+        model.addAttribute("listaCategorias", categoryService.obtenerTodas());
+        return "residuo/newResiduoView";
     }
 
     @PostMapping("/new/submit")
     public String showNewSubmit(
-            @Valid Residuo productoForm,
+            @Valid Residuo residuoForm,
             BindingResult bindingResult) {
         if (bindingResult.hasErrors()){
                 // System.out.println("ssssssssssssssssssss" + bindingResult.getFieldErrors());
-            return "redirect:/producto/new";}
-        productoForm.setVendedor(usuarioService.obtenerUsuarioConectado());    
-        productoService.añadir(productoForm);
-        return "redirect:/producto/list";
+            return "redirect:/residuo/new";}  
+        residuoService.añadir(residuoForm);
+        return "redirect:/residuo/list";
     }
 
     @GetMapping("/edit/{id}")
@@ -94,52 +94,59 @@ public class ProductoController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserRol = authentication.getAuthorities().toString();
         if (currentUserRol.equals("[ROLE_ADMIN]")|| //el admin puede editar tambien :)
-        productoService.obtenerPorId(id).getVendedor() == usuarioService.obtenerUsuarioConectado()){ //solo puede editar el producto su creador
-            Residuo producto = productoService.obtenerPorId(id);
-            if (producto != null)
-                model.addAttribute("productoForm", producto);
-            model.addAttribute("listaCategorias", categoryService.obtenerTodos());
-            return "producto/editProductView";
+        residuoService.obtenerPorId(id).getProductor() == usuarioService.obtenerUsuarioConectado()){ //solo puede editar el producto su creador
+            Residuo residuo = residuoService.obtenerPorId(id);
+            if (residuo != null)
+                model.addAttribute("residuoForm", residuo);
+            model.addAttribute("listaGestores", usuarioService.obtenerGestores());
+            model.addAttribute("listaCategorias", categoryService.obtenerTodas());
+            return "residuo/editResiduoView";
         }
-        else return "redirect:/producto/list";
+        else return "redirect:/residuo/list";
     }
 
     @PostMapping("/edit/submit")
     public String showEditSubmit(
-            @Valid Residuo productoForm,
+            @Valid Residuo residuoForm,
             BindingResult bindingResult) {
-        productoService.editar(productoForm);
-        return "redirect:/producto/list";
+        residuoService.editar(residuoForm);
+        return "redirect:/residuo/list";
     }
 
     @GetMapping("/delete/{id}")
-    public String showDelete(@PathVariable long id) {
+    public String showDelete(@PathVariable Long id) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserRol = authentication.getAuthorities().toString();
         if (currentUserRol.equals("[ROLE_ADMIN]")|| //el admin puede borrar tambien :)
-            productoService.obtenerPorId(id).getVendedor() == usuarioService.obtenerUsuarioConectado()){ //solo puede borrar el producto su creador
-            productoService.borrarPorId(id);
-            return "redirect:/producto/list";
+            residuoService.obtenerPorId(id).getProductor() == usuarioService.obtenerUsuarioConectado()){ //solo puede borrar el producto su creador
+            residuoService.borrarPorId(id);
+            return "redirect:/residuo/list";
         }
         else return "redirect:";
     }
 
-    @GetMapping("/comprar/{id}")
+    @GetMapping("/solicitarReserva/{id}")
+    public String showBuy(@PathVariable Long idResiduo){
+        residuoService.solicitarReserva(idResiduo);
+        return "redirect:/residuo/list";
+    }
+
+    @GetMapping("/reservar/{id}")
     public String showBuy(@PathVariable long id){
-        Residuo producto = productoService.obtenerPorId(id);
+        Residuo residuo = residuoService.obtenerPorId(id);
         Usuario user = usuarioService.obtenerUsuarioConectado();
-        Ruta pedPdte = pedidoService.verPedidoPdte(user);
-        productoService.añadirACarrito(producto, pedPdte, user);//añado el producto y el usuario al pedido
+        Ruta rutaPdte = rutaService.verRutaPdte(user);
+        residuoService.añadirARuta(residuo, rutaPdte);//añado el producto y el usuario al pedido
         return "redirect:/producto/list";
     }
 
     @GetMapping("/devolver/{id}")
     public String showReturn(@PathVariable long id){
-        Residuo producto = productoService.obtenerPorId(id);
-        Ruta pedPte = producto.getPedido();
-        productoService.quitarDelCarrito(producto, pedPte);
-        pedidoService.editar(pedPte); 
-        return "redirect:/producto/list";
+        Residuo residuo = residuoService.obtenerPorId(id);
+        Ruta rutaPte = residuo.getRuta();
+        residuoService.quitarDeRuta(residuo, rutaPte);
+        rutaService.editar(rutaPte); 
+        return "redirect:/residuo/list";
     }
 
 }

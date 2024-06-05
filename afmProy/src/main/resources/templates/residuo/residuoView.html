@@ -11,8 +11,7 @@
 <body>
   <nav th:replace="/fragmentos.html::menu"></nav>
   <nav th:replace="/fragmentos.html::menuAdmin"></nav>
-  <img src="/images/productos.png" width="500px" />
-  <h1>Listado de productos</h1>
+  <h1>Listado de residuos</h1>
 
   <select id="select" onChange="changeCategory();">
     <option value="0">Todas</option>
@@ -28,7 +27,7 @@
   <script>
     function changeCategory() {
       window.location.href =
-        "/producto/categoria/" + document.getElementById("select").value;
+        "/residuo/categoria/" + document.getElementById("select").value;
     }
   </script>
 
@@ -38,14 +37,16 @@
       <tr>
         <th>Nombre</th>
         <th>Categoría</th>
-        <th>Código LER</th>
-        <th>Cantidad</th>
-        <th>Unidades de medida</th>
-        <th>Precio</th>
-        <th>Reservado</th>
-        <th>Disponibilidad</th>
-        <th>Vendedor</th>
-        <th>Vendido</th>
+        <th>Fecha del registro</th>
+        <th>Masa</th>
+        <th>Volumen</th>
+        <th sec:authorize="hasRole('NEGOCIANTE')">Calle</th>
+        <th sec:authorize="hasRole('NEGOCIANTE')">Número</th>
+        <th sec:authorize="hasRole('NEGOCIANTE')">Código Postal</th>
+        <th sec:authorize="hasRole('NEGOCIANTE')">Localidad</th>
+        <th>Provincia</th>
+        <th sec:authorize="hasRole('NEGOCIANTE')">Solicitar reserva</th>
+
         <th sec:authorize="!isAuthenticated()">Añadir a pedido</th>
         <th sec:authorize="hasRole('NEGOCIANTE')">Añadir a pedido</th>
         <!-- (solo si autenticado) -->
@@ -55,21 +56,23 @@
     </thead>
 
     <tbody>
-      <tr th:each="producto : ${listaProductos}">
-        <td th:text="${producto.nomProd}">nomProd</td>
-        <td th:text="${producto.categoria.nomCat}">categoria</td>
-        <td th:text="${producto.codLer}">codLer</td>
-        <td th:text="${producto.cantProd}">cantProd</td>
-        <td th:text="${producto.udMedida}">udMedida</td>
-        <td th:text="${producto.precioProd}">precioProd</td>
-        <td th:text="${producto.reservado}">reservado</td>
-        <td th:text="${producto.frecProd}">frecProd</td>
-        <td th:text="${producto.vendedor.nomUser}">nomUser</td>
-        <td th:text="${producto.Vendido}">vendido</td>
-        <!-- (botón falso de comprar para no autenticados) -->
-        <td sec:authorize="!isAuthenticated()"><a th:href="@{/producto/comprar/id}">comprar</a></td>
-        <!-- (solo si Negociante puede comprar) -->
-        <td sec:authorize="hasAnyRole('NEGOCIANTE', 'ADMIN')"><a th:href="@{/producto/comprar/{id}(id=${producto.idProd})}">comprar</a></td>
+      <tr th:each="r : ${listaResiduos}">
+        <td th:text="${r.nomProd}">nomProd</td>
+        <td th:text="${r.categoria.nomCat}">categoria</td>
+        <td th:text="${r.fechaRegistroResiduo}">fecha</td>
+        <td th:text="${r.masaResiduoKg}">masa</td>
+        <td th:text="${r.dirCalleResiduo}">calle</td>
+        <td th:text="${r.dirNumResiduo}">numero</td>
+        <td th:text="${r.dirCodPostalResiduo}">codigoPostal</td>
+        <td th:text="${r.dirLocalidadResiduo}">localidad</td>
+        <td th:text="${r.dirProvinciaResiduo}">provincia</td>
+        <!-- (solo si Negociante puede solicitar reserva) -->
+        <td sec:authorize="hasAnyRole('NEGOCIANTE', 'ADMIN')"><a th:href="@{/residuo/solicitarReserva/{id}(id=${residuo.idResiduo})}">solicitarReserva</a></td>
+        
+        
+        <!-- (solo si Negociante puede reservar) -->
+        <td sec:authorize="hasAnyRole('NEGOCIANTE', 'ADMIN')"><a th:href="@{/residuo/reservar/{id}(id=${residuo.idProd})}">reservar</a></td>
+        
         <!-- (solo si autenticado) --> <!-- le quise meter aqui esto pero no va: and #producto.vendedor.nomUser == authentication.name"-->
         <td sec:authorize="isAuthenticated()">
           <a th:href="@{/producto/edit/{id}(id=${producto.idProd})}">Editar</a>

@@ -21,7 +21,7 @@ public class CategoryController {
     @Autowired
     public CategoryService categoriaService;
     @Autowired
-    public ResiduoService residuoService;
+    public ResiduoService productoService;
     
     @GetMapping({ "/list" })
     public String showList(Model model) {
@@ -62,7 +62,7 @@ public class CategoryController {
 
     @GetMapping("/delete/{id}")
     public String showDelete(@PathVariable long id) {
-        if (residuoService.obtenerPorCategoria(id).size() == 0)
+        if (productoService.obtenerPorCategoria(id).size() == 0)
             categoriaService.borrarPorId(id);
         return "redirect:/categoria/list";
     }
