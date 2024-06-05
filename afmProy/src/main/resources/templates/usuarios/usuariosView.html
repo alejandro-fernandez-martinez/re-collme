@@ -22,7 +22,6 @@
           <th>Email</th>
           <th>Teléfono</th>
           <th>Dirección</th>
-          <th>Negociante</th>
           <th>Activo</th>
           <th>Fecha de registro</th>
           <th>Sus valoraciones</th>
@@ -41,7 +40,6 @@
           <td th:text="${usuario.emailUser}">emailUser</td>
           <td th:text="${usuario.tlfUser}">tlfUser</td>
           <td th:text="${usuario.dirUser}">dirUser</td>
-          <td th:text="${usuario.negociante}">negociante</td>
           <td th:text="${usuario.userActivo}">userActivo</td>
           <td th:text="${usuario.fechaRegistro}">fechaRegistro</td>
           <td><a th:href="@{/valoraciones/user/{id}(id=${usuario.idUser})}">Valoraciones realizadas</a></td>

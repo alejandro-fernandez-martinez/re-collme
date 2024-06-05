@@ -29,12 +29,20 @@ public class ResiduoController {
     @Autowired
     public UsuarioService usuarioService;
     
+    @GetMapping({ "/listPublic" })
+    public String showListPublic(Model model) {
+        model.addAttribute("listaResiduos", residuoService.obtenerNoSolicitados());
+        model.addAttribute("listaCategorias", categoryService.obtenerTodas());
+        model.addAttribute("categoriaSeleccionada", "Todas");
+        return "residuo/residuoView";
+    }
+
     @GetMapping({ "/list" })
     public String showList(Model model) {
         model.addAttribute("listaResiduos", residuoService.obtenerNoReservados());
         model.addAttribute("listaCategorias", categoryService.obtenerTodas());
         model.addAttribute("categoriaSeleccionada", "Todas");
-        return "residuo/residuosView";
+        return "residuo/residuoView";
     }
 
     @GetMapping({ "/listUser" })
@@ -63,7 +71,7 @@ public class ResiduoController {
         if  (idCat == 0)
             return "redirect:/residuo/list";
         model.addAttribute("categoriaSeleccionada", categoryService.obtenerPorId(idCat).getNomCat());
-        return "residuo/residuosView";
+        return "residuo/residuoView";
     }
 
     @GetMapping("/new")

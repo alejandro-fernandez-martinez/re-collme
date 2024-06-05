@@ -39,11 +39,14 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/public/index">Inicio</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/producto/list">Productos</a>
+                    <li sec:authorize="!isAuthenticated()" class="nav-item">
+                        <a class="nav-link" href="/residuo/listPublic">Residuos</a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()"class="nav-item">
+                        <a class="nav-link" href="/residuo/list">Residuos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/public/quienessomos">Quienes somos</a>
+                        <a class="nav-link" href="/public/quienessomos">Quenes somos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/public/contacto">Contacta</a>
@@ -52,23 +55,62 @@
 
                 <!-- Enlaces de navegación usuario -->
                 <ul class="navbar-nav align-items-center">
-                    <!-- Autenticación -->
-                    <!-- <li sec:authorize="!isAuthenticated()" class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="bi bi-person"></i> Registrarse
-                        </a>
-                    </li> -->
                     <li sec:authorize="!isAuthenticated()" class="nav-item">
                         <a class="nav-link" th:href="@{/public/signin}">
                             <i class="bi bi-box-arrow-in-right"></i> Iniciar Sesión
                         </a>
                     </li>
 
-                    <!-- Carrito -->
-                    <li sec:authorize="isAuthenticated()" class="nav-item">
-                        <a class="nav-link" th:href="@{/pedido/pedidoPdte}">
-                            <img src="/images/carrito.png" width="50" height="50">
+                    <!-- Menú desplegable de residuos -->
+                    <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="residuosDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Os meus residuos
                         </a>
+                        <div class="dropdown-menu" aria-labelledby="residuosDropdown">
+                            <a class="dropdown-item" th:href="@{/residuo/new}">Rexistrar un residuo</a>
+                            <a class="dropdown-item" th:href="@{/residuo/listByUser}">Ver os meus residuos</a>
+                            <a class="dropdown-item" th:href="@{/residuo/listByUserSolicitados}">Xestionar solicitudes de reserva</a>
+                        </div>
+                
+                    </li>
+
+                    <!-- Menú desplegable de reservas -->
+                    <li sec:authorize="hasAnyRole('NEGOCIANTE', 'ADMIN')" class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="reservasDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            As miñas reservas
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="reservasDropdown">
+                            <a class="dropdown-item" th:href="@{/residuo/list}">Solicitar unha reserva</a>
+                            <a class="dropdown-item" th:href="@{/residuo/listByUserAndReservados}">Ver as miñas reservas</a>
+                        </div>
+                    </li>
+
+                    <!-- Menú desplegable de ruta -->
+                    <li sec:authorize="hasAnyRole('NEGOCIANTE', 'ADMIN')" class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="rutasDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Rutas
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="rutasDropdown">
+                            <a class="dropdown-item" th:href="@{/residuos/listByUserAndReservadosSinRuta}">Crear unha ruta</a>
+                            <a class="dropdown-item" th:href="@{/ruta/?}">Ver as miñas rutas</a>
+                            <a class="dropdown-item" th:href="@{/ruta/?}">Comezar unha ruta</a>
+                        </div>
+                
+                    </li>
+
+                    <!-- Menú desplegable de incidencias -->
+                    <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="incidenciasDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Incidencias
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="incidenciasDropdown">
+                            <a class="dropdown-item" th:href="@{/incidencia/userLogin}">Incidencias Realizadas</a>
+                            <a class="dropdown-item" th:href="@{/incidencia/userTargetByUserLogin}">Incidencias Recibidas</a>
+                        </div>
                     </li>
 
                     <!-- Menú desplegable de usuario -->
@@ -78,13 +120,8 @@
                             "name"
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" th:href="@{/producto/listUser}">Mis Productos</a>
-                            <a sec:authorize="hasAnyRole('NEGOCIANTE', 'ADMIN')" class="dropdown-item" th:href="@{/pedido/userLogin}">Mis Pedidos</a>
-                            <a class="dropdown-item" th:href="@{/valoraciones/userLogin}">Valoraciones realizadas</a>
-                            <a class="dropdown-item" th:href="@{/valoraciones/userTargetByUserLogin}">Valoraciones recibidas</a>
-                            <a class="dropdown-item" th:href="@{/user/editUserLogin}">Editar Perfil</a>
-
-
+                            <a class="dropdown-item" th:href="@{/user/?}">Ver o meu Perfil</a>
+                            <a class="dropdown-item" th:href="@{/user/editUserLogin}">Editar o meu Perfil</a>
                         </div>
                     </li>
 
@@ -108,15 +145,15 @@
         <div class="container-fluid">
             <div class="collapse navbar-collapse" id="adminNavbar">
                 <ul class="navbar-nav mx-auto">
-                    <!-- Dropdown de productos -->
+                    <!-- Dropdown de residuos -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="productsDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Productos
                         </a>
                         <div class="dropdown-menu" aria-labelledby="productsDropdown">
-                            <a class="dropdown-item" th:href="@{/producto/listComplete}">Histórico de Productos</a>
-                            <a class="dropdown-item" th:href="@{/producto/new}">Nuevo Producto</a>
+                            <a class="dropdown-item" th:href="@{/residuos/listComplete}">Histórico de Productos</a>
+     
                         </div>
                     </li>
                     <!-- Dropdown de categorías -->

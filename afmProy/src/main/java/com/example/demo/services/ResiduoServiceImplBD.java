@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.Categoria;
 import com.example.demo.domain.Residuo;
-import com.example.demo.domain.Ruta;
 import com.example.demo.domain.Usuario;
 import com.example.demo.repositories.CategoriaRepository;
 import com.example.demo.repositories.ResiduoRepository;
@@ -37,7 +36,8 @@ public class ResiduoServiceImplBD implements ResiduoService {
         }
         residuo.setRecogido(false);
         residuo.setBloqueado(false);
-        residuo.setProductor(usuarioService.obtenerUsuarioConectado());
+        if (residuo.getProductor() == null)
+            residuo.setProductor(usuarioService.obtenerUsuarioConectado());
         return repositorio.save(residuo);
     }
     // public Residuo añadir(Residuo residuo, Usuario gestor){
@@ -58,6 +58,9 @@ public class ResiduoServiceImplBD implements ResiduoService {
     public List<Residuo> obtenerNoReservados (){
         return repositorio.findByReservado(false);
     }
+    public List<Residuo> obtenerNoSolicitados (){
+        return repositorio.findBySolicitado(false);
+    }
     public List<Residuo> obtenerPorCategoria (Long idCat){
         Categoria cat = rC.findById(idCat).orElse(null);
         if (cat != null) return repositorio.findByCategoria(cat);
@@ -66,9 +69,9 @@ public class ResiduoServiceImplBD implements ResiduoService {
     public List <Residuo> obtenerPorProductor (Usuario productor){
         return repositorio.findByProductor(productor);
     }
-    public List <Residuo> obtenerPorRuta (Ruta ruta){
-        return repositorio.findByRuta(ruta);
-    }
+    // public List <Residuo> obtenerPorRuta (Ruta ruta){
+    //     return repositorio.findByRuta(ruta);
+    // }
 
     public Residuo editar(Residuo residuo){
         // todo el mundo puede editar :/
@@ -87,25 +90,25 @@ public class ResiduoServiceImplBD implements ResiduoService {
         residuo.setReservado(true);
         residuo.setGestor(gestor);
     }
-    public void añadirARuta(Residuo residuo, Ruta ruta){
-        residuo.setRuta(ruta);
-        ruta.setMasaTotal(ruta.getMasaTotal()+residuo.getMasaResiduoKg());
-        ruta.setVolumenTotal(ruta.getVolumenTotal()+residuo.getVolumenResiduoM3());
-        editar(residuo);        
-    }
-    public void quitarDeRuta(Residuo residuo, Ruta ruta){
-        residuo.setRuta(null);
-        ruta.setMasaTotal(ruta.getMasaTotal()+residuo.getMasaResiduoKg());
-        ruta.setVolumenTotal(ruta.getVolumenTotal()+residuo.getVolumenResiduoM3());
-        editar(residuo); 
-    }
+    // public void añadirARuta(Residuo residuo, Ruta ruta){
+    //     residuo.setRuta(ruta);
+    //     ruta.setMasaTotal(ruta.getMasaTotal()+residuo.getMasaResiduoKg());
+    //     ruta.setVolumenTotal(ruta.getVolumenTotal()+residuo.getVolumenResiduoM3());
+    //     editar(residuo);        
+    // }
+    // public void quitarDeRuta(Residuo residuo, Ruta ruta){
+    //     residuo.setRuta(null);
+    //     ruta.setMasaTotal(ruta.getMasaTotal()+residuo.getMasaResiduoKg());
+    //     ruta.setVolumenTotal(ruta.getVolumenTotal()+residuo.getVolumenResiduoM3());
+    //     editar(residuo); 
+    // }
     // si se quisiera poner un boton de vaciar Ruta
-    public void vaciarRuta(Ruta ruta){
-        List <Residuo> residuos = obtenerPorRuta(ruta);
-        for (Residuo r : residuos) {
-            quitarDeRuta(r, ruta);
-        }
-    }
+    // public void vaciarRuta(Ruta ruta){
+    //     List <Residuo> residuos = obtenerPorRuta(ruta);
+    //     for (Residuo r : residuos) {
+    //         quitarDeRuta(r, ruta);
+    //     }
+    // }
     public void confirmarResiduo(Residuo residuo){
         residuo.setRecogido(true);
         editar(residuo);

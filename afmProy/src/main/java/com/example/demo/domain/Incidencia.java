@@ -10,6 +10,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -35,6 +36,7 @@ public class Incidencia {
     private ArrayList <String> hiloIncidencia;
     private Boolean incidenciaCerrada;
     private Integer valoracionIncidencia;
+    @OneToOne
     private Residuo residuoIncidencia;
 
     @NotNull

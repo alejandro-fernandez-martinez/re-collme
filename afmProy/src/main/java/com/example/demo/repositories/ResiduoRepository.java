@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.example.demo.domain.Categoria;
-import com.example.demo.domain.Ruta;
 import com.example.demo.domain.Residuo;
 import com.example.demo.domain.Usuario;
 
@@ -14,10 +13,11 @@ public interface ResiduoRepository extends JpaRepository <Residuo,Long> {
     
     Residuo findByNomResiduo (String nomResiduo);
     List<Residuo> findByReservado(Boolean reservado);
+    List<Residuo> findBySolicitado(Boolean solicitado);
     
     List<Residuo> findByCategoria(Categoria categoria);
     List<Residuo> findByProductor(Usuario productor);
-    List<Residuo> findByRuta(Ruta ruta);
+    // List<Residuo> findByRuta(Ruta ruta);
 
     @Query("SELECT r FROM Residuo r WHERE r.reservado = false AND r.solicitado = false")
     List<Residuo> findByResiduoReservadoAndSolicitadoFalse();
