@@ -36,8 +36,16 @@ public class DemoApplication {
 			residuoService.añadir(
 					new Residuo(0L, "Tapones de botellas", "Tapones de diferentes tamaños", "010101",  LocalDateTime.now(), 50L, 100L,"Calle 1", 3L, 15000L, "A Coruña", "A Coruña", false, null, false, null, false, false, categoryService.obtenerPorNomCat("Plásticos"), usuarioService.obtenerPorNombre("user")));
 			residuoService.añadir(
-					new Residuo(0L, "Posos de cafe", "Húmedo", "010102*", LocalDateTime.now(), 51L, 103L, "Calle 2", 4L, 15000L, "A Coruña", "A Coruña", false, null, false, null, false, false, categoryService.obtenerPorNomCat("Orgánicos"), usuarioService.obtenerPorNombre("user")));
-		};
+					new Residuo(0L, "Posos de cafe", "Húmedo", "010102*", LocalDateTime.now(), 51L, 103L, "Calle 2", 4L, 15000L, "A Coruña", "A Coruña", true, "negociante", false, null , false, false, categoryService.obtenerPorNomCat("Orgánicos"), usuarioService.obtenerPorNombre("user")));
+			residuoService.añadir(
+					new Residuo(0L, "Posos de cafe Recogidos", "Húmedo", "010102*", LocalDateTime.now(), 51L, 103L, "Calle 2", 4L, 15000L, "A Coruña", "A Coruña",  false, null, false, null, false, false, categoryService.obtenerPorNomCat("Orgánicos"), usuarioService.obtenerPorNombre("user")));
+			residuoService.añadir(
+					new Residuo(0L, "Posos de cafe Bloqueados", "Húmedo", "010102*", LocalDateTime.now(), 51L, 103L, "Calle 2", 4L, 15000L, "A Coruña", "A Coruña",  false, null, false, null, false, false, categoryService.obtenerPorNomCat("Orgánicos"), usuarioService.obtenerPorNombre("user")));
+			residuoService.añadir(
+					new Residuo(0L, "Mondas de platano", "Húmedo", "010102*", LocalDateTime.now(), 51L, 103L, "Calle 2", 4L, 15000L, "A Coruña", "A Coruña", false, null, false, null, false, false, categoryService.obtenerPorNomCat("Orgánicos"), usuarioService.obtenerPorNombre("negociante")));
+			residuoService.añadir(
+					new Residuo(0L, "Rechazos producción", "Húmedo", "010102*", LocalDateTime.now(), 51L, 103L, "Calle 2", 4L, 15000L, "A Coruña", "A Coruña",  false, null, false, null, false, false, categoryService.obtenerPorNomCat("Metales"), usuarioService.obtenerPorNombre("negociante")));
+			};
 	}
 
 }

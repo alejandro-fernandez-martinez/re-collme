@@ -39,10 +39,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/public/index">Inicio</a>
                     </li>
-                    <li sec:authorize="!isAuthenticated()" class="nav-item">
-                        <a class="nav-link" href="/residuo/listPublic">Residuos</a>
-                    </li>
-                    <li sec:authorize="isAuthenticated()"class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link" href="/residuo/list">Residuos</a>
                     </li>
                     <li class="nav-item">
@@ -152,7 +149,7 @@
                             Productos
                         </a>
                         <div class="dropdown-menu" aria-labelledby="productsDropdown">
-                            <a class="dropdown-item" th:href="@{/residuos/listComplete}">Histórico de Productos</a>
+                            <a class="dropdown-item" th:href="@{/residuo/listComplete}">Histórico de Productos</a>
      
                         </div>
                     </li>

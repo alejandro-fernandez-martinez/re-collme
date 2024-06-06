@@ -16,10 +16,11 @@ public interface ResiduoService {
     List <Residuo> obtenerNoSolicitados();
     List <Residuo> obtenerPorCategoria (Long idCat);
     List <Residuo> obtenerPorProductor (Usuario productor);
+    List <Residuo> obtenerPorProductorAndSolicitado(Usuario productor);
     // List <Residuo> obtenerPorRuta (Ruta ruta);
 
     Residuo editar(Residuo residuo);
-    void solicitarReserva(Long idResiduo);
+    void solicitarReserva(Residuo residuo);
     void aprobarReserva(Residuo residuo, Usuario gestor);
     // void añadirARuta (Residuo residuo, Ruta ruta);
     // void quitarDeRuta (Residuo residuo, Ruta ruta);

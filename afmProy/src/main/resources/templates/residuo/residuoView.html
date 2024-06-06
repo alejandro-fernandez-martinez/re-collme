@@ -35,9 +35,11 @@
   <table>
     <thead>
       <tr>
+        <th sec:authorize="hasRole('ADMIN')">Id</th>
         <th>Nombre</th>
         <th>Descripción</th>
         <th>Código LER</th>
+        <th>Categoria </th>
         <th>Fecha de registro</th>
         <th>Masa (Kg)</th>
         <th>Volumen (m3)</th>
@@ -46,28 +48,22 @@
         <th sec:authorize="hasAnyRole('NEGOCIANTE', 'ADMIN')">Código Postal</th>
         <th sec:authorize="hasAnyRole('NEGOCIANTE', 'ADMIN')">Localidad</th>
         <th>Provincia</th>
-        <th sec:authorize="hasRole('ADMIN')" >Solicitado</th>
-        <th sec:authorize="hasAnyRole('NEGOCIANTE', 'ADMIN')">Solicitante</th>
-        <th sec:authorize="hasRole('ADMIN')">Reservado</th>
-        <th sec:authorize="hasRole('ADMIN')">Gestor</th>
-        <th sec:authorize="hasRole('ADMIN')">Recogido</th>
-        <th sec:authorize="hasRole('ADMIN')">Bloqueado</th>
-        <th> Categoria </th>
         <th sec:authorize="isAuthenticated()">Productor</th>
+        <th sec:authorize="isAuthenticated()">Estado</th>
+        <th sec:authorize="hasAnyRole('NEGOCIANTE', 'ADMIN')" >Solicitante</th>
+        <th sec:authorize="hasRole('ADMIN')">Gestor</th>
 
-        <th sec:authorize="isAuthenticated()">Editar Residuo</th>
-        <th sec:authorize="isAuthenticated()">Borrar Residuo</th>
-        <th sec:authorize="hasAnyRole('NEGOCIANTE', 'ADMIN')">Solicitar Reserva</th>
-        <th sec:authorize="isAuthenticated()">Aprobar Solicitude</th>
-        <th sec:authorize="isAuthenticated()">Rexeitar Solicitude</th>
+        
       </tr>
     </thead>
 
     <tbody>
       <tr th:each="r : ${listaResiduos}">
+        <td sec:authorize="hasRole('ADMIN')" th:text="${r.idResiduo}">idResiduo</td>
         <td th:text="${r.nomResiduo}">nomProd</td>
         <td th:text="${r.descripResiduo}">descripResiduo</td>
         <td th:text="${r.codLer}">codLer</td>
+        <td th:text="${r.categoria.nomCat}">categoria</td>
         <td th:text="${r.fechaRegistroResiduo}">fechaRegistroResiduo</td>
         <td th:text="${r.masaResiduoKg}">masa</td>
         <td th:text="${r.volumenResiduoM3}">volumen</td>
@@ -76,35 +72,39 @@
         <td sec:authorize="hasAnyRole('NEGOCIANTE', 'ADMIN')" th:text="${r.dirCodPostalResiduo}">dirCodPostalResiduo</td>
         <td sec:authorize="hasAnyRole('NEGOCIANTE', 'ADMIN')" th:text="${r.dirLocalidadResiduo}">dirLocalidadResiduo</td>
         <td th:text="${r.dirProvinciaResiduo}">dirProvinciaResiduo</td>
-        <td sec:authorize="hasRole('ADMIN')" th:text="${r.solicitado}">solicitado</td>
-        <td sec:authorize="hasAnyRole('NEGOCIANTE', 'ADMIN')"th:text="${r.solicitante}">solicitante</td>
-        <td sec:authorize="hasRole('ADMIN')" th:text="${r.reservado}">reservado</td>
-        <td sec:authorize="hasRole('ADMIN')" th:text="${r.gestor.nomUser}">gestor</td>
-        <td sec:authorize="hasRole('ADMIN')" th:text="${r.recogido}">recogido</td>
-        <td sec:authorize="hasRole('ADMIN')" th:text="${r.bloqueado}">bloqueado</td>
-        <td th:text="${r.categoria.nomCat}">categoria</td>
         <td sec:authorize="isAuthenticated()" th:text="${r.productor.nomUser}">productor</td>
+        <td sec:authorize="isAuthenticated()">
+          <span th:if="${r.recogido}" th:text="'Recogido'">Recogido</span>
+          <span th:if="${r.bloqueado}" th:text="'Bloqueado'">Bloqueado</span>
+          <span th:if="!${r.bloqueado} and ${r.solicitado} and !${r.reservado}" th:text="'Solicitado'">Solicitado</span>
+          <span th:if="!${r.bloqueado} and ${r.solicitado} and ${r.reservado}" th:text="'Reservado'">Reservado</span>
+          <span th:unless="${r.bloqueado} or ${r.solicitado} or ${r.reservado} or ${r.recogido}" th:text="'Disponible'">Disponible</span>
+        </td>
+        <td sec:authorize="hasAnyRole('NEGOCIANTE', 'ADMIN')"th:text="${r.nombreSolicitante}">solicitante</td>
+        <td sec:authorize="hasRole('ADMIN')" th:text="${r.nombreGestor}">gestor</td>
         
-        <!-- (solo si autenticado) --> <!-- le quise meter aqui esto pero no va: and #producto.vendedor.nomUser == authentication.name"-->
+        
         <td sec:authorize="isAuthenticated()">
-          <a th:href="@{/producto/edit/{id}(id=${producto.idProd})}">Editar</a>
+          <a th:if="${user} == ${r.productor} and (!${r.bloqueado} and (!${r.solicitado} or (${r.solicitado} and !${r.reservado})) )"
+             th:href="@{/residuo/edit/{id}(id=${r.idResiduo})}">Editar</a>
         </td>
-        <!-- (solo si autenticado) --> <!-- le quise meter aqui esto pero no va: and #producto.vendedor.nomUser == authentication.name"-->
         <td sec:authorize="isAuthenticated()">
-          <a th:href="@{/producto/delete/{id}(id=${producto.idProd})}">Borrar</a>
+          <a th:if="${user} == ${r.productor} and (!${r.bloqueado} and (!${r.solicitado} or (${r.solicitado} and !${r.reservado})) )"
+             th:href="@{/residuo/delete/{id}(id=${r.idResiduo})}">Borrar</a>
         </td>
+      
         
         <!-- (solo si Negociante puede solicitar reserva) -->
-        <td sec:authorize="hasAnyRole('NEGOCIANTE', 'ADMIN')"><a th:href="@{/residuo/solicitarReserva/{id}(id=${residuo.idResiduo})}">Solicitar Reserva</a></td>
+        <td sec:authorize="hasAnyRole('NEGOCIANTE', 'ADMIN')"><a th:href="@{/residuo/solicitarReserva/{id}(id=${r.idResiduo})}">Solicitar Reserva</a></td>
         
-        <!-- (solo si autenticado) --> <!-- le quise meter aqui esto pero no va: and #producto.vendedor.nomUser == authentication.name"-->
         <td sec:authorize="isAuthenticated()">
-          <a th:href="@{/producto/edit/{id}(id=${producto.idProd})}">Aprobar Solicitude</a>
-        </td>
-        <!-- (solo si autenticado) --> <!-- le quise meter aqui esto pero no va: and #producto.vendedor.nomUser == authentication.name"-->
-        <td sec:authorize="isAuthenticated()">
-          <a th:href="@{/producto/edit/{id}(id=${producto.idProd})}">Rexeitar Solicitude</a>
-        </td>
+          <a th:if="${user} == ${r.productor} and ${r.solicitado} and !${r.reservado}" th:href="@{/residuo/aprobarReserva/{id}(id=${r.idResiduo})}">Aprobar Solicitude</a>
+      </td>
+      <td sec:authorize="isAuthenticated()">
+          <a th:if="${user} == ${r.productor} and ${r.solicitado} and !${r.reservado}" th:href="@{/residuo/rechazarReserva/{id}(id=${r.idResiduo})}">Rexeitar Solicitude</a>
+      </td>
+      
+      
       </tr>
     </tbody>
   </table>

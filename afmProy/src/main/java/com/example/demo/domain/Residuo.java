@@ -9,7 +9,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -40,12 +39,10 @@ public class Residuo {
     private String dirProvinciaResiduo;
 
     private Boolean solicitado;
-    @OneToOne
-    private Usuario solicitante;
+    private String nombreSolicitante;
 
     private Boolean reservado;
-    @OneToOne
-    private Usuario gestor;
+    private String nombreGestor;
     
     private Boolean recogido;
     private Boolean bloqueado;

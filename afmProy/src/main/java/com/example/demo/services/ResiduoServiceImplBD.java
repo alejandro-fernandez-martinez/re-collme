@@ -29,9 +29,9 @@ public class ResiduoServiceImplBD implements ResiduoService {
         residuo.setFechaRegistroResiduo(LocalDateTime.now());
         residuo.setSolicitado(false);
         residuo.setReservado(false);
-        Usuario gestor = residuo.getGestor();
+        Usuario gestor = usuarioService.obtenerPorNombre(residuo.getNombreGestor());
         if (gestor != null){
-            solicitarReserva(residuo.getIdResiduo());
+            solicitarReserva(residuo);
             aprobarReserva(residuo, gestor);
         }
         residuo.setRecogido(false);
@@ -69,6 +69,9 @@ public class ResiduoServiceImplBD implements ResiduoService {
     public List <Residuo> obtenerPorProductor (Usuario productor){
         return repositorio.findByProductor(productor);
     }
+    public List <Residuo> obtenerPorProductorAndSolicitado(Usuario productor){
+        return repositorio.findByProductorAndSolicitado(productor);
+    }
     // public List <Residuo> obtenerPorRuta (Ruta ruta){
     //     return repositorio.findByRuta(ruta);
     // }
@@ -81,14 +84,15 @@ public class ResiduoServiceImplBD implements ResiduoService {
         // else return residuo;
         return repositorio.save(residuo);
     }
-    public void solicitarReserva(Long idResiduo){
-        Residuo residuo = obtenerPorId(idResiduo);
+    public void solicitarReserva(Residuo residuo){
         residuo.setSolicitado(true);
-        residuo.setSolicitante(usuarioService.obtenerUsuarioConectado());
+        residuo.setNombreSolicitante(usuarioService.obtenerUsuarioConectado().getNomUser());
+        editar(residuo);
     }
     public void aprobarReserva(Residuo residuo, Usuario gestor){
         residuo.setReservado(true);
-        residuo.setGestor(gestor);
+        residuo.setNombreGestor(gestor.getNomUser());
+        editar(residuo);
     }
     // public void añadirARuta(Residuo residuo, Ruta ruta){
     //     residuo.setRuta(ruta);

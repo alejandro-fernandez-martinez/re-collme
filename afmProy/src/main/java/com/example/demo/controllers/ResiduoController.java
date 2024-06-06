@@ -28,14 +28,6 @@ public class ResiduoController {
     public CategoryService categoryService;
     @Autowired
     public UsuarioService usuarioService;
-    
-    @GetMapping({ "/listPublic" })
-    public String showListPublic(Model model) {
-        model.addAttribute("listaResiduos", residuoService.obtenerNoSolicitados());
-        model.addAttribute("listaCategorias", categoryService.obtenerTodas());
-        model.addAttribute("categoriaSeleccionada", "Todas");
-        return "residuo/residuoView";
-    }
 
     @GetMapping({ "/list" })
     public String showList(Model model) {
@@ -45,14 +37,26 @@ public class ResiduoController {
         return "residuo/residuoView";
     }
 
-    @GetMapping({ "/listUser" })
-    public String showListUser(Model model) {
+    @GetMapping({ "/listByUser" })
+    public String showListByUser(Model model) {
         Usuario user = usuarioService.obtenerUsuarioConectado();
         System.out.println(residuoService.obtenerPorProductor(user));
+        model.addAttribute("user", user);
         model.addAttribute("listaResiduos", residuoService.obtenerPorProductor(user));
         model.addAttribute("listaCategorias", categoryService.obtenerTodas());
         model.addAttribute("categoriaSeleccionada", "Todas");
-        return "residuo/residuosView";
+        return "residuo/residuoView";
+    }
+
+    @GetMapping({ "/listByUserSolicitados" })
+    public String showListByUserAndSolicitados(Model model) {
+        Usuario user = usuarioService.obtenerUsuarioConectado();
+        System.out.println(residuoService.obtenerPorProductor(user));
+        model.addAttribute("user", user);
+        model.addAttribute("listaResiduos", residuoService.obtenerPorProductorAndSolicitado(user));
+        model.addAttribute("listaCategorias", categoryService.obtenerTodas());
+        model.addAttribute("categoriaSeleccionada", "Todas");
+        return "residuo/residuoView";
     }
 
     @GetMapping({ "/listComplete" })
@@ -60,7 +64,7 @@ public class ResiduoController {
         model.addAttribute("listaResiduos", residuoService.obtenerTodos());
         model.addAttribute("listaCategorias", categoryService.obtenerTodas());
         model.addAttribute("categoriaSeleccionada", "Todas");
-        return "residuo/residuosView";
+        return "residuo/residuoView";
     }
 
     @GetMapping({ "/categoria/{idCat}"})
@@ -129,9 +133,23 @@ public class ResiduoController {
         else return "redirect:";
     }
 
-    @GetMapping("/solicitarReserva/{id}")
+    @GetMapping("/solicitarReserva/{idResiduo}")
     public String showBuy(@PathVariable Long idResiduo){
-        residuoService.solicitarReserva(idResiduo);
+        residuoService.solicitarReserva(residuoService.obtenerPorId(idResiduo));
+        return "redirect:/residuo/list";
+    }
+
+    
+    @GetMapping("/aprobarReserva/{idResiduo}")
+    public String showBuy(@PathVariable Long idResiduo){
+        // residuoService.aprobarReserva(residuoService.obtenerPorId(idResiduo),residuo.get ); //IGUAL solicitante siempre GESTOR
+        return "redirect:/residuo/list";
+    }
+
+    
+    @GetMapping("/rechazarReserva/{idResiduo}")
+    public String showBuy(@PathVariable Long idResiduo){
+        residuoService.solicitarReserva(residuoService.obtenerPorId(idResiduo));
         return "redirect:/residuo/list";
     }
 
