@@ -1,7 +1,10 @@
 # tfc
+- v 0.15.0
+    * Completado o código da arquitectura MVC
+    * 
 - v 0.14.0 
     * Readme con versions en forma de lista
-    * 
+    * Refactorizado o código para adaptar o PoC á idea do proxecto
 - v 0.13.4 Correccion de erros detectados no PoC
     * Paxina de Login indica que aconteceu un erro se as credenciais son incorrectas
     * Paxina de Logout xa non indica que o carrito vai ser baleirado cando saias da aplicacion
