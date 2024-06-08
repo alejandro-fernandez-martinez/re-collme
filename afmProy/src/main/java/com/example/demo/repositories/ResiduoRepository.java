@@ -16,13 +16,17 @@ public interface ResiduoRepository extends JpaRepository <Residuo,Long> {
     List<Residuo> findBySolicitado(Boolean solicitado);
     
     List<Residuo> findByCategoria(Categoria categoria);
+    List<Residuo> findByCategoriaAndSolicitado(Categoria categoria, Boolean solicitado);
     List<Residuo> findByProductor(Usuario productor);
+    List<Residuo> findByProductorAndSolicitadoAndReservado(Usuario productor, Boolean solicitado, Boolean reservado);
+    List<Residuo> findBynombreGestorAndSolicitadoAndReservado(String nombreGestor, Boolean solicitado, Boolean reservado);
     
     // List<Residuo> findByRuta(Ruta ruta);
 
     @Query("SELECT r FROM Residuo r WHERE r.reservado = false AND r.solicitado = false")
     List<Residuo> findByResiduoReservadoAndSolicitadoFalse();
-    @Query("SELECT r FROM Residuo r WHERE r.productor = productor AND r.solicitado = True AND r.reservado = False")
-    List<Residuo> findByProductorAndSolicitado(Usuario productor);
+
+
+
     
 }

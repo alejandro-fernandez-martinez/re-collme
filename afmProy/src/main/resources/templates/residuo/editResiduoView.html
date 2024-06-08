@@ -38,9 +38,9 @@
       <label><input type="hidden" id="solicitante" th:field="*{nombreSolicitante}"></label><br/>
       <label><input type="hidden" id="reservado" th:field="*{reservado}"></label><br/>
       <!-- <label><input type="hidden" id="gestor" th:field="*{gestor}"></label><br/> -->
-      <label>Gestor: 
+      <label>Asignar xestor: 
         <select name="gestor" th:field="*{nombreGestor}">
-          <option value="">Sin gestor asignado</option>
+          <option value="">Sen xestor asignado</option>
           <option th:each="ges : ${listaGestores}" th:value="${ges.nomUser}" th:text="${ges.nomUser}"></option>
         </select>
       </label><br/>

@@ -42,22 +42,29 @@ public class ResiduoController {
         Usuario user = usuarioService.obtenerUsuarioConectado();
         System.out.println(residuoService.obtenerPorProductor(user));
         model.addAttribute("user", user);
+        model.addAttribute("edicion", true);
         model.addAttribute("listaResiduos", residuoService.obtenerPorProductor(user));
-        model.addAttribute("listaCategorias", categoryService.obtenerTodas());
-        model.addAttribute("categoriaSeleccionada", "Todas");
         return "residuo/residuoView";
     }
 
     @GetMapping({ "/listByUserSolicitados" })
     public String showListByUserAndSolicitados(Model model) {
         Usuario user = usuarioService.obtenerUsuarioConectado();
-        System.out.println(residuoService.obtenerPorProductor(user));
         model.addAttribute("user", user);
         model.addAttribute("listaResiduos", residuoService.obtenerPorProductorAndSolicitado(user));
-        model.addAttribute("listaCategorias", categoryService.obtenerTodas());
-        model.addAttribute("categoriaSeleccionada", "Todas");
+        model.addAttribute("xestion", true);
         return "residuo/residuoView";
     }
+
+    @GetMapping({ "/listByUserAndSolicitadosAndReservados" })
+    public String showListByUserAndSolicitadosAndReservados(Model model) {
+        Usuario user = usuarioService.obtenerUsuarioConectado();
+        model.addAttribute("user", user);
+        model.addAttribute("listaResiduos", residuoService.obtenerPorNombreGestorAndSolicitadoAndReservado(user.getNomUser()));
+        model.addAttribute("verReservas", true);
+        return "residuo/residuoView";
+    }
+
 
     @GetMapping({ "/listComplete" })
     public String showListComplete(Model model) {
@@ -69,7 +76,7 @@ public class ResiduoController {
 
     @GetMapping({ "/categoria/{idCat}"})
     public String showProductsByCategory (@PathVariable Long idCat, Model model){
-        model.addAttribute("listaResiduos", residuoService.obtenerPorCategoria(idCat));
+        model.addAttribute("listaResiduos", residuoService.obtenerPorCategoriaNoSoliciado(idCat));
         model.addAttribute("listaCategorias", categoryService.obtenerTodas());
         System.out.println("idCat" + idCat);
         if  (idCat == 0)
@@ -134,23 +141,34 @@ public class ResiduoController {
     }
 
     @GetMapping("/solicitarReserva/{idResiduo}")
-    public String showBuy(@PathVariable Long idResiduo){
-        residuoService.solicitarReserva(residuoService.obtenerPorId(idResiduo));
+    public String showReservar(@PathVariable Long idResiduo){
+        Usuario user = usuarioService.obtenerUsuarioConectado();
+        residuoService.solicitarReserva(residuoService.obtenerPorId(idResiduo),user);
         return "redirect:/residuo/list";
     }
 
     
     @GetMapping("/aprobarReserva/{idResiduo}")
-    public String showBuy(@PathVariable Long idResiduo){
-        // residuoService.aprobarReserva(residuoService.obtenerPorId(idResiduo),residuo.get ); //IGUAL solicitante siempre GESTOR
-        return "redirect:/residuo/list";
+    public String showAprobarReserva(@PathVariable Long idResiduo){
+        Residuo r = residuoService.obtenerPorId(idResiduo);
+        Usuario solicitante = usuarioService.obtenerPorNombre(r.getNombreSolicitante());
+        residuoService.aprobarReserva(r,solicitante);
+        return "redirect:/residuo/listByUserSolicitados";
     }
 
     
-    @GetMapping("/rechazarReserva/{idResiduo}")
-    public String showBuy(@PathVariable Long idResiduo){
-        residuoService.solicitarReserva(residuoService.obtenerPorId(idResiduo));
-        return "redirect:/residuo/list";
+    @GetMapping("/rechazarSolicitudReserva/{idResiduo}")
+    public String showRechazarSolicitudReserva(@PathVariable Long idResiduo){
+        Residuo r = residuoService.obtenerPorId(idResiduo);
+        residuoService.rechazarSolicitudReserva(r);
+        return "redirect:/residuo/listByUserSolicitados";
+    }
+
+    @GetMapping("/rechazarAsignacion/{idResiduo}")
+    public String showRechazarAsignacion(@PathVariable Long idResiduo){
+        Residuo r = residuoService.obtenerPorId(idResiduo);
+        residuoService.rechazarAsignacion(r);
+        return "redirect:/residuo/listByUserSolicitados";
     }
 
     // @GetMapping("/reservar/{id}")

@@ -25,13 +25,17 @@ public class ResiduoServiceImplBD implements ResiduoService {
     @Autowired
     UsuarioService usuarioService;
 
+    public Residuo añadirData(Residuo residuo){
+        return repositorio.save(residuo);
+    }
+
     public Residuo añadir(Residuo residuo){
         residuo.setFechaRegistroResiduo(LocalDateTime.now());
         residuo.setSolicitado(false);
         residuo.setReservado(false);
         Usuario gestor = usuarioService.obtenerPorNombre(residuo.getNombreGestor());
         if (gestor != null){
-            solicitarReserva(residuo);
+            solicitarReserva(residuo, gestor);
             aprobarReserva(residuo, gestor);
         }
         residuo.setRecogido(false);
@@ -66,17 +70,30 @@ public class ResiduoServiceImplBD implements ResiduoService {
         if (cat != null) return repositorio.findByCategoria(cat);
         return null;
     }
+    public List<Residuo> obtenerPorCategoriaNoSoliciado(Long idCat){
+        Categoria cat = rC.findById(idCat).orElse(null);
+        if (cat != null) return repositorio.findByCategoriaAndSolicitado(cat, false);
+        return null;
+    }
     public List <Residuo> obtenerPorProductor (Usuario productor){
         return repositorio.findByProductor(productor);
     }
     public List <Residuo> obtenerPorProductorAndSolicitado(Usuario productor){
-        return repositorio.findByProductorAndSolicitado(productor);
+        return repositorio.findByProductorAndSolicitadoAndReservado(productor,true, false);
+    }
+    public List <Residuo> obtenerPorNombreGestorAndSolicitadoAndReservado(String nombreGestor){
+        return repositorio.findBynombreGestorAndSolicitadoAndReservado(nombreGestor,true, true);
     }
     // public List <Residuo> obtenerPorRuta (Ruta ruta){
     //     return repositorio.findByRuta(ruta);
     // }
 
     public Residuo editar(Residuo residuo){
+        Usuario gestor = usuarioService.obtenerPorNombre(residuo.getNombreGestor());
+        if (gestor != null){
+            solicitarReserva(residuo, gestor);
+            aprobarReserva(residuo, gestor);
+        }
         // todo el mundo puede editar :/
         // no puedo hacer esto porque cuando se añade a una ruta o se finaliza la creación de una ruta, se modifican atributos del residuo, sin tener pq ser su productor
         // if (residuo.getProductor() == usuarioService.obtenerUsuarioConectado()) //solo puede editar el residuo su productor
@@ -84,15 +101,27 @@ public class ResiduoServiceImplBD implements ResiduoService {
         // else return residuo;
         return repositorio.save(residuo);
     }
-    public void solicitarReserva(Residuo residuo){
+    public void solicitarReserva(Residuo residuo, Usuario gestor){
         residuo.setSolicitado(true);
-        residuo.setNombreSolicitante(usuarioService.obtenerUsuarioConectado().getNomUser());
-        editar(residuo);
+        residuo.setNombreSolicitante(gestor.getNomUser());
+        repositorio.save(residuo);
     }
     public void aprobarReserva(Residuo residuo, Usuario gestor){
         residuo.setReservado(true);
         residuo.setNombreGestor(gestor.getNomUser());
-        editar(residuo);
+        repositorio.save(residuo);
+    }
+    public void rechazarSolicitudReserva(Residuo residuo){
+        residuo.setSolicitado(false);
+        residuo.setNombreSolicitante(null);
+        repositorio.save(residuo);
+    }
+    public void rechazarAsignacion(Residuo residuo){
+        residuo.setSolicitado(false);
+        residuo.setNombreSolicitante(null);
+        residuo.setReservado(false);
+        residuo.setNombreGestor(null);
+        repositorio.save(residuo);
     }
     // public void añadirARuta(Residuo residuo, Ruta ruta){
     //     residuo.setRuta(ruta);
