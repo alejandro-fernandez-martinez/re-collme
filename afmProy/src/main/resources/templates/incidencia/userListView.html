@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="/fragmentos.html::cabecera">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Residuos CRUD</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    /* Estilos CSS adicionales */
+    .table-responsive {
+      margin: 20px 0;
+    }
+    .table-striped tbody tr:nth-of-type(odd) {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+    .btn-circular {
+      border-radius: 50%;
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+      line-height: 1.25;
+    }
+    /* Centrar verticalmente el contenido de las celdas */
+    .table th, .table td {
+      vertical-align: middle !important;
+    }
+
+  </style>
+</head>
+
+<body>
+    <nav th:replace="/fragmentos.html::menu"></nav>
+    <nav th:replace="/fragmentos.html::menuAdmin"></nav>
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered">
+      <thead class="thead-dark">
+        <tr>
+            <th style="text-align: center">ID</th>
+            <th style="text-align: center">Fecha</th>
+            <th style="text-align: center">Usuario emisor</th>
+            <th style="text-align: center">Usuario receptor</th>
+            <th style="text-align: center">Comentarios</th>
+            <th style="text-align: center">Estado</th>
+            <th style="text-align: center">Puntos de confiaza otorgados al receptor</th>
+            <th style="text-align: center">Responder</th>
+            <th style="text-align: center" >Cerrar</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="i : ${listaIncidencias}">
+            <td style="text-align: center" th:text="${i.idIncidencia}">idIncidencia</td>
+            <td style="text-align: center" th:text="${#temporals.format(i.fechaCreacionIncidencia, 'dd/MM/yyyy - HH:mm')}">fechaCreacionIncidencia</td>
+            <td style="text-align: center" th:text="${i.usuarioEmisor.nomUser + ' (' + i.usuarioEmisor.puntuacion + ')'}">usuarioEmisor</td>
+            <td style="text-align: center" th:text="${i.usuarioReceptor.nomUser + ' (' + i.usuarioReceptor.puntuacion + ')'}">usuarioReceptor</td>
+
+            <td>
+                <ul>
+                    <li th:each="comentario : ${i.hiloIncidencia}" th:text="${comentario}"></li>
+                </ul>
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                <span th:text="${i.incidenciaCerrada} ? 'Cerrada' : 'Abierta'"
+                    th:class="${i.incidenciaCerrada} ? 'badge badge-danger' : 'badge badge-success'">Estado</span>
+            </td>
+            <td style="text-align: center; vertical-align: middle;" th:text="${i.valoracionIncidencia}">Puntos</td></td>
+            
+            <td class="text-center" sec:authorize="isAuthenticated()" th:if="${!i.incidenciaCerrada}">
+                <form th:action="@{/incidencia/responder/{id}(id=${i.idIncidencia})}" method="post">
+                    <textarea name="comentario" rows="4" cols="50" placeholder="Ingresa tu respuesta aquí"></textarea>
+                    <input type="submit" value="Responder" class="btn btn-success btn-circular">
+                </form>
+            </td>
+            <td class="text-center" sec:authorize="isAuthenticated()" th:if="${!i.incidenciaCerrada} and ${usuario == i.usuarioEmisor}">
+              <form id="formCerrar" th:action="@{/incidencia/cerrar/{id}(id=${i.idIncidencia})}" method="post">
+                  <div class="form-group">
+                      <label for="valoracion">Entrega puntos de confianza al receptor:</label><br>
+                      <select id="valoracion" name="valoracion" class="form-control" required>
+                          <option value="">Rango: -5/+5</option>
+                          <option value="-5">-5</option>
+                          <option value="-3">-3</option>
+                          <option value="-1">-1</option>
+                          <option value="0">0</option>
+                          <option value="1">1</option>
+                          <option value="3">3</option>
+                          <option value="5">5</option>
+                      </select>
+                  </div>
+                  <button type="submit" class="btn btn-danger btn-circular">Cerrar</button>
+              </form>
+          </td>
+        </tr>
+    </tbody>
+    </table>
+</div>
+</body>
+
+<footer th:insert="/fragmentos.html::footer">
+</footer>  
+
+</html>

@@ -34,6 +34,7 @@ public class ResiduoController {
         model.addAttribute("listaResiduos", residuoService.obtenerNoSolicitados());
         model.addAttribute("listaCategorias", categoryService.obtenerTodas());
         model.addAttribute("categoriaSeleccionada", "Todas");
+        model.addAttribute("listaUsuarios", usuarioService.obtenerTodos());
         return "residuo/residuoView";
     }
 
@@ -44,6 +45,7 @@ public class ResiduoController {
         model.addAttribute("user", user);
         model.addAttribute("edicion", true);
         model.addAttribute("listaResiduos", residuoService.obtenerPorProductor(user));
+        model.addAttribute("listaUsuarios", usuarioService.obtenerTodos());
         return "residuo/residuoView";
     }
 
@@ -52,6 +54,7 @@ public class ResiduoController {
         Usuario user = usuarioService.obtenerUsuarioConectado();
         model.addAttribute("user", user);
         model.addAttribute("listaResiduos", residuoService.obtenerPorProductorAndSolicitado(user));
+        model.addAttribute("listaUsuarios", usuarioService.obtenerTodos());
         model.addAttribute("xestion", true);
         return "residuo/residuoView";
     }
@@ -62,6 +65,7 @@ public class ResiduoController {
         model.addAttribute("user", user);
         model.addAttribute("listaResiduos", residuoService.obtenerPorNombreGestorAndSolicitadoAndReservado(user.getNomUser()));
         model.addAttribute("verReservas", true);
+        model.addAttribute("listaUsuarios", usuarioService.obtenerTodos());
         return "residuo/residuoView";
     }
 

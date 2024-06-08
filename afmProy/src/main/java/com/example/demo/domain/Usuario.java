@@ -33,7 +33,7 @@ public class Usuario {
 
     private Rol rol;
     private Boolean gestor;
-    private Double puntuacion;
+    private Integer puntuacion;
     private Boolean userActivo;
     
     

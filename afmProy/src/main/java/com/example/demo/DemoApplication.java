@@ -2,6 +2,7 @@ package com.example.demo;
 
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.Arrays;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -9,10 +10,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import com.example.demo.domain.Categoria;
+import com.example.demo.domain.Incidencia;
 import com.example.demo.domain.Residuo;
 import com.example.demo.domain.Rol;
 import com.example.demo.domain.Usuario;
 import com.example.demo.services.CategoryService;
+import com.example.demo.services.IncidenciaService;
 import com.example.demo.services.ResiduoService;
 import com.example.demo.services.UsuarioService;
 
@@ -26,12 +29,78 @@ public class DemoApplication {
 	@Bean
 	CommandLineRunner initData(ResiduoService residuoService,
 			CategoryService categoryService,
-			UsuarioService usuarioService) {
+			UsuarioService usuarioService,
+			IncidenciaService incidenciaService) {
 		return args -> {
-			usuarioService.añadir(new Usuario(0L, "user", "1234", LocalDateTime.now(), "00111222A", "vendedor@domain.com", 111222333L, "C/inventada, nº 1, 15000, Coruña", Rol.USER, false, 0d, true));
-			usuarioService.añadir(new Usuario(0L, "negociante", "1234", LocalDateTime.now(), "00111224A", "negociante@domain.com", 111222333L,"C/inventada, nº 2, 15000, Coruña", Rol.NEGOCIANTE, true, 0d, true));
-			usuarioService.añadir(new Usuario(0L, "admin", "1234", LocalDateTime.now(), "00111252A", "admin@domain.com", 111222333L,"C/inventada, nº 3, 15000, Coruña", Rol.ADMIN, false, 0d, true));
-			usuarioService.añadir(new Usuario(0L, "gestor", "1234", LocalDateTime.now(), "00111252A", "gestor@domain.com", 111222333L,"C/inventada, nº 3, 15000, Coruña", Rol.NEGOCIANTE, true, 0d, true));
+			usuarioService.añadir(new Usuario(0L, "user", "1234", LocalDateTime.now(), "00111222A", "vendedor@domain.com", 111222333L, "C/inventada, nº 1, 15000, Coruña", Rol.USER, false, 0, true));
+			usuarioService.añadir(new Usuario(0L, "negociante", "1234", LocalDateTime.now(), "00111224A", "negociante@domain.com", 111222333L,"C/inventada, nº 2, 15000, Coruña", Rol.NEGOCIANTE, true, 0, true));
+			usuarioService.añadir(new Usuario(0L, "admin", "1234", LocalDateTime.now(), "00111252A", "admin@domain.com", 111222333L,"C/inventada, nº 3, 15000, Coruña", Rol.ADMIN, false, 0, true));
+			usuarioService.añadir(new Usuario(0L, "gestor", "1234", LocalDateTime.now(), "00111252A", "gestor@domain.com", 111222333L,"C/inventada, nº 3, 15000, Coruña", Rol.NEGOCIANTE, true, 0, true));
+			// Crear la incidencia con un único comentario inicial
+// Crear dos incidencias creadas por el usuario contra el negociante
+incidenciaService.añadirData(new Incidencia(
+    0L,
+    LocalDateTime.now(),
+    "Comentario de la incidencia 1 del usuario al negociante",
+    Arrays.asList(
+        "Este es el primer comentario de la incidencia 1 del usuario al negociante.",
+        "El usuario está reportando un problema con el producto.",
+        "Es importante solucionar esta incidencia lo antes posible."
+    ),
+    false,
+    0,
+    usuarioService.obtenerPorNombre("user"),
+    usuarioService.obtenerPorNombre("negociante")
+));
+
+incidenciaService.añadirData(new Incidencia(
+    0L,
+    LocalDateTime.now(),
+    "Comentario de la incidencia 2 del usuario al negociante",
+    Arrays.asList(
+        "Aquí está el primer comentario de la incidencia 2 del usuario al negociante.",
+        "El usuario necesita ayuda con el servicio ofrecido.",
+        "La situación parece ser urgente."
+    ),
+    false,
+    0,
+    usuarioService.obtenerPorNombre("user"),
+    usuarioService.obtenerPorNombre("negociante")
+));
+
+// Crear dos incidencias creadas por el negociante contra el usuario
+incidenciaService.añadirData(new Incidencia(
+    0L,
+    LocalDateTime.now(),
+    "Comentario de la incidencia 1 del negociante al usuario",
+    Arrays.asList(
+        "Este es el primer comentario de la incidencia 1 del negociante al usuario.",
+        "El negociante está respondiendo a una consulta del usuario.",
+        "Se está proporcionando una solución al problema planteado por el usuario."
+    ),
+    false,
+    0,
+    usuarioService.obtenerPorNombre("negociante"),
+    usuarioService.obtenerPorNombre("user")
+));
+
+incidenciaService.añadirData(new Incidencia(
+    0L,
+    LocalDateTime.now(),
+    "Comentario de la incidencia 2 del negociante al usuario",
+    Arrays.asList(
+        "Aquí está el primer comentario de la incidencia 2 del negociante al usuario.",
+        "El negociante está informando sobre el estado de un pedido.",
+        "Se está ofreciendo una compensación por la demora en la entrega."
+    ),
+    false,
+    0,
+    usuarioService.obtenerPorNombre("negociante"),
+    usuarioService.obtenerPorNombre("user")
+));
+
+
+
 			categoryService.añadir(new Categoria(0L, "Plásticos"));
 			categoryService.añadir(new Categoria(0L, "Metales"));
 			categoryService.añadir(new Categoria(0L, "Orgánicos"));

@@ -80,7 +80,7 @@
         <td style="text-align: center" th:text="${r.descripResiduo}">descripResiduo</td>
         <td style="text-align: center" th:text="${r.codLer}">codLer</td>
         <td style="text-align: center" th:text="${r.categoria.nomCat}">categoria</td>
-        <td style="text-align: center" th:text="${#temporals.format(r.fechaRegistroResiduo, 'HH:mm - dd/MM/yyyy')}">fechaRegistroResiduo</td>
+        <td style="text-align: center" th:text="${#temporals.format(r.fechaRegistroResiduo, 'dd/MM/yyyy - HH:mm')}">fechaRegistroResiduo</td>
         <td style="text-align: center" th:text="${r.masaResiduoKg}">masa</td>
         <td style="text-align: center" th:text="${r.volumenResiduoM3}">volumen</td>
         <td style="text-align: center" sec:authorize="hasAnyRole('NEGOCIANTE', 'ADMIN')" th:text="${r.dirCalleResiduo}">dirCalleResiduo</td>
@@ -88,7 +88,7 @@
         <td style="text-align: center" sec:authorize="hasAnyRole('NEGOCIANTE', 'ADMIN')" th:text="${r.dirCodPostalResiduo}">dirCodPostalResiduo</td>
         <td style="text-align: center" sec:authorize="hasAnyRole('NEGOCIANTE', 'ADMIN')" th:text="${r.dirLocalidadResiduo}">dirLocalidadResiduo</td>
         <td style="text-align: center" th:text="${r.dirProvinciaResiduo}">dirProvinciaResiduo</td>
-        <td style="text-align: center" sec:authorize="isAuthenticated()" th:text="${r.productor.nomUser}">productor</td>
+        <td style="text-align: center" sec:authorize="isAuthenticated()" th:text="${r.productor.nomUser + ' (' + r.productor.puntuacion + ')'}">productor</td>
         <td style="text-align: center" sec:authorize="isAuthenticated()">
           <span th:if="${r.recogido} and !${r.bloqueado}" class="badge badge-secondary" style="text-align: center" th:text="'Recogido'">Recogido</span>
           <span th:if="${r.bloqueado}" class="badge badge-danger" style="text-align: center" th:text="'Bloqueado'">Bloqueado</span>
@@ -97,8 +97,15 @@
           <span th:unless="${r.bloqueado} or ${r.solicitado} or ${r.reservado} or ${r.recogido}" style="text-align: center" class="badge badge-warning" th:text="'Disponible'">Disponible</span>
         </td>
         <th:block th:if="${user != null}">
-          <td sec:authorize="isAuthenticated()" style="text-align: center" th:text="${r.nombreSolicitante}">solicitante</td>
-        </th:block>
+          <td sec:authorize="isAuthenticated()" style="text-align: center">
+              <!-- Iterar sobre la lista de usuarios para encontrar el usuario con el nombre correspondiente -->
+              <span th:each="u : ${listaUsuarios}" th:if="${u.nomUser == r.nombreSolicitante}">
+                  <!-- Mostrar el nombre del solicitante y su puntuación -->
+                  <span th:text="${u.nomUser} + ' (' + ${u.puntuacion} + ')'">solicitante</span>
+              </span>
+          </td>
+      </th:block>
+
         <th:block th:if="${user != null} and ${xestion == null}">
           <td sec:authorize="isAuthenticated()" style="text-align: center" th:text="${r.nombreGestor}">gestor</td>
         </th:block>
@@ -141,7 +148,6 @@
         <a th:href="@{/residuo/rechazarAsignacion/{id}(id=${r.idResiduo})}"
             style="text-align: center" class="btn btn-warning btn-circular">Rexeitar Reserva</a></td>
       </td>
-      
       
       </tr>
     </tbody>

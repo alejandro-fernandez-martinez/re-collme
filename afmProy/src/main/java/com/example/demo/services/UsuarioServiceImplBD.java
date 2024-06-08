@@ -24,7 +24,7 @@ public class UsuarioServiceImplBD implements UsuarioService {
     public Usuario añadir(Usuario usuario) {
         usuario.setUserActivo(true);
         usuario.setFechaRegistro(LocalDateTime.now());
-        usuario.setPuntuacion(0d);
+        usuario.setPuntuacion(0);
         String passCrypted = passwordEncoder.encode(usuario.getPassUser());
         usuario.setPassUser(passCrypted);
         try {
