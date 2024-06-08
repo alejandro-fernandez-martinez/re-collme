@@ -142,12 +142,23 @@
             style="text-align: center" class="btn btn-warning btn-circular">Rexeitar Solicitude</a>
           </td>
         </th:block>
-      </th:block>
+      
 
       <td sec:authorize="isAuthenticated()" th:if="${verReservas}">
-        <a th:href="@{/residuo/rechazarAsignacion/{id}(id=${r.idResiduo})}"
-            style="text-align: center" class="btn btn-warning btn-circular">Rexeitar Reserva</a></td>
+        <a th:href="@{/residuo/añadirARuta/{id}(id=${r.idResiduo})}"
+            style="text-align: center" class="btn btn-secondary btn-circular">Engadir á Ruta</a></td>
       </td>
+      <td sec:authorize="isAuthenticated()" th:if="${verReservas}">
+        <a th:href="@{/residuo/añadirARuta/{id}(id=${r.idResiduo})}"
+            style="text-align: center" class="btn btn-success btn-circular">Quitar da Ruta</a></td>
+      </td>
+
+      <td sec:authorize="isAuthenticated()" th:if="${verReservas and r.reservado and !r.recogido and !r.bloqueado}">
+        <a th:href="@{/residuo/rechazarAsignacion/{id}(id=${r.idResiduo})}"
+            style="text-align: center" class="btn btn-warning btn-circular">Rexeitar Reserva</a>
+    </td>
+    
+
       
       </tr>
     </tbody>

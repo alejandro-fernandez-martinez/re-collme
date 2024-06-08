@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.example.demo.domain.Categoria;
 import com.example.demo.domain.Residuo;
+import com.example.demo.domain.Ruta;
 import com.example.demo.domain.Usuario;
 
 public interface ResiduoRepository extends JpaRepository <Residuo,Long> {
@@ -21,7 +22,7 @@ public interface ResiduoRepository extends JpaRepository <Residuo,Long> {
     List<Residuo> findByProductorAndSolicitadoAndReservado(Usuario productor, Boolean solicitado, Boolean reservado);
     List<Residuo> findBynombreGestorAndSolicitadoAndReservado(String nombreGestor, Boolean solicitado, Boolean reservado);
     
-    // List<Residuo> findByRuta(Ruta ruta);
+    List<Residuo> findByRuta(Ruta ruta);
 
     @Query("SELECT r FROM Residuo r WHERE r.reservado = false AND r.solicitado = false")
     List<Residuo> findByResiduoReservadoAndSolicitadoFalse();

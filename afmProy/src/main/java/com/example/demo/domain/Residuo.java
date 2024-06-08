@@ -55,7 +55,7 @@ public class Residuo {
     @OnDelete (action = OnDeleteAction.CASCADE)
     private Usuario productor;
 
-    // @ManyToOne
-    // @OnDelete (action = OnDeleteAction.CASCADE)
-    // private Ruta ruta;
+    @ManyToOne
+    @OnDelete (action = OnDeleteAction.CASCADE)
+    private Ruta ruta;
 }

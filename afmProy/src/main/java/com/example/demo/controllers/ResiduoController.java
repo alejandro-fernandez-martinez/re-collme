@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.domain.Residuo;
+import com.example.demo.domain.Ruta;
 import com.example.demo.domain.Usuario;
 import com.example.demo.services.CategoryService;
 import com.example.demo.services.ResiduoService;
+import com.example.demo.services.RutaService;
 import com.example.demo.services.UsuarioService;
 
 import jakarta.validation.Valid;
@@ -28,6 +30,8 @@ public class ResiduoController {
     public CategoryService categoryService;
     @Autowired
     public UsuarioService usuarioService;
+    @Autowired
+    public RutaService rutaService;
 
     @GetMapping({ "/list" })
     public String showList(Model model) {
@@ -172,7 +176,25 @@ public class ResiduoController {
     public String showRechazarAsignacion(@PathVariable Long idResiduo){
         Residuo r = residuoService.obtenerPorId(idResiduo);
         residuoService.rechazarAsignacion(r);
-        return "redirect:/residuo/listByUserSolicitados";
+        return "redirect:/residuo/listByUserAndSolicitadosAndReservados";
+    }
+
+    @GetMapping("/añadirARuta/{idResiduo}")
+    public String showAñadirARuta(@PathVariable Long idResiduo){
+        Residuo r = residuoService.obtenerPorId(idResiduo);
+        Usuario user = usuarioService.obtenerUsuarioConectado();
+        Ruta rutaPdte = rutaService.verRutaPdte(user);
+        residuoService.añadirARuta(r, rutaPdte);//añado el producto y el usuario al pedido
+        return "redirect:/residuo/listByUserAndSolicitadosAndReservados";
+    }
+
+    @GetMapping("/quitarDeRuta/{id}")
+    public String showReturn(@PathVariable long id){
+        Residuo residuo = residuoService.obtenerPorId(id);
+        Ruta rutaPte = residuo.getRuta();
+        residuoService.quitarDeRuta(residuo, rutaPte);
+        rutaService.editar(rutaPte); 
+        return "redirect:/residuo/listByUserAndSolicitadosAndReservados";
     }
 
     // @GetMapping("/reservar/{id}")
@@ -184,13 +206,6 @@ public class ResiduoController {
     //     return "redirect:/producto/list";
     // }
 
-    // @GetMapping("/devolver/{id}")
-    // public String showReturn(@PathVariable long id){
-    //     Residuo residuo = residuoService.obtenerPorId(id);
-    //     Ruta rutaPte = residuo.getRuta();
-    //     residuoService.quitarDeRuta(residuo, rutaPte);
-    //     rutaService.editar(rutaPte); 
-    //     return "redirect:/residuo/list";
-    // }
+
 
 }

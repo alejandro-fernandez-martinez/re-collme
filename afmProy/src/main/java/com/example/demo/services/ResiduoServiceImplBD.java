@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.Categoria;
 import com.example.demo.domain.Residuo;
+import com.example.demo.domain.Ruta;
 import com.example.demo.domain.Usuario;
 import com.example.demo.repositories.CategoriaRepository;
 import com.example.demo.repositories.ResiduoRepository;
@@ -84,9 +85,9 @@ public class ResiduoServiceImplBD implements ResiduoService {
     public List <Residuo> obtenerPorNombreGestorAndSolicitadoAndReservado(String nombreGestor){
         return repositorio.findBynombreGestorAndSolicitadoAndReservado(nombreGestor,true, true);
     }
-    // public List <Residuo> obtenerPorRuta (Ruta ruta){
-    //     return repositorio.findByRuta(ruta);
-    // }
+    public List <Residuo> obtenerPorRuta (Ruta ruta){
+        return repositorio.findByRuta(ruta);
+    }
 
     public Residuo editar(Residuo residuo){
         Usuario gestor = usuarioService.obtenerPorNombre(residuo.getNombreGestor());
@@ -123,18 +124,18 @@ public class ResiduoServiceImplBD implements ResiduoService {
         residuo.setNombreGestor(null);
         repositorio.save(residuo);
     }
-    // public void añadirARuta(Residuo residuo, Ruta ruta){
-    //     residuo.setRuta(ruta);
-    //     ruta.setMasaTotal(ruta.getMasaTotal()+residuo.getMasaResiduoKg());
-    //     ruta.setVolumenTotal(ruta.getVolumenTotal()+residuo.getVolumenResiduoM3());
-    //     editar(residuo);        
-    // }
-    // public void quitarDeRuta(Residuo residuo, Ruta ruta){
-    //     residuo.setRuta(null);
-    //     ruta.setMasaTotal(ruta.getMasaTotal()+residuo.getMasaResiduoKg());
-    //     ruta.setVolumenTotal(ruta.getVolumenTotal()+residuo.getVolumenResiduoM3());
-    //     editar(residuo); 
-    // }
+    public void añadirARuta(Residuo residuo, Ruta ruta){
+        residuo.setRuta(ruta);
+        ruta.setMasaTotal(ruta.getMasaTotal()+residuo.getMasaResiduoKg());
+        ruta.setVolumenTotal(ruta.getVolumenTotal()+residuo.getVolumenResiduoM3());
+        editar(residuo);        
+    }
+    public void quitarDeRuta(Residuo residuo, Ruta ruta){
+        residuo.setRuta(null);
+        ruta.setMasaTotal(ruta.getMasaTotal()+residuo.getMasaResiduoKg());
+        ruta.setVolumenTotal(ruta.getVolumenTotal()+residuo.getVolumenResiduoM3());
+        editar(residuo); 
+    }
     // si se quisiera poner un boton de vaciar Ruta
     // public void vaciarRuta(Ruta ruta){
     //     List <Residuo> residuos = obtenerPorRuta(ruta);
