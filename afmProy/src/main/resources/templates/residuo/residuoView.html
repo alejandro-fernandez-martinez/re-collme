@@ -61,15 +61,18 @@
         <th style="text-align: center"sec:authorize="hasAnyRole('NEGOCIANTE', 'ADMIN')">Localidad</th>
         <th style="text-align: center">Provincia</th>
         <th style="text-align: center" sec:authorize="isAuthenticated()">Productor</th>
-        <th style="text-align: center" sec:authorize="isAuthenticated()">Estado</th>
-        <th:block th:if="${user != null}">
+        <th:block th:unless="${listaCategorias}">
+          <th style="text-align: center" sec:authorize="isAuthenticated()">Estado</th>
+        </th:block>
+          <th:block th:if="${user != null}">
           <th  style="text-align: center" sec:authorize="isAuthenticated()" >Solicitante</th>
         </th:block>
         <th:block th:if="${user != null} and ${xestion == null}">
           <th  style="text-align: center" sec:authorize="isAuthenticated()">Gestor</th>
         </th:block>
-
-        
+        <th:block th:unless="${listaCategorias}">
+        <th colspan="3" style="text-align: center" sec:authorize="isAuthenticated()" th:if="!${mostrarAcciones}">Acciones disponibles</th>
+      </th:block>
       </tr>
     </thead>
 
@@ -89,13 +92,16 @@
         <td style="text-align: center" sec:authorize="hasAnyRole('NEGOCIANTE', 'ADMIN')" th:text="${r.dirLocalidadResiduo}">dirLocalidadResiduo</td>
         <td style="text-align: center" th:text="${r.dirProvinciaResiduo}">dirProvinciaResiduo</td>
         <td style="text-align: center" sec:authorize="isAuthenticated()" th:text="${r.productor.nomUser + ' (' + r.productor.puntuacion + ')'}">productor</td>
+        <th:block th:unless="${listaCategorias}">
         <td style="text-align: center" sec:authorize="isAuthenticated()">
           <span th:if="${r.recogido} and !${r.bloqueado}" class="badge badge-secondary" style="text-align: center" th:text="'Recogido'">Recogido</span>
           <span th:if="${r.bloqueado}" class="badge badge-danger" style="text-align: center" th:text="'Bloqueado'">Bloqueado</span>
           <span th:if="!${r.bloqueado} and ${r.solicitado} and !${r.reservado}" class="badge badge-info" style="text-align: center" th:text="'Solicitado'">Solicitado</span>
-          <span th:if="!${r.bloqueado} and ${r.solicitado} and ${r.reservado} and !${r.recogido}" style="text-align: center" class="badge badge-success" th:text="'Reservado'">Reservado</span>
+          <span th:if="!${r.bloqueado} and ${r.solicitado} and ${r.reservado} and !${r.recogido} and ${r.ruta == null}" style="text-align: center" class="badge badge-success" th:text="'Reservado / Sin Asignar'">ReservadoSinRuta</span>
+          <span th:if="!${r.bloqueado} and ${r.solicitado} and ${r.reservado} and !${r.recogido} and ${r.ruta != null}" style="text-align: center" class="badge badge-success" th:text="'Reservado / Con Ruta Asignada'">ReservadoConRuta</span>
           <span th:unless="${r.bloqueado} or ${r.solicitado} or ${r.reservado} or ${r.recogido}" style="text-align: center" class="badge badge-warning" th:text="'Disponible'">Disponible</span>
         </td>
+      </th:block>
         <th:block th:if="${user != null}">
           <td sec:authorize="isAuthenticated()" style="text-align: center">
               <!-- Iterar sobre la lista de usuarios para encontrar el usuario con el nombre correspondiente -->
@@ -106,57 +112,72 @@
           </td>
       </th:block>
 
-        <th:block th:if="${user != null} and ${xestion == null}">
-          <td sec:authorize="isAuthenticated()" style="text-align: center" th:text="${r.nombreGestor}">gestor</td>
-        </th:block>
+      <th:block th:if="${user != null} and ${xestion == null}">
+        <td sec:authorize="isAuthenticated()" style="text-align: center" th:text="${r.nombreGestor}">gestor</td>
+      </th:block>
         
-        <th:block th:if="${user != null} and ${xestion == null}">
-          <td sec:authorize="isAuthenticated()" th:unless="${verReservas}">
-            <a th:if="${user} == ${r.productor} and (!${r.bloqueado} and !${r.solicitado} and !${r.reservado})"
-              th:href="@{/residuo/edit/{id}(id=${r.idResiduo})}"
-              style="text-align: center" class="btn btn-primary btn-circular">Editar</a>
-          </td>
-          <td sec:authorize="isAuthenticated()" th:unless="${verReservas}">
-            <a th:if="${user} == ${r.productor} and (!${r.bloqueado} and !${r.solicitado} and !${r.reservado})"
-              th:href="@{/residuo/delete/{id}(id=${r.idResiduo})}"
-              style="text-align: center" class="btn btn-danger btn-circular">Borrar</a>
-          </td>
-        </th:block>
+      <th:block th:if="${user != null} and ${xestion == null}">
+        <td sec:authorize="isAuthenticated()" th:unless="${verReservas}">
+          <a th:if="${user} == ${r.productor} and (!${r.bloqueado} and !${r.solicitado} and !${r.reservado})"
+            th:href="@{/residuo/edit/{id}(id=${r.idResiduo})}"
+            style="text-align: center" class="btn btn-primary btn-circular">Editar</a>
+        </td>
+        <td sec:authorize="isAuthenticated()" th:unless="${verReservas}">
+          <a th:if="${user} == ${r.productor} and (!${r.bloqueado} and !${r.solicitado} and !${r.reservado})"
+            th:href="@{/residuo/delete/{id}(id=${r.idResiduo})}"
+            style="text-align: center" class="btn btn-danger btn-circular">Borrar</a>
+        </td>
+      </th:block>
 
-        <th:block th:if="${user == null}">
-          <!-- (solo si Negociante puede solicitar reserva) -->
-          <td sec:authorize="hasAnyRole('NEGOCIANTE', 'ADMIN')">
-            <a th:href="@{/residuo/solicitarReserva/{id}(id=${r.idResiduo})}"
-            style="text-align: center" class="btn btn-info btn-circular">Solicitar Reserva</a></td>
-        </th:block>
+      <th:block th:if="${user == null}">
+        <!-- (solo si Negociante puede solicitar reserva) -->
+        <td sec:authorize="hasAnyRole('NEGOCIANTE', 'ADMIN')">
+          <a th:href="@{/residuo/solicitarReserva/{id}(id=${r.idResiduo})}"
+          style="text-align: center" class="btn btn-info btn-circular">Solicitar Reserva</a></td>
+      </th:block>
         
-        <th:block th:if="${edicion == null} and ${user != null}">
-          <td sec:authorize="isAuthenticated()" th:unless="${verReservas}">
-            <a th:if="${user} == ${r.productor} and ${r.solicitado} and !${r.reservado}" 
-            th:href="@{/residuo/aprobarReserva/{id}(id=${r.idResiduo})}"
-            style="text-align: center"  class="btn btn-success btn-circular">Aprobar Solicitude</a>
-          </td>
-          <td sec:authorize="isAuthenticated()" th:unless="${verReservas}">
-            <a th:if="${user} == ${r.productor} and ${r.solicitado} and !${r.reservado}"
-            th:href="@{/residuo/rechazarSolicitudReserva/{id}(id=${r.idResiduo})}"
-            style="text-align: center" class="btn btn-warning btn-circular">Rexeitar Solicitude</a>
-          </td>
-        </th:block>
+      <th:block th:if="${edicion == null} and ${user != null}">
+        <td sec:authorize="isAuthenticated()" th:unless="${verReservas}">
+          <a th:if="${user} == ${r.productor} and ${r.solicitado} and !${r.reservado}"
+          th:href="@{/residuo/rechazarSolicitudReserva/{id}(id=${r.idResiduo})}"
+          style="text-align: center" class="btn btn-warning btn-circular">Rexeitar Solicitude</a>
+        </td>
+        <td sec:authorize="isAuthenticated()" th:unless="${verReservas}">
+          <a th:if="${user} == ${r.productor} and ${r.solicitado} and !${r.reservado}" 
+          th:href="@{/residuo/aprobarReserva/{id}(id=${r.idResiduo})}"
+          style="text-align: center"  class="btn btn-success btn-circular">Aprobar Solicitude</a>
+        </td>
+      </th:block>
       
-
-      <td sec:authorize="isAuthenticated()" th:if="${verReservas}">
-        <a th:href="@{/residuo/añadirARuta/{id}(id=${r.idResiduo})}"
-            style="text-align: center" class="btn btn-secondary btn-circular">Engadir á Ruta</a></td>
-      </td>
-      <td sec:authorize="isAuthenticated()" th:if="${verReservas}">
-        <a th:href="@{/residuo/añadirARuta/{id}(id=${r.idResiduo})}"
-            style="text-align: center" class="btn btn-success btn-circular">Quitar da Ruta</a></td>
-      </td>
-
-      <td sec:authorize="isAuthenticated()" th:if="${verReservas and r.reservado and !r.recogido and !r.bloqueado}">
-        <a th:href="@{/residuo/rechazarAsignacion/{id}(id=${r.idResiduo})}"
-            style="text-align: center" class="btn btn-warning btn-circular">Rexeitar Reserva</a>
+      <th:block th:if="!${r.bloqueado} and ${r.solicitado} and ${r.reservado} and !${r.recogido} and ${r.ruta == null}">
+        <td sec:authorize="isAuthenticated()" th:if="${verReservas}">
+            <a th:href="@{/residuo/rechazarAsignacion/{id}(id=${r.idResiduo})}"
+                style="text-align: center" class="btn btn-warning btn-circular">Rexeitar Reserva</a>
+        </td>
+    </th:block>
+    
+    <th:block th:if="${verReservas}">
+    <td sec:authorize="isAuthenticated()">
+        <th:block th:if="${!r.bloqueado and r.solicitado and r.reservado and !r.recogido}">
+            <a th:if="${r.ruta == null}" th:href="@{/residuo/añadirARuta/{id}(id=${r.idResiduo})}"
+                style="text-align: center" class="btn btn-success btn-circular">Engadir á Ruta</a>
+        </th:block>
+        <th:block th:if="${r.ruta != null}">
+            <a th:href="@{/residuo/quitarDeRuta/{id}(id=${r.idResiduo})}"
+                style="text-align: center" class="btn btn-danger btn-circular">Quitar da Ruta</a>
+        </th:block>
     </td>
+    <td sec:authorize="isAuthenticated()">
+        <th:block th:if="${r.ruta == null and !r.bloqueado and r.solicitado and r.reservado}">
+            <!-- Aquí puedes insertar contenido adicional si no hay ruta asignada -->
+        </th:block>
+    </td>
+</th:block>
+  
+
+    
+
+
     
 
       

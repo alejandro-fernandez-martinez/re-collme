@@ -27,14 +27,14 @@ public class Ruta {
     private Double masaTotal;
     private Double volumenTotal;
 
-    private String descripRuta;//guardar
-    private Boolean rutaCreada;//->true
-    private LocalDateTime fechaCreacionRuta;//asignar
+    private String descripRuta;
+    private Boolean rutaCreada;
+    private LocalDateTime fechaCreacionRuta;
 
     private Boolean rutaEnCurso;
-    private LocalDateTime fechaInicioRuta;//
+    private LocalDateTime fechaInicioRuta;
     private Boolean rutaTerminada;
-    private LocalDateTime fechaFinRuta;//
+    private LocalDateTime fechaFinRuta;
     
     @ManyToOne
     @OnDelete (action = OnDeleteAction.CASCADE)

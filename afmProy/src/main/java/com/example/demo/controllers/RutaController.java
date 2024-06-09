@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.domain.Residuo;
@@ -41,19 +40,22 @@ public class RutaController {
     @GetMapping("/userLogin") // lista de pedidos del usuario conectado
     public String showPedidosUserLogin(Model model) {
         Usuario u = usuarioService.obtenerUsuarioConectado();
+        Ruta r = rutaService.obtenerRutaPdte();
+        List <Residuo> residuos = residuoService.obtenerPorRuta(r);
+        model.addAttribute("listaResiduos", residuos);
         model.addAttribute("listaRutas", rutaService.obtenerPorGestor(u));
         model.addAttribute("usuario", u);
         return "ruta/rutaUserListView";
     }
 
-    @GetMapping("/detalleRuta/{id}")
-    public String showOrderDetails(@PathVariable long id, Model model){
-        Ruta r = rutaService.obtenerPorId(id);
-        List <Residuo> residuo = residuoService.obtenerPorRuta(r);
-        model.addAttribute("ruta", r);
-        model.addAttribute("listaResiduos", r);
-        return "ruta/rutaDetView";
-    }
+    // @GetMapping("/detalleRuta/{id}")
+    // public String showOrderDetails(@PathVariable long id, Model model){
+    //     Ruta r = rutaService.obtenerPorId(id);
+    //     List <Residuo> residuos = residuoService.obtenerPorRuta(r);
+    //     model.addAttribute("ruta", r);
+    //     model.addAttribute("listaResiduos", residuos);
+    //     return "ruta/rutaDetView";
+    // }
 
     // @GetMapping("/list") // lista de TODOS los pedidos
     // public String showAllOrders(Model model) {

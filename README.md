@@ -1,6 +1,8 @@
 # tfc
+- v 0.16.0
+    * Mellora da interface web segundo as indicacións da Guía  Básica de Estilo (En Curso)
 - v 0.15.0
-    * Completado o código da arquitectura MVC (En Curso)
+    * Completado o código da arquitectura MVC
 - v 0.14.0 
     * Readme con versions en forma de lista
     * Refactorizado o código para adaptar o PoC á idea do proxecto
@@ -12,8 +14,7 @@
 
 
 Futuras versións:
-- v 0.16.0
-    * Mellora da interface web segundo as indicacións da Guía  Básica de Estilo
+
 - v 0.17.0
     * Implantación limitada de validacións no lado cliente
 - v 0.18.0

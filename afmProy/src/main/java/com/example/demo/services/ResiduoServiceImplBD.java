@@ -79,6 +79,9 @@ public class ResiduoServiceImplBD implements ResiduoService {
     public List <Residuo> obtenerPorProductor (Usuario productor){
         return repositorio.findByProductor(productor);
     }
+    public List <Residuo> obtenerPorNombreSolicitante (String nombreSolicitante){
+        return repositorio.findByNombreSolicitante(nombreSolicitante);
+    }
     public List <Residuo> obtenerPorProductorAndSolicitado(Usuario productor){
         return repositorio.findByProductorAndSolicitadoAndReservado(productor,true, false);
     }
@@ -132,8 +135,8 @@ public class ResiduoServiceImplBD implements ResiduoService {
     }
     public void quitarDeRuta(Residuo residuo, Ruta ruta){
         residuo.setRuta(null);
-        ruta.setMasaTotal(ruta.getMasaTotal()+residuo.getMasaResiduoKg());
-        ruta.setVolumenTotal(ruta.getVolumenTotal()+residuo.getVolumenResiduoM3());
+        ruta.setMasaTotal(ruta.getMasaTotal()-residuo.getMasaResiduoKg());
+        ruta.setVolumenTotal(ruta.getVolumenTotal()-residuo.getVolumenResiduoM3());
         editar(residuo); 
     }
     // si se quisiera poner un boton de vaciar Ruta

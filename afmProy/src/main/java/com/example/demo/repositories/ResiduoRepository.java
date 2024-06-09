@@ -19,6 +19,7 @@ public interface ResiduoRepository extends JpaRepository <Residuo,Long> {
     List<Residuo> findByCategoria(Categoria categoria);
     List<Residuo> findByCategoriaAndSolicitado(Categoria categoria, Boolean solicitado);
     List<Residuo> findByProductor(Usuario productor);
+    List<Residuo> findByNombreSolicitante(String nombreSolicitante);
     List<Residuo> findByProductorAndSolicitadoAndReservado(Usuario productor, Boolean solicitado, Boolean reservado);
     List<Residuo> findBynombreGestorAndSolicitadoAndReservado(String nombreGestor, Boolean solicitado, Boolean reservado);
     

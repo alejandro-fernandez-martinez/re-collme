@@ -83,20 +83,13 @@
                             <a class="dropdown-item" th:href="@{/residuo/listByUserAndSolicitadosAndReservados}">Ver as miñas reservas</a>
                         </div>
                     </li>
+<!-- Menú desplegable de ruta -->
+<li sec:authorize="hasAnyRole('NEGOCIANTE', 'ADMIN')" class="nav-item">
+    <a class="nav-link" th:href="@{/ruta/userLogin}">
+        Ver Ruta
+    </a>
+</li>
 
-                    <!-- Menú desplegable de ruta -->
-                    <li sec:authorize="hasAnyRole('NEGOCIANTE', 'ADMIN')" class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="rutasDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Rutas
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="rutasDropdown">
-                            <a class="dropdown-item" th:href="@{/residuos/new}">Crear unha ruta</a>
-                            <a class="dropdown-item" th:href="@{/ruta/userLogin}">Ver as miñas rutas</a>
-                            <a class="dropdown-item" th:href="@{/ruta/?}">Comezar unha ruta</a>
-                        </div>
-                
-                    </li>
 
                     <!-- Menú desplegable de incidencias -->
                     <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
@@ -111,16 +104,13 @@
                     </li>
 
                     <!-- Menú desplegable de usuario -->
-                    <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
-                        <a sec:authentication="name" class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-                            role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            "name"
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" th:href="@{/user/?}">Ver o meu Perfil</a>
-                            <a class="dropdown-item" th:href="@{/user/editUserLogin}">Editar o meu Perfil</a>
-                        </div>
-                    </li>
+<!-- Enlace directo al perfil del usuario -->
+<li sec:authorize="isAuthenticated()" class="nav-item">
+    <a sec:authentication="name" class="nav-link" th:href="@{/user/editUserLogin}">
+        "name"
+    </a>
+</li>
+
 
                     <!-- Cierre de sesión -->
                     <li sec:authorize="isAuthenticated()" class="nav-item">

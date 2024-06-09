@@ -39,6 +39,7 @@ public class ResiduoController {
         model.addAttribute("listaCategorias", categoryService.obtenerTodas());
         model.addAttribute("categoriaSeleccionada", "Todas");
         model.addAttribute("listaUsuarios", usuarioService.obtenerTodos());
+        model.addAttribute("mostrarAcciones", false);
         return "residuo/residuoView";
     }
 
@@ -67,7 +68,8 @@ public class ResiduoController {
     public String showListByUserAndSolicitadosAndReservados(Model model) {
         Usuario user = usuarioService.obtenerUsuarioConectado();
         model.addAttribute("user", user);
-        model.addAttribute("listaResiduos", residuoService.obtenerPorNombreGestorAndSolicitadoAndReservado(user.getNomUser()));
+        // model.addAttribute("listaResiduos", residuoService.obtenerPorNombreGestorAndSolicitadoAndReservado(user.getNomUser()));
+        model.addAttribute("listaResiduos", residuoService.obtenerPorNombreSolicitante(user.getNomUser()));
         model.addAttribute("verReservas", true);
         model.addAttribute("listaUsuarios", usuarioService.obtenerTodos());
         return "residuo/residuoView";
@@ -143,9 +145,9 @@ public class ResiduoController {
         if (currentUserRol.equals("[ROLE_ADMIN]")|| //el admin puede borrar tambien :)
             residuoService.obtenerPorId(id).getProductor() == usuarioService.obtenerUsuarioConectado()){ //solo puede borrar el producto su creador
             residuoService.borrarPorId(id);
-            return "redirect:/residuo/list";
+            return "redirect:/residuo/listByUser";
         }
-        else return "redirect:";
+        else return "redirect:/residuo/listByUser";
     }
 
     @GetMapping("/solicitarReserva/{idResiduo}")
@@ -195,6 +197,27 @@ public class ResiduoController {
         residuoService.quitarDeRuta(residuo, rutaPte);
         rutaService.editar(rutaPte); 
         return "redirect:/residuo/listByUserAndSolicitadosAndReservados";
+    }
+
+    @GetMapping("/recoger/{id}")
+    public String showRecoger(@PathVariable long id){
+        Residuo residuo = residuoService.obtenerPorId(id);
+        Ruta rutaPte = residuo.getRuta();
+        residuo.setRecogido(true);
+        residuoService.quitarDeRuta(residuo, rutaPte);
+        rutaService.editar(rutaPte); 
+        return "redirect:/ruta/userLogin";
+    }
+
+    @GetMapping("/rechazar/{id}")
+    public String showRechazar(@PathVariable long id){
+        Residuo residuo = residuoService.obtenerPorId(id);
+        Ruta rutaPte = residuo.getRuta();
+        System.out.println(rutaPte);
+        residuo.setBloqueado(true);
+        residuoService.quitarDeRuta(residuo, rutaPte);
+        rutaService.editar(rutaPte); 
+        return "redirect:/ruta/userLogin";
     }
 
     // @GetMapping("/reservar/{id}")

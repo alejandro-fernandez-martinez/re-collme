@@ -19,6 +19,7 @@ public interface ResiduoService {
     List <Residuo> obtenerPorCategoria (Long idCat);
     List<Residuo> obtenerPorCategoriaNoSoliciado(Long idCat);
     List <Residuo> obtenerPorProductor (Usuario productor);
+    List <Residuo> obtenerPorNombreSolicitante (String nombreSolicitante);
     List <Residuo> obtenerPorProductorAndSolicitado(Usuario productor);
     List <Residuo> obtenerPorNombreGestorAndSolicitadoAndReservado(String nombreGestor);
     List <Residuo> obtenerPorRuta (Ruta ruta);

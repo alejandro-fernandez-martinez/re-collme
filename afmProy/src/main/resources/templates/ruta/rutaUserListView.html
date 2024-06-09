@@ -36,35 +36,49 @@
   <table class="table table-striped table-bordered">
     <thead class="thead-dark">
         <tr>
-            <th>ID</th>
-            <th>Fecha de creación de la ruta</th>
             <th>Descripción de la ruta</th>
             <th>Masa Total</th>
             <th>Volumen Total</th>
-            <th>Estado</th>
             <th>Detalle de ruta</th>
             
         </tr>
         </thead>
         <tbody>
             <tr th:each="r : ${listaRutas}">
-                <td style="text-align: center" th:text="${r.idRuta}">idRuta</td>
-                <td style="text-align: center" th:text="${r.fechaCreacionRuta}">fechaCreacionRuta</td>
-                <td style="text-align: center" th:text="${r.descripRuta}">descripRuta</td>
+                <td>
+                  <table class="residuo-table">
+                    <thead>
+                        <tr>
+                            <th>Nombre del Residuo</th>
+                            <th>Masa (Kg)</th>
+                            <th>Volumen (m<sup>3</sup>)</th>
+                            <th>Dirección</th>
+                            <th colspan="2" style="text-align: center" >Acciones disponibles</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="r : ${listaResiduos}">
+                            <td th:text="${r.nomResiduo}"></td>
+                            <td th:text="${r.masaResiduoKg}"></td>
+                            <td th:text="${r.volumenResiduoM3}"></td>
+                            <td th:text="${r.dirCalleResiduo + ', ' + r.dirNumResiduo + ', ' + r.dirCodPostalResiduo + ' ' + r.dirLocalidadResiduo + ', ' + r.dirProvinciaResiduo}"></td>
+                            <td>
+                              <a th:href="@{/residuo/recoger/{id}(id=${r.idResiduo})}"
+                              style="text-align: center" class="btn btn-success btn-circular">Recoger</a>
+                            </td>
+                            <td>
+                              <a th:href="@{/residuo/rechazar/{id}(id=${r.idResiduo})}" 
+                              style="text-align: center" class="btn btn-danger btn-circular">Rechazar</a>
+                            </td>
+                        
+                          
+                        </tr>
+                    </tbody>
+                </table>
+                </td>
                 <td style="text-align: center" th:text="${r.masaTotal}">masaTotal</td>
                 <td style="text-align: center" th:text="${r.volumenTotal}">volumenTotal</td>
-                <td style="text-align: center">
-                  <span th:if="${!r.rutaCreada}" class="badge badge-secondary">Creándose</span>
-                  <span th:if="${r.rutaCreada and !r.rutaEnCurso and !r.rutaTerminada}" class="badge badge-warning">Disponible</span>
-                  <span th:if="${r.rutaCreada and r.rutaEnCurso and !r.rutaTerminada}" class="badge badge-info">En Curso</span>
-                  <span th:if="${r.rutaCreada and r.rutaEnCurso and r.rutaTerminada}" class="badge badge-success">Finalizada</span>
-              </td>
               
-                <td>
-                    <form th:action="@{/ruta/detalleRuta/{id}(id=${r.idRuta})}" method="get">
-                        <button type="submit" class="btn btn-primary">Detalle pedido</button>
-                    </form>
-                </td>
                 
             </tr>
         </tbody>
