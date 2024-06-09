@@ -43,42 +43,45 @@
         }
 
         .fixed-element {
+            display: none; /* Inicialmente oculto */
             position: fixed;
             top: 50px;
-            /* Ajusta esto según sea necesario para evitar solapamiento con la barra de navegación */
             left: 50%;
             transform: translateX(-50%);
             z-index: 1000;
-            /* Ajusta este valor si es necesario para asegurarte de que esté por encima del contenido */
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
         }
     </style>
 </head>
 
 <body>
     <nav th:replace="/fragmentos.html::menu"></nav>
-    <img src="/images/fondo.png" style="width: 100%;" alt="Imagen de fondo">
+    <img id="imagenFondo" src="/images/fondo.png" style="width: 100%;" alt="Imagen de fondo">
 
-    <section class="fixed-element" style="position: fixed; top: 50px; width: 100%; overflow-y: auto; background-color: rgba(255, 255, 255, 0.9);">
-            <div class="container h-100">
-                <div class="row align-items-center h-100" style="margin-top: 0px;">
-                    <div class="col-md-6">
-                        <h1>Transformando Residuos en Recursos</h1>
+    <section class="fixed-element" id="banner"
+        style="position: fixed; top: 50px; width: 100%; overflow-y: auto; background-color: rgba(255, 255, 255, 0.9);">
+        <div class="container h-100">
+            <div class="row align-items-center h-100" style="margin-top: 0px;">
+                <div class="col-md-6">
+                    <img src="/images/logo_negro.png" style="width: 100%;" alt="Imagen de fondo">
+                </div>
+                <div class="col-md-6 text-md-end" style="margin-bottom: 20px;">
+                    <div>
+                        <br><h3>Transformando Residuos en Recursos</h1><br>
+                        <p>Comeza a rexistrar os teus residuos e colabora na
+                            creación dunha sociedade máis sostible.</p>
                     </div>
-                    <div class="col-md-6 text-md-end" style="margin-bottom: 20px;">
-                        <div>
-                            <br><br>
-                            <p>Comeza a rexistrar os teus residuos e colabora na
-                                creación dunha sociedade máis sostible.</p>
-                        </div>
-                        <div>
-                            <a class="btn btn-dark btn-lg btn-block" href="/public/contacto" style="font-size: 1.2vw;">Rexístrate!</a>
-                        </div>
+                    <div>
+                        <a class="btn btn-dark btn-lg btn-block" href="/public/contacto"
+                            style="font-size: 2vw;">Rexístrate!</a>
                     </div>
                 </div>
-                
             </div>
+
+        </div>
     </section>
-    
+   
 
     <div>
         <div class="container">
@@ -88,13 +91,13 @@
                     arduamente
                     para desenvolver unha plataforma innovadora que facilite a xestión de residuos, conectando os
                     produtores con
-                    xestores para promover a súa valorización nunha economía circular.
+                    xestores para promover a súa valorización nunha economía circular.<br><br>
 
                     Aínda que a lexislación actual pode non impoñer obrigas ás empresas con baixa produción de residuos,
                     recoñecemos a importancia de adoptar prácticas sostibles. Co noso proxecto, queremos axudar aos
                     pequenos
                     produtores a xestionar os seus residuos de forma eficiente, contribuíndo ao mesmo tempo á súa
-                    valorización.
+                    valorización.<br><br>
 
                     Estamos comprometidos a ofrecer unha plataforma escalable e adaptable, que poida servir a diferentes
                     tipos
@@ -111,14 +114,14 @@
                     administrativo levará a cabo unha revisión e aprobación manual da mesma. Esta medida permítenos
                     manter un
                     control rigoroso sobre quen forma parte da nosa comunidade e asegurarnos de que se cumpren os nosos
-                    estándares de seguridade e calidade.
+                    estándares de seguridade e calidade.<br><br>
 
                     Ao rexistrarte na nosa plataforma, aceptas cumprir coas nosas condicións de uso e comprometerte a
                     utilizar
                     os nosos servizos de maneira responsable e ética. Calquera actividade que viole as nosas políticas,
                     incluíndo pero non limitado á difusión de contido ilegal, o acoso a outros usuarios ou o uso
                     indebido da
-                    nosa plataforma, pode resultar na suspensión ou eliminación da túa conta.
+                    nosa plataforma, pode resultar na suspensión ou eliminación da túa conta.<br><br>
 
                     Reservámonos o dereito de realizar cambios nas nosas condicións de uso en calquera momento, sen
                     aviso
@@ -178,7 +181,24 @@
                     pero ter en conta que a desactivación das cookies pode afectar a certas funcionalidades da web.</p>
             </div>
         </div>
+
+        <script>
+            // Obtener referencia a la imagen de fondo y al banner
+            const imagenFondo = document.getElementById('imagenFondo');
+            const banner = document.getElementById('banner');
+    
+            // Mostrar el banner cuando el mouse esté sobre la imagen de fondo
+            imagenFondo.addEventListener('mouseover', () => {
+                banner.style.display = 'block';
+            });
+    
+            // Ocultar el banner cuando el mouse salga de la imagen de fondo
+            imagenFondo.addEventListener('mouseout', () => {
+                banner.style.display = 'none';
+            });
+        </script>
 </body>
+
 
 <footer th:insert="/fragmentos.html::footer">
 </footer>

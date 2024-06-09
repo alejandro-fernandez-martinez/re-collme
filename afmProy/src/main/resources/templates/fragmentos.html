@@ -21,7 +21,7 @@
 </head>
 
 <body>
-    <nav th:fragment="menu" class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <nav th:fragment="menu" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
             <!-- Logo de la marca -->
             <a class="navbar-brand" href="/public/index">
@@ -35,7 +35,7 @@
             </button>
 
             <!-- Contenedor de navegación -->
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="collapse navbar-collapse mr-auto" id="navbarNav">
                 <!-- Enlaces de navegación públicos -->
                 <ul class="navbar-nav mr-auto align-items-center">
                     <li class="nav-item">
@@ -45,7 +45,7 @@
                         <a class="nav-link" href="/residuo/list">Residuos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link"  href="/public/index#quenesSomos">Quenes somos</a>
+                        <a class="nav-link" href="/public/index#quenesSomos">Quenes somos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/public/contacto">Contacta</a>
@@ -146,15 +146,19 @@
 
 </body>
 
-<footer th:fragment="footer" class="navbar-dark bg-dark fixed-bottom">        
+<footer th:fragment="footer" class="navbar-dark bg-dark ">
     <ul class="nav justify-content-center ">
         <li class="nav-link"><a href="/public/index" class="nav-link px-2 text-white">Inicio</a></li>
         <li class="nav-link"><a href="/public/index#quenesSomos" class="nav-link px-2 text-white">Quenes somos</a></li>
-        <li class="nav-link"><a href="/public/index#condicionsUso" class="nav-link px-2 text-white">Condicións de Uso</a></li>
-        <li class="nav-link"><a href="/public/index#politicaPrivacidade" class="nav-link px-2 text-white">Política de Privacidade</a></li>
-        <li class="nav-link"><a href="/public/index#politicaCookies" class="nav-link px-2 text-white">Política de Cookies</a></li>
+        <li class="nav-link"><a href="/public/index#condicionsUso" class="nav-link px-2 text-white">Condicións de
+                Uso</a></li>
+        <li class="nav-link"><a href="/public/index#politicaPrivacidade" class="nav-link px-2 text-white">Política de
+                Privacidade</a></li>
+        <li class="nav-link"><a href="/public/index#politicaCookies" class="nav-link px-2 text-white">Política de
+                Cookies</a></li>
     </ul>
-    <p class="nav-link px-2 text-white mb-0" style="text-align: center;"> <em>Re-Co//me</em> é un roxecto baixo a licenza Affero General Public License (AGPLv3)</p>
+    <p class="nav-link px-2 text-white mb-0" style="text-align: center;"> <em>Re-Co//me</em> é un roxecto baixo a
+        licenza Affero General Public License (AGPLv3)</p>
 </footer>
 
 
