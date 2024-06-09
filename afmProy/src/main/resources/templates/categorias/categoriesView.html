@@ -11,12 +11,13 @@
 <body>
     <nav th:replace="/fragmentos.html::menu"></nav>
     <nav th:replace="/fragmentos.html::menuAdmin"></nav>
-    <h1>Listado de categorias</h1>
+    <h1>Listado de categorias</h1><td><a th:href="@{/categoria/new}">Nueva Categoria</a></td>
     <table>
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
+                <th colspan="2" style="text-align: center" th:if="!${mostrarAcciones}">Acciones disponibles</th>
         </thead>
         <tbody>
             <tr th:each="categoria : ${listaCategorias}">
@@ -24,6 +25,7 @@
                 <td th:text="${categoria.nomCat}">nombre</td>
                 <td><a th:href="@{/categoria/edit/{id}(id=${categoria.idCat})}">Editar</a></td>
                 <td><a th:href="@{/categoria/delete/{id}(id=${categoria.idCat})}">Borrar</a></td>
+                
             </tr>
         </tbody>
     </table>

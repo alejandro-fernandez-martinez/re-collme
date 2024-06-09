@@ -39,16 +39,18 @@
                                             <th>Masa (Kg)</th>
                                             <th>Volumen (m<sup>3</sup>)</th>
                                             <th>Dirección</th>
+                                            <th>Productor</th>
                                             <th>Recoger</th>
                                             <th>Rechazar</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="residuo : ${listaResiduos}">
-                                            <td th:text="${residuo.nomResiduo}"></td>
-                                            <td th:text="${residuo.masaResiduoKg}"></td>
-                                            <td th:text="${residuo.volumenResiduoM3}"></td>
-                                            <td th:text="${residuo.dirCalleResiduo + ', ' + residuo.dirNumResiduo + ', ' + residuo.dirCodPostalResiduo + ' ' + residuo.dirLocalidadResiduo + ', ' + residuo.dirProvinciaResiduo}"></td>
+                                        <tr th:each="r : ${listaResiduos}">
+                                            <td th:text="${r.nomResiduo}"></td>
+                                            <td th:text="${r.masaResiduoKg}"></td>
+                                            <td th:text="${r.volumenResiduoM3}"></td>
+                                            <td th:text="${r.dirCalleResiduo + ', ' + r.dirNumResiduo + ', ' + r.dirCodPostalResiduo + ' ' + r.dirLocalidadResiduo + ', ' + r.dirProvinciaResiduo}"></td>
+                                            <td style="text-align: center" th:text="${r.productor.nomUser + ' (' + r.productor.puntuacion + ')'}">productor</td>
                                             <td>
                                                 <form th:action="@{/recogerResiduo}" method="post">
                                                     <input type="hidden" name="residuoId" th:value="${residuo.idResiduo}" />

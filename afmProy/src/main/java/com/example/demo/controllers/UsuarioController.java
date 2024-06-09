@@ -67,6 +67,13 @@ public class UsuarioController {
         usuarioService.editar(usuarioForm);
         return "redirect:/user/list";
     }
+    @PostMapping("/editPass/submit")
+    public String showEditPassSubmit(
+            @Valid Usuario usuarioForm,
+            BindingResult bindingResult) {
+        usuarioService.editarPass(usuarioForm);
+        return "redirect:/user/list";
+    }
 
     @GetMapping("/delete/{id}")
     public String showDelete(@PathVariable long id) {

@@ -75,6 +75,17 @@ public class UsuarioServiceImplBD implements UsuarioService {
         }
     }
 
+    public Usuario editarPass(Usuario usuario) {
+        String passCrypted = passwordEncoder.encode(usuario.getPassUser());
+        usuario.setPassUser(passCrypted);
+        try {
+            return repositorio.save(usuario);
+        } catch (DataIntegrityViolationException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public void borrar(Usuario usuario) {
         usuario.setUserActivo(false);
         editar(usuario);

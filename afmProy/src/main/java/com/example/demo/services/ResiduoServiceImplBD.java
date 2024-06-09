@@ -41,6 +41,7 @@ public class ResiduoServiceImplBD implements ResiduoService {
         }
         residuo.setRecogido(false);
         residuo.setBloqueado(false);
+        residuo.setFechaRecogidaResiduo(null);
         if (residuo.getProductor() == null)
             residuo.setProductor(usuarioService.obtenerUsuarioConectado());
         return repositorio.save(residuo);
@@ -135,6 +136,7 @@ public class ResiduoServiceImplBD implements ResiduoService {
     }
     public void quitarDeRuta(Residuo residuo, Ruta ruta){
         residuo.setRuta(null);
+        residuo.setFechaRecogidaResiduo(LocalDateTime.now());
         ruta.setMasaTotal(ruta.getMasaTotal()-residuo.getMasaResiduoKg());
         ruta.setVolumenTotal(ruta.getVolumenTotal()-residuo.getVolumenResiduoM3());
         editar(residuo); 

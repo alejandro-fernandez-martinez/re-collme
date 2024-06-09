@@ -46,6 +46,7 @@ public class Residuo {
     
     private Boolean recogido;
     private Boolean bloqueado;
+    private LocalDateTime fechaRecogidaResiduo;
 
     @ManyToOne
     @OnDelete (action = OnDeleteAction.CASCADE)

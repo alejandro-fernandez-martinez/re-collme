@@ -31,11 +31,13 @@ public class IncidenciaController {
     @Autowired
     public ResiduoService residuoService;
     
-    // @GetMapping("/list") // lista de todas las incidencias
-    // public String showAll(Model model) {
-    //     model.addAttribute("listaIncidencias", incidenciaService.obtenerTodas());
-    //     return "incidencia/listView";
-    // }
+    @GetMapping("/list") // lista de todas las incidencias
+    public String showAll(Model model) {
+        Usuario u = usuarioService.obtenerUsuarioConectado();
+        model.addAttribute("listaIncidencias", incidenciaService.obtenerTodas());
+        model.addAttribute("usuario", usuarioService.obtenerPorId(u.getIdUser()));
+        return "incidencia/userListView";
+    }
     
     // @GetMapping("/user/{id}") // lista de valoraciones realizadas por un usuario
     // public String showValoracionesByUsers(@PathVariable long id, Model model) {

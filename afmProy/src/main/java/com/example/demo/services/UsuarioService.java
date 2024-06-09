@@ -10,6 +10,7 @@ public interface UsuarioService {
     List<Usuario> obtenerTodos();
     Usuario obtenerPorId(Long id);
     Usuario editar(Usuario usuario);
+    Usuario editarPass(Usuario usuario);
     void borrar(Usuario usuario);
     void borrarPorId(Long id);
 

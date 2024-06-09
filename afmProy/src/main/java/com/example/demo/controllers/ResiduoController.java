@@ -81,7 +81,8 @@ public class ResiduoController {
         model.addAttribute("listaResiduos", residuoService.obtenerTodos());
         model.addAttribute("listaCategorias", categoryService.obtenerTodas());
         model.addAttribute("categoriaSeleccionada", "Todas");
-        return "residuo/residuoView";
+        model.addAttribute("listaUsuarios", usuarioService.obtenerTodos());
+        return "residuo/adminResiduoView";
     }
 
     @GetMapping({ "/categoria/{idCat}"})
@@ -217,7 +218,7 @@ public class ResiduoController {
         residuo.setBloqueado(true);
         residuoService.quitarDeRuta(residuo, rutaPte);
         rutaService.editar(rutaPte); 
-        return "redirect:/ruta/userLogin";
+        return "redirect:/incidencia/new";
     }
 
     // @GetMapping("/reservar/{id}")

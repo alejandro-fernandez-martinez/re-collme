@@ -39,8 +39,6 @@
             <th>Descripción de la ruta</th>
             <th>Masa Total</th>
             <th>Volumen Total</th>
-            <th>Detalle de ruta</th>
-            
         </tr>
         </thead>
         <tbody>
@@ -53,6 +51,7 @@
                             <th>Masa (Kg)</th>
                             <th>Volumen (m<sup>3</sup>)</th>
                             <th>Dirección</th>
+                            <th>Productor</th>
                             <th colspan="2" style="text-align: center" >Acciones disponibles</th>
                         </tr>
                     </thead>
@@ -62,6 +61,7 @@
                             <td th:text="${r.masaResiduoKg}"></td>
                             <td th:text="${r.volumenResiduoM3}"></td>
                             <td th:text="${r.dirCalleResiduo + ', ' + r.dirNumResiduo + ', ' + r.dirCodPostalResiduo + ' ' + r.dirLocalidadResiduo + ', ' + r.dirProvinciaResiduo}"></td>
+                            <td style="text-align: center" th:text="${r.productor.nomUser + ' (' + r.productor.puntuacion + ')'}">productor</td>
                             <td>
                               <a th:href="@{/residuo/recoger/{id}(id=${r.idResiduo})}"
                               style="text-align: center" class="btn btn-success btn-circular">Recoger</a>

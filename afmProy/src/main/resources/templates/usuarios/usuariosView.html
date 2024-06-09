@@ -10,7 +10,7 @@
   <body>
     <nav th:replace="/fragmentos.html::menu"></nav>
     <nav th:replace="/fragmentos.html::menuAdmin"></nav>
-    <h1>Listado de usuarios</h1>
+    <h1>Listado de usuarios</h1><a th:href="@{/user/new}">Rexistrar un novo usuario</a>
     <table>
       <thead>
         <tr>
@@ -24,8 +24,6 @@
           <th>Dirección</th>
           <th>Activo</th>
           <th>Fecha de registro</th>
-          <th>Sus valoraciones</th>
-          <th>Sus pedidos</th>
           <th>Editar usuario</th>
           <th>Borrar usuario</th>
         </tr>
@@ -42,8 +40,6 @@
           <td th:text="${usuario.dirUser}">dirUser</td>
           <td th:text="${usuario.userActivo}">userActivo</td>
           <td th:text="${usuario.fechaRegistro}">fechaRegistro</td>
-          <td><a th:href="@{/valoraciones/user/{id}(id=${usuario.idUser})}">Valoraciones realizadas</a></td>
-          <td><a th:href="@{/pedido/user/{id}(id=${usuario.idUser})}">Pedidos realizados</a></td>
           <td>
             <a th:href="@{/user/edit/{id}(id=${usuario.idUser})}">Editar</a>
           </td>
