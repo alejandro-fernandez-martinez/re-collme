@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head th:insert="/fragmentos.html::cabecera">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Usuario CRUD</title>
+  </head>
+
+  <body>
+    <nav th:replace="/fragmentos.html::menu"></nav>
+    <nav th:replace="/fragmentos.html::menuAdmin"></nav>
+    <h1>Listado de usuarios</h1><a th:href="@{/user/new}">Rexistrar un novo usuario</a>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Puntuación</th>
+          <th>Contraseña</th>
+          <th>DNI/NIF</th>
+          <th>Email</th>
+          <th>Teléfono</th>
+          <th>Dirección</th>
+          <th>Activo</th>
+          <th>Fecha de registro</th>
+          <th>Editar usuario</th>
+          <th>Borrar usuario</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="usuario : ${listaUsuarios}">
+          <td th:text="${usuario.idUser}">idUser</td>
+          <td th:text="${usuario.nomUser}">nomUser</td>
+          <td th:text="${usuario.puntuacion}">puntuacion</td>
+          <td th:text="${usuario.passUser}">passUser</td>
+          <td th:text="${usuario.dniNif}">dniNif</td>
+          <td th:text="${usuario.emailUser}">emailUser</td>
+          <td th:text="${usuario.tlfUser}">tlfUser</td>
+          <td th:text="${usuario.dirUser}">dirUser</td>
+          <td th:text="${usuario.userActivo}">userActivo</td>
+          <td th:text="${usuario.fechaRegistro}">fechaRegistro</td>
+          <td>
+            <a th:href="@{/user/edit/{id}(id=${usuario.idUser})}">Editar</a>
+          </td>
+          <td>
+            <a th:href="@{/user/delete/{id}(id=${usuario.idUser})}">Borrar</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>

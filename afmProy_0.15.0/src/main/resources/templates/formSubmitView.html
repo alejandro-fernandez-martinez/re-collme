@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="/fragmentos.html::cabecera">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <nav th:replace="/fragmentos.html::menu"></nav>
+    <h1>Formulario procesado</h1>
+    <p>Nombre:<span th:text="${formInfo.nombre}"></span></p>
+    <p>Email:<span th:text="${formInfo.email}"></span></p>
+    <p>Motivo:<span th:text="${motivoElegido}"></span></p>
+    <p>Comentarios:<span th:text="${formInfo.comentarios}"></span></p>
+    <p>¿Aceptaste las condiciones?:<span th:text="${formInfo.aceptarCondiciones}"></span></p>
+    <div class="col-md-6 col-lg-5 d-flex align-items-center mb-5">
+        <img src="/images/procesado.png" alt="login form" class="img-fluid"/>
+    </div>
+</body>
+<footer th:insert="/fragmentos.html::footer">
+</footer>  
+</html>

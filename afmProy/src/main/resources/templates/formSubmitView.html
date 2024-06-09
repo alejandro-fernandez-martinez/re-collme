@@ -1,22 +1,72 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head th:insert="/fragmentos.html::cabecera">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Formulario de Contacto Enviado</title>
 </head>
+
 <body>
     <nav th:replace="/fragmentos.html::menu"></nav>
-    <h1>Formulario procesado</h1>
-    <p>Nombre:<span th:text="${formInfo.nombre}"></span></p>
-    <p>Email:<span th:text="${formInfo.email}"></span></p>
-    <p>Motivo:<span th:text="${motivoElegido}"></span></p>
-    <p>Comentarios:<span th:text="${formInfo.comentarios}"></span></p>
-    <p>¿Aceptaste las condiciones?:<span th:text="${formInfo.aceptarCondiciones}"></span></p>
-    <div class="col-md-6 col-lg-5 d-flex align-items-center mb-5">
-        <img src="/images/procesado.png" alt="login form" class="img-fluid"/>
-    </div>
+    <section class="vh-100" style="background-color:  #5aa45a;">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                
+                
+                <div class="col col-xl-10">
+                 
+                    <div class="card" style="border-radius: 1rem;">
+                        <p></p>
+                        <span class="h1 fw-bold mb-0" style="color: #5aa45a; text-align: center;"><p>Grazas polo comentario! <br> O formulario foi enviado con éxito.</p></span>
+                        <div class="row g-0">
+                            
+
+                            <div class="col-md-6 col-lg-5 d-flex align-items-center">
+                                <img src="/images/contactar.gif" alt="login form" class="img-fluid"
+                                    style="border-radius: 1rem 0 0 1rem;" />
+                            </div>
+
+                            <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                                
+                                <div class="card-body p-4 p-lg-5 text-black">
+                                    <form  action="#" th:action="@{/public/contacto/submit}" th:object="${formInfo}" method="post">
+                                       
+                                        <div class="form-outline mb-4">
+                                            <label class="form-label" for="nombre">Nome: </label>
+                                            <span th:text="${formInfo.nombre}"></span>
+                                            
+                                        </div>
+
+                                        <div class="form-outline mb-4">
+                                            <label class="form-label" for="email">Correo electrónico: </label>
+                                            <span th:text="${formInfo.email}"></span>
+                                            
+                                        </div>
+
+
+                                        <div class="form-outline mb-4">
+                                            <label class="form-label" for="motivo">Motivo: </label>
+                                            <span th:text="${motivoElegido}"></span>
+                                        </div>
+                                        
+                                        <div class="form-outline mb-4">
+                                            <label class="form-label" for="comentarios">Comentario:</label>
+                                            <span th:text="${formInfo.comentarios}"></span>
+                                        </div>
+                                    <span class="h3 fw-bold mb-0" style="color: #5aa45a; text-align: center;"><p>Recibirás a resposta na túa bandexa de entrada!</p></span>
+                                    </form>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </body>
 <footer th:insert="/fragmentos.html::footer">
-</footer>  
+</footer>
+
 </html>

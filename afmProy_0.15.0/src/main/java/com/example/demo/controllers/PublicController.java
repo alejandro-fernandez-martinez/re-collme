@@ -38,10 +38,9 @@ public class PublicController {
 		if(bindingResult.hasErrors()) return "redirect:/public/contacto";
 		String x = null;
 		switch(formInfo.getMotivo()){
-            case 1 -> x = "Solicitude de alta como Productor";
-            case 2 -> x = "Solicitude de alta como Xestor";
-            case 3 -> x = "Solicitude de acceso á API";
-			case 4 -> x = "Outros";
+            case 1 -> x = "Queja";
+            case 2 -> x = "Consulta";
+            case 3 -> x = "Otros";
         }
 		model.addAttribute("motivoElegido", x);
         return "formSubmitView";

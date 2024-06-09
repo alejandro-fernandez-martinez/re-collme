@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:insert="/fragmentos.html::cabecera">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>.cssError { background-color:red; } </style>
+</head>
+
+<body>
+    <nav th:replace="/fragmentos.html::menu"></nav>
+    <nav th:replace="/fragmentos.html::menuAdmin"></nav>
+    <h1>Nueva categoría</h1>
+    <form method="post" action="#" th:action="@{/categoria/new/submit}" th:object="${categoryForm}">
+        <label>Id: <input type="hidden" id="idCat" th:field="*{idCat}" /> </label><br />
+        <label>Nombre: <input type="text" id="nomCat" th:field="*{nomCat}" /></label><br />
+        <input type="submit" value="Enviar" />
+    </form>
+    
+    <a th:href="@{/public}">Inicio</a><br/>
+</body>
+
+</html>

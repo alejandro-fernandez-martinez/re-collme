@@ -25,7 +25,7 @@
         <div class="container-fluid">
             <!-- Logo de la marca -->
             <a class="navbar-brand" href="/public/index">
-                <img src="/images/icono_blanco2.png" width="50" height="20">
+                <img src="/images/logo.png" width="50" height="50">
             </a>
 
             <!-- Botón para colapsar la navegación en dispositivos móviles -->
@@ -61,18 +61,18 @@
                     </li>
 
                     <!-- Menú desplegable de administrador -->
-                    <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="residuosDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-bug"></i>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="residuosDropdown">
-                            <a class="dropdown-item" th:href="@{/residuo/listComplete}">Histórico de Residuos</a>
-                            <a class="dropdown-item" th:href="@{/incidencia/list}">Histórico de Incidencias</a>
-                            <a class="dropdown-item" th:href="@{/categoria/list}">Xestionar Categorias</a>
-                            <a class="dropdown-item" th:href="@{/user/list}">Xestionar Usuarios</a>
-                        </div>
-                    </li>
+<li sec:authorize="isAuthenticated()" class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="residuosDropdown" role="button"
+        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-bug"></i> 
+    </a>
+    <div class="dropdown-menu" aria-labelledby="residuosDropdown">
+        <a class="dropdown-item" th:href="@{/residuo/listComplete}">Histórico de Residuos</a>
+        <a class="dropdown-item" th:href="@{/incidencia/list}">Histórico de Incidencias</a>
+        <a class="dropdown-item" th:href="@{/categoria/list}">Xestionar Categorias</a>
+        <a class="dropdown-item" th:href="@{/user/list}">Xestionar Usuarios</a>
+    </div>
+</li>
 
 
                     <!-- Menú desplegable de residuos -->
@@ -84,10 +84,9 @@
                         <div class="dropdown-menu" aria-labelledby="residuosDropdown">
                             <a class="dropdown-item" th:href="@{/residuo/new}">Rexistrar un residuo</a>
                             <a class="dropdown-item" th:href="@{/residuo/listByUser}">Ver os meus residuos</a>
-                            <a class="dropdown-item" th:href="@{/residuo/listByUserSolicitados}">Xestionar solicitudes
-                                de reserva</a>
+                            <a class="dropdown-item" th:href="@{/residuo/listByUserSolicitados}">Xestionar solicitudes de reserva</a>
                         </div>
-
+                
                     </li>
 
                     <!-- Menú desplegable de reservas -->
@@ -98,16 +97,15 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="reservasDropdown">
                             <a class="dropdown-item" th:href="@{/residuo/list}">Solicitar unha reserva</a>
-                            <a class="dropdown-item" th:href="@{/residuo/listByUserAndSolicitadosAndReservados}">Ver as
-                                miñas reservas</a>
+                            <a class="dropdown-item" th:href="@{/residuo/listByUserAndSolicitadosAndReservados}">Ver as miñas reservas</a>
                         </div>
                     </li>
-                    <!-- Menú desplegable de ruta -->
-                    <li sec:authorize="hasAnyRole('NEGOCIANTE', 'ADMIN')" class="nav-item">
-                        <a class="nav-link" th:href="@{/ruta/userLogin}">
-                            Ver Ruta
-                        </a>
-                    </li>
+<!-- Menú desplegable de ruta -->
+<li sec:authorize="hasAnyRole('NEGOCIANTE', 'ADMIN')" class="nav-item">
+    <a class="nav-link" th:href="@{/ruta/userLogin}">
+        Ver Ruta
+    </a>
+</li>
 
 
                     <!-- Menú desplegable de incidencias -->
@@ -123,12 +121,12 @@
                     </li>
 
                     <!-- Menú desplegable de usuario -->
-                    <!-- Enlace directo al perfil del usuario -->
-                    <li sec:authorize="isAuthenticated()" class="nav-item">
-                        <a sec:authentication="name" class="nav-link" th:href="@{/user/editUserLogin}">
-                            "name"
-                        </a>
-                    </li>
+<!-- Enlace directo al perfil del usuario -->
+<li sec:authorize="isAuthenticated()" class="nav-item">
+    <a sec:authentication="name" class="nav-link" th:href="@{/user/editUserLogin}">
+        "name"
+    </a>
+</li>
 
 
                     <!-- Cierre de sesión -->
@@ -142,21 +140,13 @@
         </div>
     </nav>
 
-
+    
 
 </body>
 
-<footer th:fragment="footer" class="navbar-dark bg-dark fixed-bottom">        
-    <ul class="nav justify-content-center ">
-        <li class="nav-link"><a href="#" class="nav-link px-2 text-white">Inicio</a></li>
-        <li class="nav-link"><a href="#" class="nav-link px-2 text-white">Quenes somos</a></li>
-        <li class="nav-link"><a href="#" class="nav-link px-2 text-white">Condicións de Uso</a></li>
-        <li class="nav-link"><a href="#" class="nav-link px-2 text-white">Política de Privacidade</a></li>
-        <li class="nav-link"><a href="#" class="nav-link px-2 text-white">Política de Cookies</a></li>
-    </ul>
-    <p class="nav-link px-2 text-white mb-0" style="text-align: center;"> <em>Re-Co//me</em> é un roxecto baixo a licenza Affero General Public License (AGPLv3)</p>
+<footer th:fragment="footer">
+    
 </footer>
-
 
 
 </html>

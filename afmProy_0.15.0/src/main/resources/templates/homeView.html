@@ -1,24 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
 <head th:insert="/fragmentos.html::cabecera">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>MER</title>
 </head>
+
 <body>
     <nav th:replace="/fragmentos.html::menu"></nav>
-    <h3>Blablabalbalba</h3>
-    
-    
-    <img src="/images/quienes-somos.gif" width="500px"> 
-    <div>Condiciones de uso.
-
-        Política de privacidad.
-    
-        Política de cookies.
-        </div>
+    <h3>Regístrate y empieza a valorizar tus residuos!</h3>
+    <img src="/images/inicio.png" width="500px">
 </body>
 
 <footer th:insert="/fragmentos.html::footer">
 </footer>  
+
 </html>

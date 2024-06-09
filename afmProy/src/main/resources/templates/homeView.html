@@ -4,16 +4,77 @@
 <head th:insert="/fragmentos.html::cabecera">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MER</title>
+    <title>Re-Co//me</title>
+    <style>
+        /* Estilos opcionales */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 
 <body>
     <nav th:replace="/fragmentos.html::menu"></nav>
-    <h3>Regístrate y empieza a valorizar tus residuos!</h3>
-    <img src="/images/inicio.png" width="500px">
+    <div>
+        <div>
+            <img src="/src/main/resources/static/images/" alt="Cabecera">
+        </div>
+
+   
+    
+        <div>
+            <h2>Quenes Somos</h2>
+            <p>Na nosa empresa, estamos impulsados pola nosa paixón por crear un mundo máis sostible. Traballamos arduamente para desenvolver unha plataforma innovadora que facilite a xestión de residuos, conectando os produtores con xestores para promover a súa valorización nunha economía circular.
+
+                Aínda que a lexislación actual pode non impoñer obrigas ás empresas con baixa produción de residuos, recoñecemos a importancia de adoptar prácticas sostibles. Co noso proxecto, queremos axudar aos pequenos produtores a xestionar os seus residuos de forma eficiente, contribuíndo ao mesmo tempo á súa valorización.
+                
+                Estamos comprometidos a ofrecer unha plataforma escalable e adaptable, que poida servir a diferentes tipos de usuarios, desde particulares ata grandes empresas e concellos. Queremos ser os socios ideais para axudar aos nosos colaboradores a alcanzar os seus obxectivos de sustentabilidade e responsabilidade social corporativa.</p>
+        </div>
+        <div>
+            <h2>Condicións de Uso</h2>
+            <p>Para garantir a calidade do servizo e a seguridade da nosa comunidade, o rexistro na nosa plataforma realízase mediante solicitude por correo electrónico. Unha vez recibida a solicitude, o noso equipo administrativo levará a cabo unha revisión e aprobación manual da mesma. Esta medida permítenos manter un control rigoroso sobre quen forma parte da nosa comunidade e asegurarnos de que se cumpren os nosos estándares de seguridade e calidade.
+
+                Ao rexistrarte na nosa plataforma, aceptas cumprir coas nosas condicións de uso e comprometerte a utilizar os nosos servizos de maneira responsable e ética. Calquera actividade que viole as nosas políticas, incluíndo pero non limitado á difusión de contido ilegal, o acoso a outros usuarios ou o uso indebido da nosa plataforma, pode resultar na suspensión ou eliminación da túa conta.
+                
+                Reservámonos o dereito de realizar cambios nas nosas condicións de uso en calquera momento, sen aviso previo. Recomendámosche revisar periodicamente esta sección para estar ao tanto de calquera actualización ou modificación. O uso continuado da nosa plataforma despois da publicación de cambios nas condicións de uso constituirá a aceptación de ditos cambios.</p>
+        
+                Este proxecto opta pola licenza AGPLv3, ou Licenza Pública Xeral Affero versión 3. É unha licenza de software libre que comparte características coa GPL, pero cunha cláusula adicional que trata o uso do software a través de redes. As súas características principais son:
+
+    Copyleft Forte: Requere que calquera modificación do software baixo AGPLv3 sexa distribuída baixo a mesma licenza, garantindo que todas as versións modificadas permanezan libres.
+
+    Cláusula de Rede: Añade unha cláusula que obriga a compartir o código fonte se o software se utiliza para proporcionar servizos a través de redes, asegurando que os usuarios teñan acceso ao código fonte mesmo se o software só se utiliza como servizo en liña.
+
+    Transparencia e Colaboración: Ao garantir que os usuarios de servizos en liña poidan acceder ao código fonte, promove a transparencia e a colaboración na comunidade de desenvolvemento de software, fomentando así o intercambio e a mellora do software.
+
+Para obter máis información sobre a licenza AGPLv3, podes consultar a páxina oficial.
+            </div>
+        <div>
+            <h2>Política de Privacidade</h2>
+            <p>Respecto á protección dos datos dos nosos usuarios, queremos garantir que a súa privacidade é unha prioridade. Os datos persoais fornecidos durante o rexistro e o uso da nosa plataforma serán tratados con absoluta confidencialidade e non serán compartidos nin vendidos a terceiros sen o consentimento expreso do usuario. O noso compromiso é asegurar que a información dos nosos usuarios permaneza segura e protexida en todo momento.</p>
+        </div>
+        <div>
+            <h2>Política de Cookies</h2>
+            <p>Nesta plataforma, utilizamos cookies para mellorar a experiencia do usuario e para obter información sobre o uso da nosa web. As cookies son pequenos arquivos de texto que se almacenan no teu dispositivo cando visitas a nosa web e que nos axudan a recolectar datos como as túas preferencias de navegación e as accións que realizas na nosa plataforma. Podes aceptar ou rexeitar o uso de cookies nas configuracións do teu navegador, pero ter en conta que a desactivación das cookies pode afectar a certas funcionalidades da web.</p>
+        </div>
+    </div>
 </body>
 
 <footer th:insert="/fragmentos.html::footer">
-</footer>  
+</footer>
 
 </html>
