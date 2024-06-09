@@ -31,8 +31,7 @@
 
 <body>
   <nav th:replace="/fragmentos.html::menu"></nav>
-  <nav th:replace="/fragmentos.html::menuAdmin"></nav>
-<div class="table-responsive">
+  <div class="table-responsive" style="position: absolute; top: 50px;"> 
   <table class="table table-striped table-bordered">
     <thead class="thead-dark">
       <tr>
@@ -41,7 +40,7 @@
         <th style="text-align: center">Descripción</th>
         <th style="text-align: center">Código LER</th>
         <th style="text-align: center;white-space: nowrap;"> Categoría
-          <i class="fas fa-filter btn-info" style="display: inline-block;"></i>
+          <i class="fas btn-info" style="display: inline-block;"></i>
           <div th:if="${listaCategorias != null}" style="display: inline-block;">
               <select id="select" onChange="changeCategory();" style="margin-left: 5px;">
                   <option value="0">Todas</option>
