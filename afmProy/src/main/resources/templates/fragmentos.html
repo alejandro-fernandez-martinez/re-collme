@@ -61,7 +61,7 @@
                     </li>
 
                     <!-- Menú desplegable de administrador -->
-                    <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
+                    <li sec:authorize="hasRole('ADMIN')"  class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="residuosDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-bug"></i>

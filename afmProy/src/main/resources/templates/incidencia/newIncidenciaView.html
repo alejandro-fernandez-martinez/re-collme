@@ -9,7 +9,7 @@
 
 <body>
     <nav th:replace="/fragmentos.html::menu"></nav>
-    <nav th:replace="/fragmentos.html::menuAdmin"></nav>
+    
     <h1>Nueva incidencia</h1>
     <form method="post" action="#" th:action="@{/incidencia/new/submit}" th:object="${incidenciaForm}">
         <!-- <label><input type="text" hidden id="idIncidencia" th:field="*{idIncidencia}" /> </label><br />

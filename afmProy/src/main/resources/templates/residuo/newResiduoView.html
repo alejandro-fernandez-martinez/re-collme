@@ -36,7 +36,7 @@
 
   <body>
     <nav th:replace="/fragmentos.html::menu"></nav>
-    <nav th:replace="/fragmentos.html::menuAdmin"></nav>
+
     <h1>Nuevo residuo</h1>
     <form method="post" action="#" th:action="@{/residuo/new/submit}" th:object="${residuoForm}">
       <label><input type="hidden" id="idResiduo" th:field="*{idResiduo}" /> </label><br />
