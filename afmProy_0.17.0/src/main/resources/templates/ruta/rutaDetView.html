@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="/fragmentos.html::cabecera">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle de la ruta</title>
+    <style>
+        /* Estilos adicionales para la tabla */
+        .residuo-table {
+            width: 100%;
+        }
+        .residuo-table th, .residuo-table td {
+            padding: 10px;
+            border-bottom: 1px solid #dee2e6;
+        }
+    </style>
+</head>
+
+<body>
+  <nav th:replace="/fragmentos.html::menu"></nav>
+  <nav th:replace="/fragmentos.html::menuAdmin"></nav>
+  <section class="vh-100">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col col-xl-12">
+                <div class="d-flex align-items-center justify-content-center mb-3" style="height:  100%;">
+                    <span class="h1 fw-bold mb-0" style="color: #5aa45a; text-align: center;">Detalle de la ruta</span>
+                </div>
+                
+                <div class="card" style="border-radius: 1rem;">
+                    <div class="row g-0">
+                        <div class="col-md-12 col-lg-12">
+                            <div class="card-body p-4 p-lg-5 text-black">
+                                <table class="residuo-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Nombre del Residuo</th>
+                                            <th>Masa (Kg)</th>
+                                            <th>Volumen (m<sup>3</sup>)</th>
+                                            <th>Dirección</th>
+                                            <th>Productor</th>
+                                            <th>Recoger</th>
+                                            <th>Rechazar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="r : ${listaResiduos}">
+                                            <td th:text="${r.nomResiduo}"></td>
+                                            <td th:text="${r.masaResiduoKg}"></td>
+                                            <td th:text="${r.volumenResiduoM3}"></td>
+                                            <td th:text="${r.dirCalleResiduo + ', ' + r.dirNumResiduo + ', ' + r.dirCodPostalResiduo + ' ' + r.dirLocalidadResiduo + ', ' + r.dirProvinciaResiduo}"></td>
+                                            <td style="text-align: center" th:text="${r.productor.nomUser + ' (' + r.productor.puntuacion + ')'}">productor</td>
+                                            <td>
+                                                <form th:action="@{/recogerResiduo}" method="post">
+                                                    <input type="hidden" name="residuoId" th:value="${residuo.idResiduo}" />
+                                                    <button type="submit" class="btn btn-primary">Recoger</button>
+                                                </form>
+                                            </td>
+                                            <td>
+                                                <form th:action="@{/rechazarResiduo}" method="post">
+                                                    <input type="hidden" name="residuoId" th:value="${residuo.idResiduo}" />
+                                                    <button type="submit" class="btn btn-danger">Rechazar</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+  
+  </form>
+</body>
+
+<a th:href="@{/pedido/userLogin}">Volver a lista de pedidos</a>
+
+
+</html>
