@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:insert="/fragmentos.html::cabecera">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedidos</title>
+</head>
+
+<body>
+    <nav th:replace="/fragmentos.html::menu"></nav>
+    <nav th:replace="/fragmentos.html::menuAdmin"></nav>
+    <h1>Nuevo pedido</h1>
+    <form method="post" action="#" th:action="@{/pedido/new/submit}" th:object="${pedidoForm}">
+        Usuario:<br />
+        <select name="list1" th:field="*{usuario}">
+            <option value="0">select option</option> <!--opcion por defecto-->
+            <option th:each="usuario:${listaUsuarios}" th:value="${usuario.idUser}" th:text="${usuario.nomUser}">
+            </option>
+        </select><br />
+        Producto:<br />
+        <select name="list2" th:field="*{producto}">
+            <option value="0">select option</option> <!--opcion por defecto-->
+            <option th:each="producto:${listaProductos}" th:value="${producto.idProd}" th:text="${producto.nomProd}">
+            </option>
+        </select><br />
+        <label>Unidades totales del pedido:<input type="text" readonly id="udTotalPed" th:field="*{udTotalPed}" /></label><br />
+        <label>Precio total del pedido:<input type="text" readonly id="precioTotalPed" th:field="*{precioTotalPed}" /></label><br />
+        <label>Descripción del pedido:<input type="text" id="descripPed" th:field="*{descripPed}" /></label><br />
+        <label>Pedido recurrente:<input type="checkbox" id="pedRecurrente" th:field="*{pedRecurrente}" /></label><br />
+        <label>Pedido realizado:<input type="checkbox" id="pedRealizado" th:field="*{pedRealizado}" /></label><br />
+        <label>Fecha de realización del pedido: <input type="text" id="fechaPedRealizado" th:field="*{fechaPedRealizado}" /></label><br />
+        <input type="submit" value="Enviar" />
+    </form>
+</body>
+
+</html>

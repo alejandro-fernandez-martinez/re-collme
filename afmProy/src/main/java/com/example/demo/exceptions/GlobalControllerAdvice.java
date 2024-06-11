@@ -19,15 +19,14 @@ import lombok.Getter;
 @RestControllerAdvice
 public class GlobalControllerAdvice extends ResponseEntityExceptionHandler {
     @ExceptionHandler(ResiduoNotFoundException.class)
-    public ResponseEntity<?> handleEmpleadoNotFound(
-        ResiduoNotFoundException ex, WebRequest request) {
+    public ResponseEntity<?> handleResiduoNotFound(
+                            ResiduoNotFoundException ex, WebRequest request) {
         ExcepcionBody body = 
                 new ExcepcionBody(LocalDateTime.now(),
                 HttpStatus.NOT_FOUND, ex.getMessage(),
                 ((ServletWebRequest) request).getRequest().getRequestURI());
         return new ResponseEntity<Object>(body, HttpStatus.NOT_FOUND);
     }
-    
 
 
 

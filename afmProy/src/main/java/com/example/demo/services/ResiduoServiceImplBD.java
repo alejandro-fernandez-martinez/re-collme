@@ -12,6 +12,7 @@ import com.example.demo.domain.Categoria;
 import com.example.demo.domain.Residuo;
 import com.example.demo.domain.Ruta;
 import com.example.demo.domain.Usuario;
+import com.example.demo.exceptions.ResiduoNotFoundException;
 import com.example.demo.repositories.CategoriaRepository;
 import com.example.demo.repositories.ResiduoRepository;
 
@@ -55,8 +56,10 @@ public class ResiduoServiceImplBD implements ResiduoService {
     public List<Residuo> obtenerTodos(){
         return repositorio.findAll();
     }
-    public Residuo obtenerPorId(Long id){
-        return repositorio.findById(id).orElse(null); //pq devuelve un optional
+    public Residuo obtenerPorId(Long id)  throws ResiduoNotFoundException{
+        Residuo residuo = repositorio.findById(id)
+            .orElseThrow(() -> new ResiduoNotFoundException(id));
+        return residuo;
     }
     public Residuo obtenerPorNomResiduo(String nomResiduo){
         return repositorio.findByNomResiduo(nomResiduo);

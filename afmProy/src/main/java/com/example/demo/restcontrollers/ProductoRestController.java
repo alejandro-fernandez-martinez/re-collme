@@ -24,24 +24,5 @@ public class ProductoRestController {
         return listaProductos;
     }
 
-    // // POST
-    // @PostMapping("/residuo")
-    // public ResponseEntity<?> newElement(@Valid @RequestBody Residuo nuevoProducto) {
-    //     Residuo producto = residuoService.añadir(nuevoProducto);
-    //     return ResponseEntity.status(HttpStatus.CREATED).body(producto); // cod 201
-    // }
 
-    // // PUT
-    // @PutMapping("/residuo/{id}")
-    // public Residuo editElement(@Valid @RequestBody Residuo editProducto,
-    //         @PathVariable Long id) {
-    //             residuoService.obtenerPorId(id); // esto es para ver si se produce excepción
-    //     return residuoService.editar(editProducto);
-    // }
-
-    // // DELETE
-    // @DeleteMapping("/residuo/{id}")
-    // public void deleteElement(@PathVariable Long id) {
-    //     residuoService.borrarPorId(id);
-    // }
 }
