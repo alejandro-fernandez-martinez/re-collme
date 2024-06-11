@@ -53,6 +53,7 @@ public class ResiduoServiceImplBD implements ResiduoService {
     //     aprobarReserva(residuo, gestor);
     //     return repositorio.save(residuo);
     // }
+    
     public List<Residuo> obtenerTodos(){
         return repositorio.findAll();
     }
