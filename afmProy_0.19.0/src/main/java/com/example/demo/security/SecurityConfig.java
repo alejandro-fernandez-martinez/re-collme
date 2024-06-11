@@ -42,7 +42,7 @@ public class SecurityConfig {
                                 .requestMatchers("/incidencia/new", "/incidencia/listByUser", "/incidencia/list").hasAnyRole("USER","NEGOCIANTE","ADMIN")
                                 .requestMatchers("/user/editUserLogin", "/user/editUserLogued").hasAnyRole("USER","NEGOCIANTE","ADMIN")
                                 .requestMatchers("/residuo/edit/**", "/residuo/new", "/residuo/listByUser", "/residuo/listByUserSolicitados", "/residuo/listByUserAndSolicitadosAndReservados").hasAnyRole("USER","NEGOCIANTE","ADMIN")
-                                .requestMatchers("/", "/public/**", "/residuo/list", "/residuo/categoria/**").permitAll()
+                                .requestMatchers("/", "/public/**", "/residuo/list", "/residuo/categoria/**", "/api/residuos").permitAll()
                                 // .requestMatchers("...").hasAnyRole(...) //configurarpermisosreales
                                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations())
                                 .permitAll() // para rutas: /css, /js /images

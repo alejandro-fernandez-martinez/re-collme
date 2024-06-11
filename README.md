@@ -2,7 +2,7 @@
 - v 0.19.0
     * Implantación limitada de xestión de erros mediante excepcións e páxinas personalizadas
 - v 0.18.0
-    * Implantación limitada de solución de integración mediante API
+    * Implantación limitada de solución de integración mediante API: /api/residuos
 - v 0.17.0
     * Implantación limitada de validacións no lado cliente
 - v 0.16.0
@@ -20,9 +20,6 @@
 
 
 Futuras versións:
-
-
-
 
 - v 0.20.0
     * Implantación limitada de comunicacións vía correo electrónico
