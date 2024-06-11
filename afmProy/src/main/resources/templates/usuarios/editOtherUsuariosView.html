@@ -28,7 +28,7 @@
 
                             <div class="col-md-6 col-lg-7 d-flex align-items-center">
                                 <div class="card-body p-2 p-lg-3 text-black">
-                                    <form method="post" action="#" th:action="@{/user/edit/submit}" th:object="${usuarioForm}">
+                                    <form method="post" action="#" th:action="@{/user/editOther/submit}" th:object="${usuarioForm}">
                                         <input type="hidden" id="id" th:field="*{idUser}" />
 
                                         <label class="label-width"><b>Nome:* </b></label> <input type="text" readonly id="nomUser" th:field="*{nomUser}" th:required="required" /> (Non editable)<br />

@@ -3,6 +3,7 @@ package com.example.demo.services;
 import java.util.List;
 
 import com.example.demo.domain.Usuario;
+import com.example.demo.dto.EditarPassDto;
 
 public interface UsuarioService {
     
@@ -18,4 +19,5 @@ public interface UsuarioService {
     Usuario obtenerUsuarioConectado ();
     List<Usuario> obtenerDemas();
     List<Usuario> obtenerGestores();
+    Usuario convertDtoToUsuario(EditarPassDto userDto);
 }

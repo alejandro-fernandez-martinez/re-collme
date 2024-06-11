@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="/fragmentos.html::cabecera">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Contraseña</title>
+</head>
+
+<body>
+    <nav th:replace="/fragmentos.html::menu"></nav>
+    <section class="vh-100" style="background-image: url('/images/fondo.png'); background-size: cover;">
+        <div class="container h-100" style="margin-top: 40px;">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col col-xl-10">
+                    <div class="card" style="border-radius: 1rem;">
+                        <p></p>
+                        <span class="h1 fw-bold mb-0" style="color: #5aa45a; text-align: center;">
+                            <p>Edita a túa contrasinal</p>
+                        </span>
+                        <div class="row g-0">
+                            <div class="col-md-6 col-lg-5 d-flex align-items-center">
+                                <img src="/images/contactar.gif" alt="login form" class="img-fluid"
+                                style="border-radius: 1rem 0 0 1rem; margin-bottom: 20px;" />
+                            </div>
+
+                            <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                                <div class="card-body p-2 p-lg-3 text-black">
+                                    <form method="post" action="#" th:action="@{/user/editPassLogued/submit}" th:object="${usuarioForm}">
+                                        <div class="form-outline mb-4">
+                                            <label class="form-label" for="password">Nova Contrasinal:</label><br />
+                                            <input type="password" id="password" class="form-control form-control-lg" th:field="*{password}" />
+                                        </div>
+                                        <!-- Agrega un campo para volver a ingresar la contraseña con los estilos -->
+                                        <div class="form-outline mb-4">
+                                            <label class="form-label" for="confirmPassword">Confirmar Contrasinal:</label><br />
+                                            <input type="password" id="confirmPassword" class="form-control form-control-lg" />
+                                        </div>
+
+                                        <div class="pt-1 mb-4">
+                                            <button class="btn btn-dark btn-lg btn-block" type="submit" onclick="return validatePasswords()">Cambiar contrasinal</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+<footer th:insert="/fragmentos.html::footer">
+</footer>
+
+<!-- Agrega un script para validar que las contraseñas coincidan -->
+<script>
+function validatePasswords() {
+    var password = document.getElementById('password').value;
+    var confirmPassword = document.getElementById('confirmPassword').value;
+
+    // Comprueba si las contraseñas coinciden
+    if (password !== confirmPassword) {
+        alert('Las contraseñas no coinciden. Por favor, inténtalo de nuevo.');
+        return false; // Detiene el envío del formulario
+    }
+
+    return true; // Permite el envío del formulario si las contraseñas coinciden
+}
+</script>
+
+</html>

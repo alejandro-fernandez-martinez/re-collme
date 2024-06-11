@@ -1,32 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head th:insert="/fragmentos.html::cabecera">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Incidencias</title>
+    <title>Nueva Incidencia</title>
 </head>
 
 <body>
     <nav th:replace="/fragmentos.html::menu"></nav>
-    
-    <h1>Nueva incidencia</h1>
-    <form method="post" action="#" th:action="@{/incidencia/new/submit}" th:object="${incidenciaForm}">
-        <!-- <label><input type="text" hidden id="idIncidencia" th:field="*{idIncidencia}" /> </label><br />
-        <label><input type="text" hidden id="fechaCreacionIncidencia" th:field="*{fechaCreacionIncidencia}" /> </label><br />
-        <label><input type="text" hidden id="hiloIncidencia" th:field="*{hiloIncidencia}" /> </label><br />
-        <label><input type="text" hidden id="incidenciaCerrada" th:field="*{incidenciaCerrada}" /> </label><br /> -->
-        <label></label><input type="text" hidden id="usuarioEmisor" th:field="*{usuarioEmisor}" /></label><br />
-        Usuario a valorar:<br />
-        <select name="list1" th:field="*{usuarioReceptor}">
-            <option value="0">Busca un usuario</option> <!--opcion por defecto-->
-            <option th:each="user:${listaUsuarios}" th:value="${user.idUser}" th:text="${user.nomUser}">
-            </option>
-        </select><br />
-        <label><input type="text" hidden id="valoracionIncidencia" th:field="*{valoracionIncidencia}" /></label><br />
-        <label>Comentario:<input type="text" id="comentarioIncidencia" th:field="*{comentarioIncidencia}" /></label><br />
-        <input type="submit" value="Enviar" />
-    </form>
+    <section class="vh-100" style="background-image: url('/images/fondo.png'); background-size: cover;">
+        <div class="container h-100" style="margin-top: 40px;">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col col-xl-10">
+                    <div class="card" style="border-radius: 1rem;">
+                        <p></p>
+                        <span class="h1 fw-bold mb-0" style="color: #5aa45a; text-align: center;">
+                            <p>Aconteceu algo e queres abrir unha incidencia?</p>
+                        </span>
+                        <div class="row g-0">
+                            <div class="col-md-6 col-lg-5 d-flex align-items-center">
+                                <img src="/images/incidencia.gif" alt="login form" class="img-fluid"
+                                style="border-radius: 1rem 0 0 1rem; margin-bottom: 20px;" />
+                            </div>
+
+                            <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                                <div class="card-body p-2 p-lg-3 text-black">
+                                    <form method="post" action="#" th:action="@{/incidencia/new/submit}" th:object="${incidenciaForm}">
+                                        <input type="text" hidden id="usuarioEmisor" th:field="*{usuarioEmisor}" />
+
+                                        <label for="list1">A quen lle queres abrir a incidencia?:</label><br />
+                                        <select name="list1" id="list1" th:field="*{usuarioReceptor}">
+                                            <option value="0">Busca un usuario</option> <!-- Opción por defecto -->
+                                            <option th:each="user:${listaUsuarios}" th:value="${user.idUser}" th:text="${user.nomUser}">
+                                            </option>
+                                        </select><br />
+
+                                        <input type="text" hidden id="valoracionIncidencia" th:field="*{valoracionIncidencia}" />
+
+                                        <label for="comentarioIncidencia">Comentario:</label><br />
+                                        <textarea id="comentarioIncidencia" name="comentarioIncidencia" th:field="*{comentarioIncidencia}" rows="4" cols="50"></textarea><br />
+                                        <div class="pt-1 mb-4">
+                                            <button class="btn btn-dark btn-lg btn-block" type="submit">Enviar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </body>
+
+<footer th:insert="/fragmentos.html::footer">
+</footer>
 
 </html>

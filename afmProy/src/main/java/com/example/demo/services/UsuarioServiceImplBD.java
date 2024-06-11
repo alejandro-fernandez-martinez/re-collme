@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.Usuario;
+import com.example.demo.dto.EditarPassDto;
 import com.example.demo.repositories.UsuarioRepository;
 
 @Service
@@ -98,6 +99,13 @@ public class UsuarioServiceImplBD implements UsuarioService {
         }
     }
 
+    public Usuario convertDtoToUsuario(EditarPassDto userDto){
+        Usuario userLogueado = obtenerUsuarioConectado();
+        if (userLogueado != null){
+            userLogueado.setPassUser(userDto.getPassword());
+            editar(userLogueado);}
+        return userLogueado;
+    }
     
     
 }

@@ -1,6 +1,8 @@
 # tfc
+- v 0.17.0
+    * Implantación limitada de validacións no lado cliente
 - v 0.16.0
-    * Mellora da interface web segundo as indicacións da Guía  Básica de Estilo (En Curso)
+    * Mellora da interface web segundo as indicacións da Guía  Básica de Estilo (Pdte facer a memoria coa guia de stilo)
 - v 0.15.0
     * Completado o código da arquitectura MVC
 - v 0.14.0 
@@ -15,8 +17,7 @@
 
 Futuras versións:
 
-- v 0.17.0
-    * Implantación limitada de validacións no lado cliente
+
 - v 0.18.0
     * Implantación limitada de solución de integración mediante API
 - v 0.19.0

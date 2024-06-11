@@ -37,7 +37,7 @@
       <tr>
         <th style="text-align: center">Id</th>
         <th style="text-align: center">Nome</th>
-        <th style="text-align: center">Descripción</th>
+        <th style="text-align: center">Descrición</th>
         <th style="text-align: center">Código LER</th>
         <th style="text-align: center;white-space: nowrap;"> Categoría
           <i class="fas btn-info" style="display: inline-block;"></i>
@@ -51,15 +51,15 @@
               </select>
           </div>
       </th>
-        <th style="text-align: center">Fecha de registro</th>
+        <th style="text-align: center">Data de rexistro</th>
         <th style="text-align: center">Masa (Kg)</th>
-        <th style="text-align: center">Volumen (m3)</th>
-        <th style="text-align: center" >Dirección</th>
-        <th style="text-align: center">Productor</th>
+        <th style="text-align: center">Volume (m<sup>3</sup>)*:</th>
+        <th style="text-align: center" >Enderezo</th>
+        <th style="text-align: center">Produtor</th>
         <th style="text-align: center">Estado</th>
         <th style="text-align: center">Solicitante</th>
-        <th style="text-align: center">Gestor</th>
-        <th style="text-align: center">Fecha Recogida/Bloqueo</th>
+        <th style="text-align: center">Xestor</th>
+        <th style="text-align: center">Data Recollida/Bloqueo</th>
       </thead>
 
     <tbody>
@@ -72,15 +72,15 @@
         <td style="text-align: center" th:text="${#temporals.format(r.fechaRegistroResiduo, 'dd/MM/yyyy - HH:mm')}">fechaRegistroResiduo</td>
         <td style="text-align: center" th:text="${r.masaResiduoKg}">masa</td>
         <td style="text-align: center" th:text="${r.volumenResiduoM3}">volumen</td>
-        <td th:text="${r.dirCalleResiduo + ', ' + r.dirNumResiduo + ', ' + r.dirCodPostalResiduo + ', ' + r.dirLocalidadResiduo + ', ' + r.dirProvinciaResiduo}"></td>
+        <td style="text-align: center" th:text="${r.dirCalleResiduo + ', ' + r.dirNumResiduo + ', ' + r.dirCodPostalResiduo + ', ' + r.dirLocalidadResiduo + ', ' + r.dirProvinciaResiduo}">direccionCompleta</td>
         <td style="text-align: center" sec:authorize="isAuthenticated()" th:text="${r.productor.nomUser + ' (' + r.productor.puntuacion + ')'}">productor</td>
         <td style="text-align: center" sec:authorize="isAuthenticated()">
-          <span th:if="${r.recogido} and !${r.bloqueado}" class="badge badge-secondary" style="text-align: center" th:text="'Recogido'">Recogido</span>
+          <span th:if="${r.recogido} and !${r.bloqueado}" class="badge badge-secondary" style="text-align: center" th:text="'Recollido'">Recollido</span>
           <span th:if="${r.bloqueado}" class="badge badge-danger" style="text-align: center" th:text="'Bloqueado'">Bloqueado</span>
           <span th:if="!${r.bloqueado} and ${r.solicitado} and !${r.reservado}" class="badge badge-info" style="text-align: center" th:text="'Solicitado'">Solicitado</span>
-          <span th:if="!${r.bloqueado} and ${r.solicitado} and ${r.reservado} and !${r.recogido} and ${r.ruta == null}" style="text-align: center" class="badge badge-success" th:text="'Reservado / Sin Asignar'">ReservadoSinRuta</span>
-          <span th:if="!${r.bloqueado} and ${r.solicitado} and ${r.reservado} and !${r.recogido} and ${r.ruta != null}" style="text-align: center" class="badge badge-success" th:text="'Reservado / Con Ruta Asignada'">ReservadoConRuta</span>
-          <span th:unless="${r.bloqueado} or ${r.solicitado} or ${r.reservado} or ${r.recogido}" style="text-align: center" class="badge badge-warning" th:text="'Disponible'">Disponible</span>
+          <span th:if="!${r.bloqueado} and ${r.solicitado} and ${r.reservado} and !${r.recogido} and ${r.ruta == null}" style="text-align: center" class="badge badge-success" th:text="'Reservado / Sen Ruta'">ReservadoSinRuta</span>
+          <span th:if="!${r.bloqueado} and ${r.solicitado} and ${r.reservado} and !${r.recogido} and ${r.ruta != null}" style="text-align: center" class="badge badge-success" th:text="'Reservado / Asignado á Ruta'">ReservadoConRuta</span>
+          <span th:unless="${r.bloqueado} or ${r.solicitado} or ${r.reservado} or ${r.recogido}" style="text-align: center" class="badge badge-warning" th:text="'Dispoñible'">Dispoñible</span>
         </td>
           <td style="text-align: center">
               <!-- Iterar sobre la lista de usuarios para encontrar el usuario con el nombre correspondiente -->
@@ -104,38 +104,65 @@
   }
 
     // Función para ordenar la tabla al hacer clic en el encabezado de la columna
-    function sortTable(columnIndex) {
-    var table, rows, switching, i, x, y, shouldSwitch;
-    table = document.querySelector('.table');
-    switching = true;
-    while (switching) {
-      switching = false;
-      rows = table.rows;
-      for (i = 1; i < (rows.length - 1); i++) {
-        shouldSwitch = false;
-        x = rows[i].getElementsByTagName('TD')[columnIndex];
-        y = rows[i + 1].getElementsByTagName('TD')[columnIndex];
-        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-          shouldSwitch = true;
-          break;
+    function sortTable(columnIndex, ascending) {
+      var table, rows, switching, i, x, y, shouldSwitch;
+      table = document.querySelector('.table');
+      switching = true;
+      while (switching) {
+        switching = false;
+        rows = table.rows;
+        for (i = 1; i < (rows.length - 1); i++) {
+          shouldSwitch = false;
+          x = rows[i].getElementsByTagName('TD')[columnIndex];
+          y = rows[i + 1].getElementsByTagName('TD')[columnIndex];
+          if (compareCells(x.innerHTML, y.innerHTML, ascending)) {
+            shouldSwitch = true;
+            break;
+          }
+        }
+        if (shouldSwitch) {
+          rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+          switching = true;
         }
       }
-      if (shouldSwitch) {
-        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-        switching = true;
-      }
     }
-  }
 
-  // Event listeners para los encabezados de la tabla
-  document.addEventListener('DOMContentLoaded', function () {
-    var headers = document.querySelectorAll('.table th');
-    headers.forEach(function (header, index) {
-      header.addEventListener('click', function () {
-        sortTable(index);
+    function compareCells(a, b, ascending) {
+      // Intenta convertir a número
+      var numA = parseFloat(a.replace(/,/g, ''));
+      var numB = parseFloat(b.replace(/,/g, ''));
+      
+      if (!isNaN(numA) && !isNaN(numB)) {
+        return ascending ? numA > numB : numA < numB;
+      }
+      return ascending ? a.toLowerCase() > b.toLowerCase() : a.toLowerCase() < b.toLowerCase();
+    }
+
+    // Estado de orden actual por cada columna
+    var sortState = {};
+
+    // Event listeners para los encabezados de la tabla
+    document.addEventListener('DOMContentLoaded', function () {
+      var headers = document.querySelectorAll('.table th');
+      headers.forEach(function (header, index) {
+        sortState[index] = true; // Inicialmente ascendente
+        header.addEventListener('click', function () {
+          // Ordenar la tabla y alternar el estado
+          sortTable(index, sortState[index]);
+          sortState[index] = !sortState[index];
+          
+          // Quitar clase de otros encabezados
+          headers.forEach(h => h.classList.remove('sorted-asc', 'sorted-desc'));
+
+          // Añadir clase al encabezado actual
+          if (sortState[index]) {
+            header.classList.add('sorted-desc');
+          } else {
+            header.classList.add('sorted-asc');
+          }
+        });
       });
     });
-  });
 </script>
 </body>
 

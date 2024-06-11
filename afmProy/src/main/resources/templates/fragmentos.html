@@ -123,13 +123,18 @@
                     </li>
 
                     <!-- Menú desplegable de usuario -->
-                    <!-- Enlace directo al perfil del usuario -->
-                    <li sec:authorize="isAuthenticated()" class="nav-item">
-                        <a sec:authentication="name" class="nav-link" th:href="@{/user/editUserLogin}">
+                    <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
+                        <a sec:authentication="name" class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                            role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             "name"
                         </a>
-                    </li>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" th:href="@{/user/editUserLogin}">Editar Perfil</a>
+                            <a class="dropdown-item" th:href="@{/user/editPassLogued}">Editar Contrasinal</a>
 
+                        </div>
+                    </li>
+                    
 
                     <!-- Cierre de sesión -->
                     <li sec:authorize="isAuthenticated()" class="nav-item">
@@ -157,7 +162,7 @@
         <li class="nav-link"><a href="/public/index#politicaCookies" class="nav-link px-2 text-white">Política de
                 Cookies</a></li>
     </ul>
-    <p class="nav-link px-2 text-white mb-0" style="text-align: center;"> <em>Re-Co//me</em> é un roxecto baixo a
+    <p class="nav-link px-2 text-white mb-0" style="text-align: center;"> <em>Re-Co//me</em> é un proxecto baixo a
         licenza Affero General Public License (AGPLv3)</p>
 </footer>
 

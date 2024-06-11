@@ -9,7 +9,7 @@
 
 <body>
     <nav th:replace="/fragmentos.html::menu"></nav>
-    <section class="vh-100" style="background-color:  #5aa45a;">
+    <section class="vh-100" style="background-image: url('/images/contacta.png'); background-size: cover;">
         <div class="container py-5 h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 
@@ -33,25 +33,25 @@
                                     <form  action="#" th:action="@{/public/contacto/submit}" th:object="${formInfo}" method="post">
                                        
                                         <div class="form-outline mb-4">
-                                            <label class="form-label" for="nombre">Nome: </label>
+                                            <label class="form-label" for="nombre"><b>Nome: </b></label>
                                             <span th:text="${formInfo.nombre}"></span>
                                             
                                         </div>
 
                                         <div class="form-outline mb-4">
-                                            <label class="form-label" for="email">Correo electrónico: </label>
+                                            <label class="form-label" for="email"><b>Correo electrónico: </b></label>
                                             <span th:text="${formInfo.email}"></span>
                                             
                                         </div>
 
 
                                         <div class="form-outline mb-4">
-                                            <label class="form-label" for="motivo">Motivo: </label>
+                                            <label class="form-label" for="motivo"><b>Motivo: </b></label>
                                             <span th:text="${motivoElegido}"></span>
                                         </div>
                                         
                                         <div class="form-outline mb-4">
-                                            <label class="form-label" for="comentarios">Comentario:</label>
+                                            <label class="form-label" for="comentarios"><b>Comentario:</b></label>
                                             <span th:text="${formInfo.comentarios}"></span>
                                         </div>
                                     <span class="h3 fw-bold mb-0" style="color: #5aa45a; text-align: center;"><p>Recibirás a resposta na túa bandexa de entrada!</p></span>

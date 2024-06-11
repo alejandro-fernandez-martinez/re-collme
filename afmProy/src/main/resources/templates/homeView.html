@@ -43,7 +43,8 @@
         }
 
         .fixed-element {
-            display: none; /* Inicialmente oculto */
+            display: none;
+            /* Inicialmente oculto */
             position: fixed;
             top: 50px;
             left: 50%;
@@ -68,9 +69,10 @@
                 </div>
                 <div class="col-md-6 text-md-end" style="margin-bottom: 20px;">
                     <div>
-                        <br><h3>Transformando Residuos en Recursos</h1><br>
-                        <p>Comeza a rexistrar os teus residuos e colabora na
-                            creación dunha sociedade máis sostible.</p>
+                        <br>
+                        <h3>Transformando Residuos en Recursos</h1><br>
+                            <p>Comeza a rexistrar os teus residuos e colabora na
+                                creación dunha sociedade máis sostible.</p>
                     </div>
                     <div>
                         <a class="btn btn-dark btn-lg btn-block" href="/public/contacto"
@@ -81,7 +83,7 @@
 
         </div>
     </section>
-   
+
 
     <div>
         <div class="container">
@@ -89,23 +91,32 @@
                 <br>
                 <h2>Quenes Somos</h2>
                 <p>Na nosa empresa, estamos impulsados pola nosa paixón por crear un mundo máis sostible. Traballamos
-                    arduamente
-                    para desenvolver unha plataforma innovadora que facilite a xestión de residuos, conectando os
-                    produtores con
-                    xestores para promover a súa valorización nunha economía circular.<br><br>
-
+                    arduamente para desenvolver unha plataforma innovadora que facilite a xestión de residuos,
+                    conectando os produtores con xestores para promover a súa valorización nunha economía circular.<br>
                     Aínda que a lexislación actual pode non impoñer obrigas ás empresas con baixa produción de residuos,
-                    recoñecemos a importancia de adoptar prácticas sostibles. Co noso proxecto, queremos axudar aos
-                    pequenos
-                    produtores a xestionar os seus residuos de forma eficiente, contribuíndo ao mesmo tempo á súa
-                    valorización.<br><br>
+                    recoñecemos a importancia de adoptar prácticas sostibles. <br>Co noso proxecto, queremos axudar aos
+                    pequenos produtores a xestionar os seus residuos de forma eficiente, contribuíndo ao mesmo tempo á
+                    súa valorización. Estamos comprometidos a ofrecer unha plataforma escalable e adaptable, que poida
+                    servir a diferentes tipos de usuarios, desde particulares ata grandes empresas e concellos. Queremos
+                    ser os socios ideais para axudar aos nosos colaboradores a alcanzar os seus obxectivos de
+                    sustentabilidade e responsabilidade social corporativa.</p>
 
-                    Estamos comprometidos a ofrecer unha plataforma escalable e adaptable, que poida servir a diferentes
-                    tipos
-                    de usuarios, desde particulares ata grandes empresas e concellos. Queremos ser os socios ideais para
-                    axudar
-                    aos nosos colaboradores a alcanzar os seus obxectivos de sustentabilidade e responsabilidade social
-                    corporativa.</p>
+                <p>En Re-Co//me:</p>
+                <ul>
+                    <li>O "Re" representa a nosa visión da economía circular, onde os recursos son reciclados e
+                        reutilizados para crear unha comunidade máis sustentable.</li>
+                    <li>O "Co" simboliza a colaboración, a nosa invitación a todos para unirse a nós na construción dun
+                        mundo máis verde e sostible.</li>
+                    <li>O "//" é un convite para participar no noso proxecto, facendo referencia ao código aberto e á
+                        licenza AGPLv3, onde cada un pode contribuír co seu gran de area para unha causa común.</li>
+                </ul>
+
+                <p style="text-align:center; font-size:1.2em;">
+                    <img src="/images/logo_negro.png" alt="Logo" style="vertical-align:middle; height:40px; margin-bottom: 6px;" />
+                    <strong>non é só unha plataforma de xestión de residuos, é un movemento, unha comunidade comprometida coa sustentabilidade e coa creación dun futuro máis brillante para todos.</strong>
+                </p>
+                
+
             </div>
 
             <div class="section" id="condicionsUso">
@@ -154,7 +165,8 @@
                         intercambio e a mellora do software.</li>
                 </ul>
 
-                <p>Para obter máis información sobre a licenza AGPLv3, podes consultar a <a href="https://www.gnu.org/licenses/agpl-3.0.html">páxina oficial</a>
+                <p>Para obter máis información sobre a licenza AGPLv3, podes consultar a <a
+                        href="https://www.gnu.org/licenses/agpl-3.0.html">páxina oficial</a>
                     .</p>
             </div>
 
@@ -188,14 +200,23 @@
             // Obtener referencia a la imagen de fondo y al banner
             const imagenFondo = document.getElementById('imagenFondo');
             const banner = document.getElementById('banner');
-    
+
             // Mostrar el banner cuando el mouse esté sobre la imagen de fondo
             imagenFondo.addEventListener('mouseover', () => {
                 banner.style.display = 'block';
             });
-    
+            // Mostrar el banner cuando el mouse esté sobre el banner
+            banner.addEventListener('mouseover', () => {
+                banner.style.display = 'block';
+            });
+
+
             // Ocultar el banner cuando el mouse salga de la imagen de fondo
             imagenFondo.addEventListener('mouseout', () => {
+                banner.style.display = 'none';
+            });
+            // Ocultar el banner cuando el mouse salga del banner
+            banner.addEventListener('mouseout', () => {
                 banner.style.display = 'none';
             });
         </script>

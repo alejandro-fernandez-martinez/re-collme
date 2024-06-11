@@ -1,29 +1,46 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
-  <head th:insert="/fragmentos.html::cabecera">
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Usuario CRUD</title>
-  </head>
-
-  <body>
-    <nav th:replace="/fragmentos.html::menu"></nav>
-    <nav th:replace="/fragmentos.html::menuAdmin"></nav>
-    <h1>Listado de usuarios</h1><a th:href="@{/user/new}">Rexistrar un novo usuario</a>
-    <table>
-      <thead>
+<html lang="gl" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="/fragmentos.html::cabecera">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Usuario CRUD</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    /* Estilos CSS adicionales */
+    .table-striped tbody tr:nth-of-type(odd) {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+    .btn-circular {
+      border-radius: 50%;
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+      line-height: 1.25;
+    }
+    /* Centrar verticalmente el contenido de las celdas */
+    table th, table td {
+      vertical-align: middle !important;
+    }
+  </style>
+</head>
+<body>
+  <nav th:replace="/fragmentos.html::menu"></nav>
+  <h1>Listado de usuarios</h1>
+  <div class="table-responsive" style="margin-top: 20px;">
+    <table class="table table-striped table-bordered">
+      <thead class="thead-dark">
         <tr>
           <th>ID</th>
-          <th>Nombre</th>
+          <th>Nome</th>
           <th>Puntuación</th>
-          <th>Contraseña</th>
+          <th>Contrasinal</th>
           <th>DNI/NIF</th>
           <th>Email</th>
           <th>Teléfono</th>
           <th>Dirección</th>
           <th>Activo</th>
-          <th>Fecha de registro</th>
+          <th>Data de rexistro</th>
           <th>Editar usuario</th>
           <th>Borrar usuario</th>
         </tr>
@@ -41,13 +58,18 @@
           <td th:text="${usuario.userActivo}">userActivo</td>
           <td th:text="${usuario.fechaRegistro}">fechaRegistro</td>
           <td>
-            <a th:href="@{/user/edit/{id}(id=${usuario.idUser})}">Editar</a>
+            <a th:href="@{/user/editOther/{id}(id=${usuario.idUser})}" style="text-align: center;" class="btn btn-primary btn-circular">Editar</a>
           </td>
           <td>
-            <a th:href="@{/user/delete/{id}(id=${usuario.idUser})}">Borrar</a>
+            <a th:href="@{/user/delete/{id}(id=${usuario.idUser})}" style="text-align: center;" class="btn btn-danger btn-circular">Borrar</a>
           </td>
         </tr>
       </tbody>
     </table>
-  </body>
+  </div>
+  <div class="text-center">
+    <a class="btn btn-primary mb-3" th:href="@{/user/new}">Rexistrar un novo usuario</a>
+  </div>
+</body>
+<footer th:insert="/fragmentos.html::footer"></footer>
 </html>
