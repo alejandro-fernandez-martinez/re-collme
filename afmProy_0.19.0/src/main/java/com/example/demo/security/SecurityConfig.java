@@ -36,13 +36,13 @@ public class SecurityConfig {
                                 headersConfigurer -> headersConfigurer
                                                 .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
                 http.authorizeHttpRequests(auth -> auth
-                                // .requestMatchers("/user/list", "/user/new/**","/user/edit").hasRole("ADMIN")
-                                // .requestMatchers("/residuo/listComplete").hasRole("ADMIN")
-                                // .requestMatchers("/residuo/solicitarReserva/**").hasAnyRole("NEGOCIANTE", "ADMIN")
-                                // .requestMatchers("/user/editUserLogin", "/user/edit/submit", "/user/edit/delete/**", "/residuo/new/**","/residuo/edit/**","/residuo/delete/**","/residuo/comprar/**").hasAnyRole("USER","NEGOCIANTE","ADMIN")
-                                // .requestMatchers("/categoria/**").hasRole("ADMIN")
-                                // .requestMatchers("/public/signout").hasAnyRole("USER", "NEGOCIANTE", "ADMIN")
-                                .requestMatchers("/**").permitAll()
+
+                                .requestMatchers("/residuo/listComplete", "/incidencia/list", "/categoria/**", "/user/list", "/user/new", "/userEditOther/**").hasRole("ADMIN")
+                                .requestMatchers("/ruta/userLogin").hasAnyRole("NEGOCIANTE", "ADMIN")
+                                .requestMatchers("/incidencia/new", "/incidencia/listByUser", "/incidencia/list").hasAnyRole("USER","NEGOCIANTE","ADMIN")
+                                .requestMatchers("/user/editUserLogin", "/user/editUserLogued").hasAnyRole("USER","NEGOCIANTE","ADMIN")
+                                .requestMatchers("/residuo/edit/**", "/residuo/new", "/residuo/listByUser", "/residuo/listByUserSolicitados", "/residuo/listByUserAndSolicitadosAndReservados").hasAnyRole("USER","NEGOCIANTE","ADMIN")
+                                .requestMatchers("/", "/public/**", "/residuo/list", "/residuo/categoria/**").permitAll()
                                 // .requestMatchers("...").hasAnyRole(...) //configurarpermisosreales
                                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations())
                                 .permitAll() // para rutas: /css, /js /images
